@@ -51,7 +51,6 @@
                                 @endif
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="password-confirm" class="col-md-4 control-label">确认密码：</label>
 
@@ -59,15 +58,21 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="password-confirm" class="col-md-4 control-label">验证码：</label>
 
                             <div class="col-md-6">
-                                <input id="verifycode" type="text" class="form-control" name="verifycode" placeholder="请输入验证码" required>
+                                <input  type="text" class="form-control" name="verifycode" placeholder="请输入验证码" required>
                             </div>
                         </div>
-
+                        <div id="captcha">
+                            <span class="input-group-btn">
+                                <img style="cursor: pointer;width: 342px;height: 70px;margin-left: 250px;" src="{{captcha_src()}}" onclick="this.src='{{captcha_src()}}' + Math.random()">
+                            </span>
+                        </div>
+                        <div class="container" style="margin-top:10px;margin-left: 225px">
+                            @include('errors.list')
+                        </div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4 ">
                                 <button type="submit" class="btn btn-primary">
@@ -77,6 +82,7 @@
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>

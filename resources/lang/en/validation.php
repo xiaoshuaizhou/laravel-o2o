@@ -87,7 +87,7 @@ return [
     'unique'               => 'The :attribute has already been taken.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
-
+    'captcha' => '验证码错误',
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -100,8 +100,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'verifycode' => [
+            'required' => '验证码不能为空',
+            'captcha' => '验证码错误'
         ],
     ],
 
