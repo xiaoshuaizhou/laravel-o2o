@@ -48,7 +48,9 @@
             </li>
             @if(Auth::check())
                 <li><a href="{{url('/')}}">你好！{{Auth::user()->username}}</a></li>
-                <li>|</li>
+                @if(Auth::check() && Auth::user()->is_admin())
+                    <li><a href="{{url('/admin')}}">管理后台</a></li>
+                @endif
                 <li>
                     <a href="{{ route('logout') }}"
                        onclick="event.preventDefault();

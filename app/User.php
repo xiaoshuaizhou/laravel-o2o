@@ -54,4 +54,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * 判断用户是否是管理员
+     * @return bool
+     */
+    public function is_admin() {
+        return $this->is_admin ==  'T';
+    }
 }
