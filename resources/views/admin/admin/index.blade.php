@@ -7,8 +7,8 @@
 
             <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
                 <ul class="cl">
-                    <li>超级管理员</li>
-                    <li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+                    <li>您好：</li>
+                    <li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">{{Auth::user()->username}} <i class="Hui-iconfont">&#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
                             <li><a href="#">个人信息</a></li>
                             <li><a href="#">切换账户</a></li>
@@ -54,7 +54,7 @@
     <div id="iframe_box" class="Hui-article">
         <div class="show_iframe">
             <div style="display:none" class="loading"></div>
-            <iframe scrolling="yes" frameborder="0" src=""></iframe>
+            <iframe scrolling="yes" frameborder="0" src="{{url('index/welcome')}}"></iframe>
         </div>
     </div>
 </section>
