@@ -83,7 +83,11 @@ class CategoryController extends Controller
 
         return back();
     }
-
+    /**
+     * 删除分类（将状态修改成-1）
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($id) {
         $category = $this->category->getCategoryById($id);
         $data = ['status' => -1];

@@ -26,9 +26,9 @@
                 <td>{{$city->name}}</td>
                 <td class="text-c"><input style="width: 30px" name="" type="input" value="{{$city->listorder}}"></td>
                 <td>{{$city->created_at}}</td>
-                <td class="td-status"><a href="{{url('admin/status/citystatus',['id' => $city->id,'status'=>$city->status])}}" title="点击修改状态">@if($city->status ==0)待审核 @else 正常 @endif</a></td>
+                <td class="td-status"><a href="{{url('admin/status/citystatus',['id' => $city->id,'status'=>$city->status])}}" title="点击修改状态">{{changeStatus($city->status)}}</a></td>
                 <td class="td-manage">
-                    <a href="{{url('admin/city' , ['parent_id' => $city->id])}}">获取子栏目</a>
+                    <a href="{{url('admin/city' , ['id' => $city->id])}}">获取子栏目</a>
                     <a style="text-decoration:none" class="ml-5" onClick="o2o_s_edit('编辑','{{url('admin/city/edit' ,  ['id'=>$city->id])}}','',300)" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
                     <a style="text-decoration:none" class="ml-5" onClick="o2o_del('{!! $city->id !!}','{{url('admin/city/del',['id'=>$city->id])}}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
                 </td>
@@ -38,7 +38,7 @@
             </tbody>
         </table>
     </div>
-    <div class="pagination">{!! $citys->render() !!}</div>
+    <div class="pagination">{!! $citys->links() !!}</div>
 
 </div>
 <!--包含头部文件-->

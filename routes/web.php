@@ -30,6 +30,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('category/edit/{id}','Admin\CategoryController@edit');
     Route::post('category/edit/','Admin\CategoryController@update');
     Route::get('category/del/{id}', 'Admin\CategoryController@delete');
+    //城市管理
+    Route::get('city','Admin\CitysController@index');
+    Route::get('city/add','Admin\CitysController@add');
+    Route::post('city/add','Admin\CitysController@store');
+    Route::get('city/{id}', 'Admin\CitysController@getSonsCitys');
+    Route::get('city/edit/{id}', 'Admin\CitysController@edit');
+    Route::post('city/edit/', 'Admin\CitysController@update');
+    Route::get('city/del/{id}', 'Admin\CitysController@delete');
+    Route::get('status/citystatus/{id}/{status}', 'Admin\StatusController@city');
 });
 
 

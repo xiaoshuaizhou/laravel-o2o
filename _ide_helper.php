@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.23 on 2017-06-15.
+ * Generated for Laravel 5.4.23 on 2017-06-16.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -11456,6 +11456,61 @@ namespace Illuminate\Support\Facades {
     }         
 }
     
+namespace Mews\Captcha\Facades {
+
+    class Captcha {
+        
+        /**
+         * Create captcha image
+         *
+         * @param string $config
+         * @return \Mews\Captcha\ImageManager->response 
+         * @static 
+         */
+        public static function create($config = 'default')
+        {
+            return \Mews\Captcha\Captcha::create($config);
+        }
+        
+        /**
+         * Captcha check
+         *
+         * @param $value
+         * @return bool 
+         * @static 
+         */
+        public static function check($value)
+        {
+            return \Mews\Captcha\Captcha::check($value);
+        }
+        
+        /**
+         * Generate captcha image source
+         *
+         * @param null $config
+         * @return string 
+         * @static 
+         */
+        public static function src($config = null)
+        {
+            return \Mews\Captcha\Captcha::src($config);
+        }
+        
+        /**
+         * Generate captcha image html tag
+         *
+         * @param null $config
+         * @return string 
+         * @static 
+         */
+        public static function img($config = null)
+        {
+            return \Mews\Captcha\Captcha::img($config);
+        }
+        
+    }         
+}
+    
     
 namespace {
 
@@ -14462,6 +14517,8 @@ if (! function_exists('with')) {
             return \Illuminate\Database\Query\Builder::macroCall($method, $parameters);
         }
         }
+    
+    class Captcha extends \Mews\Captcha\Facades\Captcha {}
     
 }
 
