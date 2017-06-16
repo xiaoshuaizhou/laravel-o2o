@@ -27,7 +27,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
-        $categorys = $this->category->all();
+        $categorys = $this->category->getSonsCategoryes();
         return view('admin.category.index', compact('categorys'));
     }
 
@@ -52,5 +52,14 @@ class CategoryController extends Controller
         ];
         $this->category->create(array_merge($request->all(), $data));
         return back();
+    }
+    /**
+     * 获取子分类
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getSonsCategorys($id) {
+        $categorys = $this->category->getSonsCategoryes($id);
+        return view('admin.category.index', compact('categorys'));
     }
 }

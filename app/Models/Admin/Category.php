@@ -22,9 +22,27 @@ class Category extends Model
         return $res;
     }
 
+    /**
+     * 修改状态
+     * @param $id
+     * @param $status
+     */
     public function changStatus($id,$status) {
         $category = Category::where('id' , $id)->first();
         $status == 0 ? $category->status = 1 : $category->status =0;
         $category->save();
+    }
+
+    /**
+     * 获取子分类
+     * @param $id
+     * @return mixed
+     */
+    public function getSonsCategoryes($id=0) {
+        $condition = [
+            'parent_id' => $id,
+        ];
+        $res = $this->where($condition)->get();
+        return $res;
     }
 }
