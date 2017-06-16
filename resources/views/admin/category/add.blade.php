@@ -2,7 +2,7 @@
 @include('admin.public.head')
 <body>
 <div class="page-container">
-	<form class="form form-horizontal form-o2o-add" id="form-o2o-add" method="post" action="{{url('admin/category/add')}}">
+	<form class="form form-horizontal form-o2o-add" id="form-o2o-add" method="post" action="{{url('/admin/category/add')}}">
 		{{csrf_field()}}
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>生活服务分类名称：</label>
@@ -16,7 +16,7 @@
 				<span class="select-box">
 				<select name="parent_id" class="select">
 					<option value="0">一级分类</option>
-					@foreach($categorys as $category)
+					@foreach($firstCategories as $category)
 					<option value="{{$category->id}}">-{{$category->name}}-</option>
 					@endforeach
 				</select>

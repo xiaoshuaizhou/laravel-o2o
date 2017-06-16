@@ -67,7 +67,7 @@ class RegisterController extends Controller
         return User::create([
             'username' => $data['username'],
             'email' => $data['email'],
-            'last_login_ip' => Functions::getIp(),
+            'last_login_ip' => getIp(),
             'listorder' => 0,
             'password' => bcrypt($data['password']),
         ]);

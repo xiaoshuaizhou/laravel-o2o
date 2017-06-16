@@ -22,6 +22,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', function () {
         return view('admin.admin.index');
     });
+    Route::get('/category', 'Admin\CategoryController@index');
+    Route::get('/category/add', 'Admin\CategoryController@add');
+    Route::post('/category/add', 'Admin\CategoryController@store');
+    Route::get('/status/index/{id}/{status}', 'Admin\StatusController@index');
 });
 
 

@@ -9,6 +9,11 @@
 namespace App\Common;
 
 
+/**
+ * 公共函数（已废弃，Support/helpers代替）
+ * Class Functions
+ * @package App\Common
+ */
 class Functions
 {
     public static function getIp()
