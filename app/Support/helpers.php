@@ -6,11 +6,18 @@
 if (!function_exists('changeStatus')){
     /**
      * 修改状态
-     * @param $status
+     * @param int $status
      * @return string
      */
     function changeStatus($status = 0) {
-        return $status == 1 ? '正常' : '带审核';
+
+        if ($status == 1){
+            return '正常';
+        }elseif ($status == 0){
+            return '待审核';
+        }else{
+            return '已删除';
+        }
     }
 }
 if (! function_exists('doCurl')){

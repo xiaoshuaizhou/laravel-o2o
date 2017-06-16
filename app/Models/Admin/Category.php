@@ -42,7 +42,16 @@ class Category extends Model
         $condition = [
             'parent_id' => $id,
         ];
-        $res = $this->where($condition)->get();
+        $res = $this->where($condition)->paginate();
         return $res;
+    }
+
+    /**
+     * 获取一条分类
+     * @param $id
+     * @return mixed
+     */
+    public function getCategoryById($id) {
+        return $this::find($id);
     }
 }

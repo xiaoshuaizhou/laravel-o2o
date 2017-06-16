@@ -29,8 +29,8 @@
                 <td class="td-status"><a href="{{url('admin/status/index', ['id' => $category->id ,'status' => $category->status])}}" title="点击修改状态">{{changeStatus($category->status)}}</a></td>
                 <td class="td-manage">
                     <a href="{{url('admin/category',['id' => $category->id])}}">获取子栏目</a>
-                    <a style="text-decoration:none" class="ml-5" onClick="o2o_s_edit('编辑','{{url('admin/category/edit' )}}','',300)" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
-                    <a style="text-decoration:none" class="ml-5" onClick="o2o_del('','{{url('admin/category/del')}}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                    <a style="text-decoration:none" class="ml-5" onClick="o2o_s_edit('编辑','{{url('admin/category/edit',['id' => $category->id] )}}','',300)" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a style="text-decoration:none" class="ml-5" onClick="o2o_del('{{$category->id}}','{{url('admin/category/del', ['id' => $category->id])}}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
                 </td>
             </tr>
             @endforeach
@@ -38,7 +38,7 @@
             </tbody>
         </table>
     </div>
-    <div class="pagination"></div>
+    <div class="pagination">{{$categorys->links()}}</div>
 </div>
 <!--包含头部文件-->
 @include('admin.public.footer')

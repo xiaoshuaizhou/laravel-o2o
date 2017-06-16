@@ -27,6 +27,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/category/{id}', 'Admin\CategoryController@getSonsCategorys');
     Route::post('/category/add', 'Admin\CategoryController@store');
     Route::get('/status/index/{id}/{status}', 'Admin\StatusController@index');
+    Route::get('category/edit/{id}','Admin\CategoryController@edit');
+    Route::post('category/edit/','Admin\CategoryController@update');
+    Route::get('category/del/{id}', 'Admin\CategoryController@delete');
 });
 
 

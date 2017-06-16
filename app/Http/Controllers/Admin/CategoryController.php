@@ -62,4 +62,33 @@ class CategoryController extends Controller
         $categorys = $this->category->getSonsCategoryes($id);
         return view('admin.category.index', compact('categorys'));
     }
+    /**
+     * 编辑分类
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($id) {
+        $category = $this->category->getCategoryById($id);
+        $categorys = $this->category->getFistCategories();
+        return view('admin.category.edit', compact(['category','categorys']));
+    }
+    /**
+     * 编辑分类逻辑
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request) {
+        $category = $this->category->getCategoryById(request('id'));
+        $category->update($request->all());
+
+        return back();
+    }
+
+    public function delete($id) {
+        $category = $this->category->getCategoryById($id);
+        $data = ['status' => -1];
+        $category->update($data);
+
+        return back();
+    }
 }
