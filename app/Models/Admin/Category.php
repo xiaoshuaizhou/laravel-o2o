@@ -42,7 +42,10 @@ class Category extends Model
         $condition = [
             'parent_id' => $id,
         ];
-        $res = $this->where($condition)->paginate();
+        $res = $this->where($condition)
+            ->orderBy('id','desc')
+            ->orderBy('listorder','desc')
+            ->paginate();
         return $res;
     }
 
@@ -53,5 +56,17 @@ class Category extends Model
      */
     public function getCategoryById($id) {
         return $this::find($id);
+    }
+
+    /**
+     * 根据listorder排序
+     * @param $id
+     * @param $listorder
+     * @return mixed
+     */
+    public function listorder($id, $listorder)
+    {
+        return $this->where(['id' => $id])->update(['listorder' => $listorder]);
+
     }
 }

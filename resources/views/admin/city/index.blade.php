@@ -24,7 +24,7 @@
                 <td><input name="" type="checkbox" value=""></td>
                 <td>{{$city->id}}</td>
                 <td>{{$city->name}}</td>
-                <td class="text-c"><input style="width: 30px" name="" type="input" value="{{$city->listorder}}"></td>
+                <td class="text-c listorder"><input style="width: 30px" name="listorder" att-id="{{$city->id}}" type="input" value="{{$city->listorder}}"></td>
                 <td>{{$city->created_at}}</td>
                 <td class="td-status"><a href="{{url('admin/status/citystatus',['id' => $city->id,'status'=>$city->status])}}" title="点击修改状态">{{changeStatus($city->status)}}</a></td>
                 <td class="td-manage">
@@ -65,5 +65,26 @@
             window.location.href=url;
         });
     }
+    $('.listorder input').blur(function () {
+        var id = $(this).attr('att-id');
+        var listorder = $(this).val();
+        var url = '{{url('admin/city/listorder')}}';
+        var postData = {
+            'id' : id,
+            'listorder' : listorder,
+            '_token' : '{{csrf_token()}}',
+        }
 
+        $.ajax({
+            url : url,
+            type : 'post',
+            data : postData,
+            success:function (data) {
+                console.log(data.msg)
+            },
+            error:function (data) {
+                alert('执行错误,请稍后重试！');
+            }
+        });
+    })
 </script>

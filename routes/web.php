@@ -29,6 +29,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/status/index/{id}/{status}', 'Admin\StatusController@index');
     Route::get('category/edit/{id}','Admin\CategoryController@edit');
     Route::post('category/edit/','Admin\CategoryController@update');
+    Route::post('category/listorder', 'Admin\CategoryController@listorder');
     Route::get('category/del/{id}', 'Admin\CategoryController@delete');
     //城市管理
     Route::get('city','Admin\CitysController@index');
@@ -37,6 +38,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('city/{id}', 'Admin\CitysController@getSonsCitys');
     Route::get('city/edit/{id}', 'Admin\CitysController@edit');
     Route::post('city/edit/', 'Admin\CitysController@update');
+    Route::post('city/listorder', 'Admin\CitysController@listorder');
+
     Route::get('city/del/{id}', 'Admin\CitysController@delete');
     Route::get('status/citystatus/{id}/{status}', 'Admin\StatusController@city');
 });

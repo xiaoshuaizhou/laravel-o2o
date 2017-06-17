@@ -18,7 +18,10 @@ class Citys extends Model
         $condition = [
             'parent_id' =>$parentId
         ];
-        return Citys::where($condition)->paginate();
+        return Citys::where($condition)
+            ->orderBy('id', 'desc')
+            ->orderBy('listorder', 'desc')
+            ->paginate();
     }
 
     /**
@@ -41,6 +44,10 @@ class Citys extends Model
         $category->save();
     }
 
+    /**
+     * 根据ID编辑城市
+     * @param $data
+     */
     public function updateCityById($data) {
         $pinyin = new Pinyin();
 
@@ -50,5 +57,16 @@ class Citys extends Model
         $city->parent_id = $data['parent_id'];
 
         $city->save();
+    }
+
+    /**
+     * 根据listorder城市排序
+     * @param $id
+     * @param $listorder
+     * @return mixed
+     */
+    public function listorder($id, $listorder)
+    {
+       return $this->where(['id' => $id])->update(['listorder' => $listorder]);
     }
 }

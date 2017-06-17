@@ -3,7 +3,7 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 分类管理 <span class="c-gray en">&gt;</span> 分类列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-
+    <input type="hidden" name="_token" value="{{csrf_token()}}">
     <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a class="btn btn-primary radius" onclick="o2o_s_edit('添加生活服务分类','{{url('admin/category/add')}}','','300')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加分类</a></span> <span class="r"></span> </div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort">
@@ -24,7 +24,7 @@
                 <td><input name="" type="checkbox" value=""></td>
                 <td>{{$category->id}}</td>
                 <td>{{$category->name}}</td>
-                <td ><input style="width: 20px;" name="" type="text" value="{{$category->listorder}}"></td>
+                <td class="listorder"><input  style="width: 20px;" name="listorder" att-id="{{$category->id}}" type="text" value="{{$category->listorder}}"></td>
                 <td>{{$category->created_at}}</td>
                 <td class="td-status"><a href="{{url('admin/status/index', ['id' => $category->id ,'status' => $category->status])}}" title="点击修改状态">{{changeStatus($category->status)}}</a></td>
                 <td class="td-manage">
@@ -43,6 +43,9 @@
 <!--包含头部文件-->
 @include('admin.public.footer')
 <script>
+    var SCOPE={
+        'listorder_url' : '{{url('/admin/category/listorder')}}',
+    }
     /*页面 全屏-添加*/
     function o2o_edit(title,url){
         var index = layer.open({
@@ -64,5 +67,26 @@
             window.location.href=url;
         });
     }
+    $('.listorder input').blur(function () {
+        var id = $(this).attr('att-id');
+        var listorder = $(this).val();
+        var url = SCOPE.listorder_url;
+        var postData = {
+            'id':id,
+            'listorder':listorder,
+            '_token' :'{{ csrf_token() }}'
+        };
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: postData,
+            success: function (data) {
+                console.log(data.msg)
+            },
+            error: function (data) {
+                alert('执行错误,请稍后重试!');
+            }
+        });
 
+    });
 </script>

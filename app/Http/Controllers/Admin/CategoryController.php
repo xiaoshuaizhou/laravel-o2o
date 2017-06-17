@@ -95,4 +95,17 @@ class CategoryController extends Controller
 
         return back();
     }
+
+    /**
+     * 根据listorder排序（ajax）
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function listorder(Request $request)
+    {
+        $id = $request->get('id');
+        $listorder = $request->get('listorder');
+        $state = $this->category->listorder($id, $listorder);
+        return $state ? response()->json(['msg'=>'success']) : response()->json(['msg'=>'error']);
+    }
 }
