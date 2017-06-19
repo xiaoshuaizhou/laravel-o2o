@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Mailer\UserMailer;
 use App\Models\Admin\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -107,5 +108,9 @@ class CategoryController extends Controller
         $listorder = $request->get('listorder');
         $state = $this->category->listorder($id, $listorder);
         return $state ? response()->json(['msg'=>'success']) : response()->json(['msg'=>'error']);
+    }
+
+    public function test() {
+        return UserMailer::send('zhouxiaoshuai3@gmail.com', 'title', 'content');
     }
 }

@@ -22,6 +22,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', function () {
         return view('admin.admin.index');
     });
+
+    Route::get('test', 'Admin\CategoryController@test');
     Route::get('/category', 'Admin\CategoryController@index');
     Route::get('/category/add', 'Admin\CategoryController@add');
     Route::get('/category/{id}', 'Admin\CategoryController@getSonsCategorys');
