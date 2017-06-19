@@ -189,15 +189,15 @@
 
 <!--包含尾部文件-->
 @include('bis.public.footer')
-<script type="text/javascript" src="/admin/hui/lib/ueditor/1.4.3/ueditor.config.js"></script>
-<script type="text/javascript" src="/admin/hui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
-<script type="text/javascript" src="/admin/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="/hui/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="/hui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" src="/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <!--分配编辑器-->
 <script>
 	var SCOPE={
 	    'city_url' : '{{url('bis/api/getCityByParentId')}}',
 		'category_url' : '{{url('bis/api/getCategoryByParentId')}}',
-		'uploadify_swf' : '/admin/uploadify/uploadify.swf',
+		'uploadify_swf' : '/uploadify/uploadify.swf',
 		'img_url' : '{{url('bis/api/upload')}}'
 	};
 </script>

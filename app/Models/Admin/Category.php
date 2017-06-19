@@ -45,7 +45,7 @@ class Category extends Model
         $res = $this->where($condition)
             ->orderBy('id','desc')
             ->orderBy('listorder','desc')
-            ->paginate();
+            ->get();
         return $res;
     }
 

@@ -21,7 +21,7 @@ class Citys extends Model
         return Citys::where($condition)
             ->orderBy('id', 'desc')
             ->orderBy('listorder', 'desc')
-            ->paginate();
+            ->get();
     }
 
     /**

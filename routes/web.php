@@ -46,4 +46,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('status/citystatus/{id}/{status}', 'Admin\StatusController@city');
 });
 
+//商户后台
 
+Route::group(['prefix' => 'bis'], function (){
+    Route::get('/', 'Bis\IndexController@index');
+    Route::get('login', 'Bis\LoginController@index');
+    Route::get('register', 'Bis\RegisterController@index');
+    Route::post('/api/upload', 'Bis\ApiController@upload');
+
+    Route::post('/api/getCityByParentId', 'Bis\ApiController@getCityByParentId');
+    Route::post('/api/getCategoryByParentId', 'Bis\ApiController@getCategoryByParentId');
+    Route::post('/api/upload', 'Bis\ApiController@upload');
+
+});
