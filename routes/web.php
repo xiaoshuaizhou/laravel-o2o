@@ -52,6 +52,7 @@ Route::group(['prefix' => 'bis'], function (){
     Route::get('/', 'Bis\IndexController@index');
     Route::get('login', 'Bis\LoginController@index');
     Route::get('register', 'Bis\RegisterController@index');
+    Route::post('register/add', 'Bis\RegisterController@store');
     Route::post('/api/upload', 'Bis\ApiController@upload');
 
     Route::post('/api/getCityByParentId', 'Bis\ApiController@getCityByParentId');
