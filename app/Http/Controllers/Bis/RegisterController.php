@@ -41,6 +41,11 @@ class RegisterController extends Controller
         return view('bis.register.index', compact('citys', 'categorys'));
     }
 
+    /**
+     * 商户入驻申请
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     */
     public function store(Request $request) {
 
         $name = $this->account->where('username', '=', $request->username)->first();

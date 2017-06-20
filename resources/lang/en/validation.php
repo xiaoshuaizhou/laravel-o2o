@@ -101,8 +101,20 @@ return [
 
     'custom' => [
         'verifycode' => [
-            'required' => '验证码不能为空',
-            'captcha' => '验证码错误'
+            'required' => '验证码不能为空！',
+            'captcha' => '验证码错误！'
+        ],
+        'email' => [
+                'required' => '邮箱不能为空',
+                'email' => '请输入正确的邮箱地址',
+                'max:255' => '邮箱最大255个字符',
+                'unique:users' => '该邮箱已经存在，请更换邮箱注册！'
+        ],
+        'password' => [
+                'required' => '密码不能为空',
+                'min' =>  '密码最小为6个字符',
+                'max:255' => '邮箱最大255个字符',
+                'confirmed' => '两次密码不一致！'
         ],
     ],
 
