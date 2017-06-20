@@ -74,4 +74,23 @@ if (! function_exists('getIp')){
         }
         return $realip;
     }
+
+    /**
+     * 根据（city_path）获取二级城市名称
+     * @param $path
+     * @return string
+     */
+    function getSeCityName($path){
+        if (empty($path)){
+            return '';
+        }
+        if (preg_match('/,/', $path)){
+            $cityPath = explode(',', $path);
+            $cityId = $cityPath[1];
+        }else{
+            $cityId = $path;
+        }
+        $city = \App\Models\Admin\Citys::find($cityId);
+        return $city->name;
+    }
 }

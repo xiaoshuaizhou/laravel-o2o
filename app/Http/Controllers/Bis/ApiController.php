@@ -32,7 +32,7 @@ class ApiController extends Controller
      */
     public function getCityByParentId(Request $request)
     {
-        $citys = $this->city->getCitysByParentId($request->id);
+        $citys = $this->city->findCitysByParentId($request->id);
         if ($citys && $request->id != 0){
             return \Response::json([
                     'status' => 1,
@@ -52,7 +52,7 @@ class ApiController extends Controller
      */
     public function getCategoryByParentId(Request $request)
     {
-        $categorys = $this->category->getSonsCategoryes($request->cid);
+        $categorys = $this->category->findFirstCategories($request->cid);
         if ($categorys->toArray() && $request->cid){
             return \Response::json([
                     'status' => 1,

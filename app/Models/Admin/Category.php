@@ -45,6 +45,23 @@ class Category extends Model
         $res = $this->where($condition)
             ->orderBy('id','desc')
             ->orderBy('listorder','desc')
+            ->paginate();
+        return $res;
+    }
+
+    /**
+     * 商户入驻是API接口使用（此处返回collection）
+     * @param int $id
+     * @return mixed
+     */
+    public function findFirstCategories($id=0)
+    {
+        $condition = [
+            'parent_id' => $id,
+        ];
+        $res = $this->where($condition)
+            ->orderBy('id','desc')
+            ->orderBy('listorder','desc')
             ->get();
         return $res;
     }

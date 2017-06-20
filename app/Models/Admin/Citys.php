@@ -21,6 +21,22 @@ class Citys extends Model
         return Citys::where($condition)
             ->orderBy('id', 'desc')
             ->orderBy('listorder', 'desc')
+            ->paginate();
+    }
+
+    /**
+     * api接口（此处返回一个collection）
+     * @param int $parentId
+     * @return mixed
+     */
+    public function findCitysByParentId($parentId=0)
+    {
+        $condition = [
+            'parent_id' =>$parentId
+        ];
+        return Citys::where($condition)
+            ->orderBy('id', 'desc')
+            ->orderBy('listorder', 'desc')
             ->get();
     }
 
@@ -39,8 +55,8 @@ class Citys extends Model
      * @param $status
      */
     public function changStatus($id,$status) {
-        $category = $this::where('id' , $id)->first();
-        $status == 0 ? $category->status = 1 : $category->status =0;
+        $city = $this::where('id' , $id)->first();
+        $status == 0 ? $city->status = 1 : $city->status =0;
         $category->save();
     }
 

@@ -44,6 +44,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
     Route::get('city/del/{id}', 'Admin\CitysController@delete');
     Route::get('status/citystatus/{id}/{status}', 'Admin\StatusController@city');
+    Route::get('/bis/apply', 'Admin\BisController@apply');
+    Route::get('status/bisstatus/{id}/{status}', 'Admin\StatusController@bis');
+    Route::get('/bis/index', 'Admin\BisController@index');
+    Route::get('/bis/del', 'Admin\BisController@destory');
+    Route::get('bis/detail/{id}', 'Admin\BisController@detail');
+
 });
 
 //商户后台

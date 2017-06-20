@@ -36,8 +36,8 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
-        $citys = $this->city->getCitysByParentId();
-        $categorys = $this->category->getFistCategories();
+        $citys = $this->city->findCitysByParentId();
+        $categorys = $this->category->findFirstCategories();
         return view('bis.register.index', compact('citys', 'categorys'));
     }
 

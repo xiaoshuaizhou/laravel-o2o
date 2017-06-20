@@ -14,15 +14,14 @@
         background-color:#f2dede;
     }
 </style>
-<div class="cl pd-5 bg-1 bk-gray mt-20"> <h1>商户入驻申请</h1></div>
 <article class="page-container">
-    <form class="form form-horizontal"  method="post" action="{!! url('bis/register/add') !!}">
+    <form class="form form-horizontal"  ">
         基本信息：
         {!! csrf_field() !!}
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商户名称：</label>
             <div class="formControls col-xs-8 col-sm-3">
-                <input type="text" class="input-text" value="" placeholder="" id="" name="name">
+                <input type="text" class="input-text" value="{{$bis->name}}" placeholder="" id="" name="name">
             </div>
         </div>
 
@@ -32,16 +31,16 @@
 				<span class="select-box">
 				<select name="city_id" class="select cityId">
 					<option value="0">--请选择--</option>
-
-                        <option value=""></option>
-
+                    @foreach($citys as $city)
+                        <option value="{{$city->id}}" @if($bis->city_id == $city->id) selected="selected" @endif>{{$city->name}}</option>
+                    @endforeach
 				</select>
 				</span>
             </div>
             <div class="formControls col-xs-8 col-sm-2">
 				<span class="select-box">
 				<select name="se_city_id" class="select se_city_id">
-					<option value="0">--请选择--</option>
+					<option value="0">{{getSeCityName($bis->city_path)}}</option>
 				</select>
 				</span>
             </div>
@@ -50,73 +49,69 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">缩略图：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input id="file_upload"  type="file" multiple="true" >
-                <img style="display: none" id="upload_org_code_img" src="" width="150" height="150">
-                <input id="file_upload_image" name="logo" type="hidden" multiple="true" value="">
+                <img  id="upload_org_code_img" src="{{$bis->logo}}" width="150" height="150">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">营业执照：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input id="file_upload_other"  type="file" multiple="true" >
-                <img style="display: none" id="upload_org_code_img_other" src="" width="150" height="150">
-                <input id="file_upload_image_other" name="licence_logo" type="hidden" multiple="true" value="">
+                <img  id="upload_org_code_img_other" src="{{$bis->licence_logo}}" width="150" height="150">
             </div>
         </div>
 
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">商户介绍：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <script id="editor1"  type="text/plain" name="description" style="width:80%;height:300px;"></script>
+                <script id="editor1"  type="text/plain" name="description" style="width:80%;height:300px;">{{$bis->description}}</script>
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">银行账号:</label>
             <div class="formControls col-xs-8 col-sm-3">
-                <input type="text" class="input-text" value="" placeholder="" id="" name="bank_info">
+                <input type="text" class="input-text" value="{{$location->bank_info}}" placeholder="" id="" name="bank_info">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">开户行名称:</label>
             <div class="formControls col-xs-8 col-sm-3">
-                <input type="text" class="input-text" value="" placeholder="" id="" name="bank_name">
+                <input type="text" class="input-text" value="{{$bis->bank_name}}" placeholder="" id="" name="bank_name">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">开户行姓名:</label>
             <div class="formControls col-xs-8 col-sm-3">
-                <input type="text" class="input-text" value="" placeholder="" id="" name="bank_user">
+                <input type="text" class="input-text" value="{{$bis->bank_user}}" placeholder="" id="" name="bank_user">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">法人:</label>
             <div class="formControls col-xs-8 col-sm-3">
-                <input type="text" class="input-text" value="" placeholder="" id="" name="faren">
+                <input type="text" class="input-text" value="{{$bis->faren}}" placeholder="" id="" name="faren">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">法人电话:</label>
             <div class="formControls col-xs-8 col-sm-3">
-                <input type="text" class="input-text" value="" placeholder="" id="" name="faren_tel">
+                <input type="text" class="input-text" value="{{$bis->faren_tel}}" placeholder="" id="" name="faren_tel">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>邮箱：</label>
             <div class="formControls col-xs-8 col-sm-3">
-                <input type="text" class="input-text" value="" placeholder="" id="" name="email">
+                <input type="text" class="input-text" value="{{$bis->email}}" placeholder="" id="" name="email">
             </div>
         </div>
         总店信息：
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">电话:</label>
             <div class="formControls col-xs-8 col-sm-3">
-                <input type="text" class="input-text" value="" placeholder="" id="" name="tel">
+                <input type="text" class="input-text" value="{{$location->tel}}" placeholder="" id="" name="tel">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">联系人:</label>
             <div class="formControls col-xs-8 col-sm-3">
-                <input type="text" class="input-text" value="" placeholder="" id="" name="contact">
+                <input type="text" class="input-text" value="{{$location->contact}}" placeholder="" id="" name="contact">
             </div>
         </div>
         <div class="row cl">
@@ -124,9 +119,9 @@
             <div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
 				<select name="category_id" class="select categoryId">
 					<option value="0">--请选择--</option>
-
-                        <option value=""></option>
-
+                    @foreach($categorys as $category)
+                        <option value="{{$category->id}}" @if($location->category_id == $category->id) selected="selected" @endif>{{$category->name}}</option>
+                    @endforeach
 				</select>
 				</span>
             </div>
@@ -142,21 +137,21 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">商户地址：</label>
             <div class="formControls col-xs-8 col-sm-3">
-                <input type="text" class="input-text" value="" placeholder="" id="" name="address">
+                <input type="text" class="input-text" value="{{$location->api_address}}" placeholder="" id="" name="address">
             </div>
             <a  class="btn btn-default radius ml-10 maptag">标注</a>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">营业时间:</label>
             <div class="formControls col-xs-8 col-sm-3">
-                <input type="text" class="input-text" value="" placeholder="" id="" name="open_time">
+                <input type="text" class="input-text" value="{{$location->open_time}}" placeholder="" id="" name="open_time">
             </div>
         </div>
 
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">门店简介：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <script id="editor"  type="text/plain" name="content" style="width:80%;height:300px;"></script>
+                <script id="editor"  type="text/plain" name="content" style="width:80%;height:300px;">{{$location->content}}</script>
             </div>
         </div>
 
@@ -164,21 +159,11 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">用户名:</label>
             <div class="formControls col-xs-8 col-sm-3">
-                <input type="text" class="input-text" value="" placeholder="" id="" name="username">
-            </div>
-        </div>
-        <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-2">密码:</label>
-            <div class="formControls col-xs-8 col-sm-3">
-                <input type="password" class="input-text" value="" placeholder="" id="" name="password">
+                <input type="text" class="input-text" value="{{$account->username}}" placeholder="" id="" name="username">
             </div>
         </div>
 
-        <div class="row cl">
-            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-                <button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 申请</button>
-            </div>
-        </div>
+
     </form>
     <div class="row cl" style="margin-left: 225px">
         <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
@@ -189,16 +174,14 @@
 
 <!--包含尾部文件-->
 @include('bis.public.footer')
-<script type="text/javascript" src="/admin/hui/lib/ueditor/1.4.3/ueditor.config.js"></script>
-<script type="text/javascript" src="/admin/hui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
-<script type="text/javascript" src="/admin/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="/hui/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="/hui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" src="/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <!--分配编辑器-->
 <script>
     var SCOPE={
         'city_url' : '{{url('bis/api/getCityByParentId')}}',
         'category_url' : '{{url('bis/api/getCategoryByParentId')}}',
-        'uploadify_swf' : '/admin/uploadify/uploadify.swf',
-        'img_url' : '{{url('bis/api/upload')}}'
     };
 </script>
 <script>
