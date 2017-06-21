@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserRegister' => [
             'App\Listeners\SendEmail',
         ],
+        'App\Events\UserChangeStatus' => [
+            'App\Listeners\SendChangeStatusEmail',
+        ],
     ];
 
     /**

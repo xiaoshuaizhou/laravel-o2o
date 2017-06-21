@@ -61,8 +61,8 @@ class BisController extends Controller
      */
     public function destory()
     {
-        $biss = $this->bis->getBisByStatus(-1);
-        return view('admin.bis.apply', compact('biss'));
+        $biss = $this->bis->getBisByStatus(2);
+        return view('admin.bis.dellist', compact('biss'));
     }
 
     /**

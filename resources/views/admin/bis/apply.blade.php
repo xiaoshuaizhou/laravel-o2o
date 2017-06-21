@@ -29,7 +29,7 @@
 					<td class="td-status"><a href="{{url('admin/status/bisstatus',['id' => $bis->id,'status'=>$bis->status])}}" title="点击修改状态">@if($bis->status ==  0) 待审核 @elseif($bis->status == 1) 审核通过 @else 申请不符要求 @endif</a></td>
 					<td class="td-manage">
 						<a style="text-decoration:none" class="ml-5" onClick="o2o_s_edit('商户入驻详情数据','{{url('admin/bis/detail', ['id'=>$bis->id])}}','',300)" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
-						<a style="text-decoration:none" class="ml-5" onClick="o2o_del('','')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
+						<a style="text-decoration:none" class="ml-5" onClick="o2o_del('{{$bis->id}}}','{{url('admin/bis/destory', ['id' => $bis->id, 'status' => 2])}}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
 					</td>				</tr>
 				@endforeach
 			</tbody>
