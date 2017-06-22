@@ -1,5 +1,5 @@
 <!--包含头部文件-->
-{include file="public/header" /}
+@include('bis.public.header')
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 商户入驻申请 </nav>
 <div class="page-container">
@@ -32,4 +32,10 @@
 	</div>
 </div>
 <!--包含头部文件-->
-{include file="public/footer" /}
+@include('bis.public.footer')
+<script>
+    var SCOPE = {
+
+    };
+</script>
+

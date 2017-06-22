@@ -1,8 +1,9 @@
 <!--包含头部文件-->
-{include file="public/header" /}
+@include('bis.public.header')
 <div class="cl pd-5 bg-1 bk-gray mt-20"> 添加团购商品信息</div>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-article-add" method="post" action="{:url('deal/add')}">
+	<form class="form form-horizontal" id="form-article-add" method="post" action="{{url('bis/deal/create')}}">
+		{!! csrf_field() !!}
 	基本信息：
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>团购名称：</label>
@@ -17,9 +18,9 @@
 				<span class="select-box">
 				<select name="city_id" class="select cityId">
 					<option value="0">--请选择--</option>
-					{volist name="citys" id="vo"}
-					<option value="{$vo.id}">{$vo.name}</option>
-					{/volist}
+					@foreach($citys as $city)
+						<option value="{{$city->id}}">{{$city->name}}</option>
+					@endforeach
 				</select>
 				</span>
 			</div>
@@ -37,9 +38,9 @@
 			<div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
 				<select name="category_id" class="select categoryId">
 					<option value="0">--请选择--</option>
-					{volist name="categorys" id="vo"}
-					<option value="{$vo.id}">{$vo.name}</option>
-					{/volist}
+					@foreach($categorys as $category)
+						<option value="{{$category->id}}">{{$category->name}}</option>
+					@endforeach
 				</select>
 				</span>
 			</div>
@@ -56,9 +57,9 @@
 			<label class="form-label col-xs-9 col-sm-2">支持门店：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="check-box">
-				
-				<input name="location_ids[]" type="checkbox" id="checkbox" value=""/>
-				
+					@foreach($bisLocations as $locations)
+					<input name="location_ids[]" type="checkbox" id="checkbox" value="{{$locations->id}}"/>{{$locations->name}}
+					@endforeach
 				</div>
 			</div>
 		</div>
@@ -74,9 +75,7 @@
         <div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">团购开始时间：</label>
 			<div class="formControls col-xs-8 col-sm-3">
-				
-				<input type="text" name="start_time" class="input-text" id="countTimestart" onfocus="selecttime(1)" value=""  > 
-
+				<input type="text" name="start_time" class="input-text" id="countTimestart" onfocus="selecttime(1)" value=""  >
 			</div>
 		</div>
 		<div class="row cl">
@@ -141,19 +140,19 @@
 <script>
 /**定义页面全局变量**/
 var SCOPE = {
-	"city_url" : "{:url('api/city/getCitysByParentId')}",
-	"category_url" : "{:url('api/category/getCategoryByParentId')}",
-	"uploadify_swf" : "__STATIC__/admin/uploadify/uploadify.swf",
-    "image_upload" : "{:url('api/image/upload')}",
+    'city_url' : '{{url('bis/api/getCityByParentId')}}',
+    'category_url' : '{{url('bis/api/getCategoryByParentId')}}',
+    'uploadify_swf' : '/uploadify/uploadify.swf',
+    'img_url' : "{{url('bis/api/upload')}}",
 };
 
 </script>
 <!--包含头部文件-->
-{include file="public/footer" /}
-<script type="text/javascript" src="__STATIC__/admin/hui/lib/ueditor/1.4.3/ueditor.config.js"></script>
-<script type="text/javascript" src="__STATIC__/admin/hui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
-<script type="text/javascript" src="__STATIC__/admin/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
-<script src="__STATIC__/admin/hui/lib/My97DatePicker/WdatePicker.js"></script>
+@include('bis.public.footer')
+<script type="text/javascript" src="/hui/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="/hui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" src="/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script src="/hui/lib/My97DatePicker/WdatePicker.js"></script>
 <script>
 $(function(){
 	var ue = UE.getEditor('editor');

@@ -70,7 +70,10 @@ Route::group(['prefix' => 'bis'], function (){
     Route::any('logout', 'Bis\LoginController@logout');
     Route::get('/location/create', 'Bis\LocaltionController@create');
     Route::post('/location/create', 'Bis\LocaltionController@store');
-    Route::get('/location/list', 'Bis\LocaltionController@index');
+    Route::get('/location/', 'Bis\LocaltionController@index');
     Route::get('/location/edit/{id}', 'Bis\LocaltionController@edit');
     Route::get('/locations/del/{id}', 'Bis\LocaltionController@destory');
+    Route::get('/deal/', 'Bis\DealController@index');
+    Route::get('/deal/create', 'Bis\DealController@create');
+    Route::post('/deal/create', 'Bis\DealController@add');
 });

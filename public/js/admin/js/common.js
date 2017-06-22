@@ -90,6 +90,10 @@ $('.categoryId').change(function () {
         }
     });
 });
+/**
+ * 时间插件
+ * @param flag
+ */
 function selecttime(flag){
     if(flag==1){
         var endTime = $("#countTimeend").val();

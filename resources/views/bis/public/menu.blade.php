@@ -6,7 +6,7 @@
 			<dd>
 				<ul>
 				    <li><a _href="{{url('bis/location/create')}}" data-title="新增门店" href="javascript:void(0)">新增门店</a></li>
-					<li><a _href="{{url('bis/location/list')}}" data-title="门店列表" href="javascript:void(0)">门店列表</a></li>
+					<li><a _href="{{url('bis/location/')}}" data-title="门店列表" href="javascript:void(0)">门店列表</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -15,8 +15,8 @@
 			<dt><i class="Hui-iconfont">&#xe620;</i> 团购管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a _href="" data-title="团购列表" href="javascript:void(0)">团购列表</a></li>
-					<li><a _href="" data-title="团购商品添加" href="javascript:void(0)">团购商品添加</a></li>
+					<li><a _href="{{url('bis/deal/')}}" data-title="团购列表" href="javascript:void(0)">团购列表</a></li>
+					<li><a _href="{{url('bis/deal/create')}}" data-title="团购商品添加" href="javascript:void(0)">团购商品添加</a></li>
 					
 				</ul>
 			</dd>
