@@ -13,6 +13,9 @@ class LoginController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
+        if (session('bisuser')){
+            return redirect('/bis/');
+        }
         return view('bis.login.index');
     }
 
@@ -38,5 +41,14 @@ class LoginController extends Controller
         $acconnt->save();
         session(['bisuser' => $acconnt]);
         return redirect('/bis/');
+    }
+
+    /**
+     * 商户后台退出登录
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function logout() {
+        session()->forget('bisuser');
+        return redirect('/bis/login');
     }
 }

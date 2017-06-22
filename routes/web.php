@@ -67,4 +67,5 @@ Route::group(['prefix' => 'bis'], function (){
     Route::post('/api/getCategoryByParentId', 'Bis\ApiController@getCategoryByParentId');
     Route::post('/api/upload', 'Bis\ApiController@upload');
     Route::get('register/waiting/{id}', 'Bis\RegisterController@waiting');
+    Route::any('logout', 'Bis\LoginController@logout');
 });
