@@ -130,7 +130,9 @@
             <label class="form-label col-xs-4 col-sm-2">所属子类：</label>
             <div class="formControls col-xs-8 col-sm-3 skin-minimal">
                 <div class="check-box se_category_id">
-
+                    @if(getCategoryByCategoryPath($location->category_path))
+                    <input type="checkbox" checked="checked" value="">{{getCategoryNameBySeCategoryId($location->category_path)}}
+                    @endif
                 </div>
             </div>
         </div>

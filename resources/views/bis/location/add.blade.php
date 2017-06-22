@@ -1,9 +1,10 @@
 <!--包含头部文件-->
-{include file="public/header" /}
+@include('bis.public.header')
 <div class="cl pd-5 bg-1 bk-gray mt-20"> 添加分店信息</div>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-article-add" method="post" action="">
+	<form class="form form-horizontal" id="form-article-add" method="post" action="{{url('/bis/location/create')}}">
 	基本信息：
+		{!! csrf_field() !!}
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分店名称：</label>
 			<div class="formControls col-xs-8 col-sm-3">
@@ -17,9 +18,9 @@
 				<span class="select-box">
 				<select name="city_id" class="select cityId">
 					<option value="0">--请选择--</option>
-					{volist name="citys" id="vo"}
-					<option value="{$vo.id}">{$vo.name}</option>
-					{/volist}
+					@foreach($citys as $city)
+						<option value="{{$city->id}}">{{$city->name}}</option>
+					@endforeach
 				</select>
 				</span>
 			</div>
@@ -52,9 +53,9 @@
 			<div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
 				<select name="category_id" class="select categoryId">
 					<option value="0">--请选择--</option>
-					{volist name="categorys" id="vo"}
-					<option value="{$vo.id}">{$vo.name}</option>
-					{/volist}
+					@foreach($categorys as $category)
+						<option value="{{$category->id}}">{{$category->name}}</option>
+					@endforeach
 				</select>
 				</span>
 			</div>
@@ -79,6 +80,12 @@
 			</div>
 		</div>
 		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">银行账号:</label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<input type="text" class="input-text" value="" placeholder="" id="" name="bank_info">
+			</div>
+		</div>
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">联系人:</label>
 			<div class="formControls col-xs-8 col-sm-3">
 				<input type="text" class="input-text" value="" placeholder="" id="" name="contact">
@@ -98,18 +105,18 @@
 		</div>
 	</form>
 </article>
-<script>
-<!--包含尾部文件-->
-{include file="public/footer" /}
-<script type="text/javascript" src="__STATIC__/admin/hui/lib/ueditor/1.4.3/ueditor.config.js"></script>
-<script type="text/javascript" src="__STATIC__/admin/hui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
-<script type="text/javascript" src="__STATIC__/admin/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+@include('bis.public.footer')
+
+
+<script type="text/javascript" src="/hui/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="/hui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" src="/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <script>
  var SCOPE = {
-   'city_url' : '{:url('api/city/getCitysByParentId')}',
-    'category_url' : '{:url('api/category/getCategoryByParentId')}',
-	'uploadify_swf' : '__STATIC__/admin/uploadify/uploadify.swf',
-	'image_upload' : '{:url('api/image/upload')}',
+   'city_url' : "{{url('bis/api/getCityByParentId')}}",
+    'category_url' : "{{url('bis/api/getCategoryByParentId')}}",
+	'uploadify_swf' : '/uploadify/uploadify.swf',
+	'img_url' : "{{url('bis/api/upload')}}",
  };
 </script>
 <script>

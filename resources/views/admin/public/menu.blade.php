@@ -27,6 +27,16 @@
                 </ul>
             </dd>
         </dl>
+        <dl id="menu-article">
+            <dt><i class="Hui-iconfont">&#xe613;</i> 门店管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a _href="" data-title="门店列表" href="javascript:void(0)">门店列表</a></li>
+                    <li><a _href="" data-title="新增门店" href="javascript:void(0)">新增门店</a></li>
+                    <li><a _href="" data-title="删除的门店" href="javascript:void(0)">删除的门店</a></li>
+                </ul>
+            </dd>
+        </dl>
         <dl id="menu-product">
             <dt><i class="Hui-iconfont">&#xe620;</i> 团购商品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>

@@ -45,9 +45,14 @@
 	<div id="iframe_box" class="Hui-article">
 		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
-			<iframe scrolling="yes" frameborder="0" src=""></iframe>
+			<iframe scrolling="yes" frameborder="0" src="{{url('index/welcome')}}"></iframe>
 		</div>
 	</div>
 </section>
 <!--包含菜单文件-->
 @include('bis.public.footer')
+<script>
+    var SCOPE = {
+
+    };
+</script>

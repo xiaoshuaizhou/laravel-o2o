@@ -94,3 +94,52 @@ if (! function_exists('getIp')){
         return $city->name;
     }
 }
+
+/**
+ * 判断是否是主店
+ * @param $isMain
+ * @return string
+ */
+function isMain($isMain)
+{
+    return $isMain == 1 ? '主店' : '分店';
+}
+
+/**
+ * 根据category_path 查询二级分类
+ * @param $path
+ * @return string
+ */
+function getCategoryNameBySeCategoryId($path)
+{
+    if (empty($path)){
+        return '';
+    }
+    if (preg_match('/,/', $path)){
+        $category = explode(',', $path);
+        $categoryId = $category[1];
+    }else{
+        $categoryId = $path;
+    }
+    $category = \App\Models\Admin\Category::find($categoryId);
+    return $category->name;
+}
+
+/**
+ * 判断category_path 是否有二级分类
+ * @param $path
+ * @return bool|string
+ */
+function getCategoryByCategoryPath($path)
+{
+    if (empty($path)){
+        return '';
+    }
+    if (preg_match('/,/', $path)){
+        $category = explode(',', $path);
+        if ($category[1]){
+            return true;
+        }
+        return false;
+    }
+}

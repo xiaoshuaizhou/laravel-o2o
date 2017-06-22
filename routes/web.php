@@ -68,4 +68,9 @@ Route::group(['prefix' => 'bis'], function (){
     Route::post('/api/upload', 'Bis\ApiController@upload');
     Route::get('register/waiting/{id}', 'Bis\RegisterController@waiting');
     Route::any('logout', 'Bis\LoginController@logout');
+    Route::get('/location/create', 'Bis\LocaltionController@create');
+    Route::post('/location/create', 'Bis\LocaltionController@store');
+    Route::get('/location/list', 'Bis\LocaltionController@index');
+    Route::get('/location/edit/{id}', 'Bis\LocaltionController@edit');
+    Route::get('/locations/del/{id}', 'Bis\LocaltionController@destory');
 });
