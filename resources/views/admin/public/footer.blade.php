@@ -6,5 +6,6 @@
 <script type="text/javascript" src="/hui/lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
 <script type="text/javascript" src="/hui/static/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="/hui/static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="/js/admin/js/common.js"></script>
 </body>
 </html>

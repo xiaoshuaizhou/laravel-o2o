@@ -42,7 +42,7 @@
             <dd>
                 <ul>
                     <li><a _href="" data-title="商家团购提交" href="javascript:void(0)">商家团购提交</a></li>
-                    <li><a _href="" data-title="团购列表" href="javascript:void(0)">团购列表</a></li>
+                    <li><a _href="{{url('admin/deal/index')}}" data-title="团购列表" href="javascript:void(0)">团购列表</a></li>
 
                 </ul>
             </dd>

@@ -1,5 +1,5 @@
 <!--包含头部文件-->
-{include file="public/header" /}
+@include('admin.public.head')
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 团购商品列表 </nav>
 <div class="page-container">
@@ -8,13 +8,17 @@
 		 <span class="select-box inline">
 			<select name="category_id" class="select">
 				<option value="0">全部分类</option>
-				
+				@foreach($categorys as $category)
+				<option value="{{$category->id}}">{{$category->name}}</option>
+				@endforeach
 			</select>
 		</span>
 		<span class="select-box inline">
 			<select name="city_id" class="select">
 				<option value="0">全部城市</option>
-				
+				@foreach($citys as $city)
+				<option value="{{$city->id}}">{{$city->name}}</option>
+				@endforeach
 			</select>
 		</span> 日期范围：
 		<input type="text" name="start_time" class="input-text" id="countTimestart" onfocus="selecttime(1)" value="" style="width:120px;" >
@@ -59,5 +63,5 @@
 	</div>
 </div>
 <!--包含头部文件-->
-{include file="public/footer" /}
-<script src="__STATIC__/admin/hui/lib/My97DatePicker/WdatePicker.js"></script>
+@include('admin.public.footer')
+<script src="/hui/lib/My97DatePicker/WdatePicker.js"></script>

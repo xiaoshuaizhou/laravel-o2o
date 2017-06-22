@@ -85,4 +85,17 @@ class Citys extends Model
     {
        return $this->where(['id' => $id])->update(['listorder' => $listorder]);
     }
+
+    /**
+     * 获取二级城市
+     * @return mixed
+     */
+    public function getNormalCity()
+    {
+        $citys = $this->where('parent_id', '>', 0)
+            ->where('status', '=', 1)
+            ->orderBy('id', 'desc')
+            ->get();
+        return $citys;
+    }
 }

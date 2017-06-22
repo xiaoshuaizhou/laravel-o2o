@@ -27,4 +27,14 @@ class Deal extends Model
             'xpoint' ,
             'ypoint'
     ];
+
+    /**
+     * 查询全部的团购商品
+     * @return mixed
+     */
+    public function getNormalDeals()
+    {
+        $deals = $this->orderBy('id', 'desc')->get();
+        return $deals;
+    }
 }
