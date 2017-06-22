@@ -58,6 +58,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 Route::group(['prefix' => 'bis'], function (){
     Route::get('/', 'Bis\IndexController@index');
     Route::get('login', 'Bis\LoginController@index');
+    Route::post('login', 'Bis\LoginController@login');
     Route::get('register', 'Bis\RegisterController@index');
     Route::post('register/add', 'Bis\RegisterController@store');
     Route::post('/api/upload', 'Bis\ApiController@upload');
