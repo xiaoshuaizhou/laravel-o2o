@@ -104,14 +104,16 @@ class Deal extends Model
         return $this->where('id', $id)->first();
     }
 
+    /**
+     * 团过商品编辑
+     * @param $data
+     */
     public function updateById($data) {
-        dd($data);
         $deal = $this->find($data['id']);
         $deal->name  = $data['name'];
-        $deal->image = $data['image'] ;
         $deal->category_id = $data['category_id'];
         $deal->city_id = $data['city_id'];
-        $deal->location_ids = $data['location_ids'];
+        $deal->location_ids = implode(',', $data['location_ids']);
         $deal->start_time = $data['start_time'];
         $deal->end_time = $data['end_time'];
         $deal->total_count = $data['total_count'];
@@ -121,7 +123,7 @@ class Deal extends Model
         $deal->coupons_end_time = $data['coupons_end_time'];
         $deal->notes = $data['notes'];
         $deal->description = $data['description'];
-        $deal->account_id = $data['account_id'];
 
+        $deal->save();
     }
 }
