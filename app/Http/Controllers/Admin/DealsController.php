@@ -40,18 +40,15 @@ class DealsController extends Controller
     {
         if ($request->isMethod('post')){
             $sdata = [];
+            $sdataname = [];
             if (!empty($request->category_id)){
                 $sdata['category_id'] = $request->category_id;
             }
             if (!empty($request->city_id)){
                 $sdata['city_id'] = $request->city_id;
             }
-            if (!empty($request->name) ){
-                $name = $request->name;
-                $deals = $this->deal->when($name, function ($query) use ($name) {
-                            return $query->where('name', 'like', '%'.$name.'%' );
-                        })
-                        ->get();
+            if (!empty($request->name)) {
+                $sdataname['name'] = $request->name;
             }
             if (!empty($request->shangjianame)){
                 $bis = Bis::where('name', 'like', '%'.$request->shangjianame.'%')->first();
@@ -63,7 +60,7 @@ class DealsController extends Controller
                 $time_data['start_time'] = $request->start_time;
                 $time_data['end_time'] = $request->end_time;
             }
-            $deals = $this->deal->getNormalDealsByWhere($sdata,$time_data);
+            $deals = $this->deal->getNormalDealsByWhere($sdata, $sdataname, $time_data);
         }else {
             $deals = $this->deal->getNormalDeals();
         }
