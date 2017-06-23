@@ -61,7 +61,10 @@
 					<td>{{$deal->start_time}}-{{$deal->end_time}}</td>
 					<td>{{$deal->created_at}}</td>
 					<td>{{changeStatus($deal->status)}}</td>
-					<td class="td-manage"><a style="text-decoration:none" class="ml-5" onClick="" href="javascript:;" title="查看"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<td class="td-manage">
+						<a style="text-decoration:none" class="ml-5" onClick="o2o_edit('编辑','{{url('admin/deal/edit', ['id' => $deal->id] )}}','',300)" href="javascript:;" title="查看"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<a style="text-decoration:none" class="ml-5" onClick="o2o_s_del('{{$deal->id}}','{{url('admin/deal/del', ['id' => $deal->id])}}')" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6e2;</i></a>
+					</td>
 				</tr>
 				@endforeach
 			</tbody>
@@ -73,3 +76,28 @@
 <!--包含头部文件-->
 @include('admin.public.footer')
 <script src="/hui/lib/My97DatePicker/WdatePicker.js"></script>
+<script>
+    var SCOPE={
+    }
+	/*页面 全屏-添加*/
+    function o2o_edit(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+
+	/*添加或者编辑缩小的屏幕*/
+    function o2o_s_edit(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+	/*-删除*/
+    function o2o_s_del(id,url){
+
+        layer.confirm('确认要删除吗？',function(index){
+            window.location.href=url;
+        });
+    }
+</script>

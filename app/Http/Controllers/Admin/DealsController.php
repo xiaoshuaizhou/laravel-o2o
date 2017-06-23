@@ -7,6 +7,7 @@ use App\Models\Admin\Citys;
 use App\Models\Bis\Account;
 use App\Models\Bis\Bis;
 use App\Models\Bis\Deal;
+use App\Models\Bis\Location;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Toplan\FilterManager\Facades\FilterManager;
@@ -104,5 +105,29 @@ class DealsController extends Controller
         $categorys = $this->category->findFirstCategories();
 
         return view('admin.deal.review', compact('citys', 'categorys', 'deals'));
+    }
+
+    /**
+     * 团购商品编辑
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($id) {
+        $deal = $this->deal->getNormalDealById($id);
+        $citys = $this->city->getNormalCity();
+        $categorys = $this->category->findFirstCategories();
+        $location = Location::where('bis_id', $deal->bis_id)->first();
+        return view('admin.deal.edit', compact('citys', 'categorys', 'deal', 'location'));
+    }
+
+    /**
+     * 编辑团购商品
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request) {
+        $this->deal->updateById($request->all());
+        return back();
     }
 }

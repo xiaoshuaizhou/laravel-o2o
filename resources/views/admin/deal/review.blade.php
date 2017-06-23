@@ -60,7 +60,9 @@
 					<td>{{$deal->buy_count}}</td>
 					<td>{{$deal->start_time}}-{{$deal->end_time}}</td>
 					<td>{{$deal->created_at}}</td>
-					<td>{{changeStatus($deal->status)}}</td>
+					<td class="td-status">
+						<a href="{{url('admin/status/dealIndex', ['id' => $deal->id ,'status' => $deal->status])}}" title="点击修改状态">{{changeStatus($deal->status)}}</a>
+					</td>
 					<td class="td-manage"><a style="text-decoration:none" class="ml-5" onClick="" href="javascript:;" title="查看"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 				@endforeach

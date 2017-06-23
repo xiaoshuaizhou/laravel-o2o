@@ -84,4 +84,44 @@ class Deal extends Model
             }
         }
     }
+    /**
+     * 修改状态
+     * @param $id
+     * @param $status
+     */
+    public function changStatus($id,$status) {
+        $category = $this->where('id' , $id)->first();
+        $status == 0 ? $category->status = 1 : $category->status =0;
+        $category->save();
+    }
+
+    /**
+     * 根据ID查想数据
+     * @param $id
+     * @return mixed
+     */
+    public function getNormalDealById($id) {
+        return $this->where('id', $id)->first();
+    }
+
+    public function updateById($data) {
+        dd($data);
+        $deal = $this->find($data['id']);
+        $deal->name  = $data['name'];
+        $deal->image = $data['image'] ;
+        $deal->category_id = $data['category_id'];
+        $deal->city_id = $data['city_id'];
+        $deal->location_ids = $data['location_ids'];
+        $deal->start_time = $data['start_time'];
+        $deal->end_time = $data['end_time'];
+        $deal->total_count = $data['total_count'];
+        $deal->origin_price = $data['origin_price'];
+        $deal->current_price = $data['current_price'];
+        $deal->coupons_begin_time = $data['coupons_begin_time'];
+        $deal->coupons_end_time = $data['coupons_end_time'];
+        $deal->notes = $data['notes'];
+        $deal->description = $data['description'];
+        $deal->account_id = $data['account_id'];
+
+    }
 }
