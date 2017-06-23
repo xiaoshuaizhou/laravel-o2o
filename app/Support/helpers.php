@@ -143,3 +143,17 @@ function getCategoryByCategoryPath($path)
         return false;
     }
 }
+
+/**
+ * 根据商家ID获取商家名称
+ * @param $bisId
+ * @return string
+ */
+function getBisNameByBisId($bisId)
+{
+    if (empty($bisId)){
+        return '';
+    }
+    $bis = \App\Models\Bis\Bis::find($bisId);
+    return $bis->name;
+}

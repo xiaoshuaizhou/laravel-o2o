@@ -51,6 +51,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('bis/detail/{id}', 'Admin\BisController@detail');
     Route::get('bis/destory/{id}/{status}', 'Admin\StatusController@destory');
     Route::get('/deal/index', 'Admin\DealsController@index');
+    Route::post('/deal/index', 'Admin\DealsController@index');
 
 });
 

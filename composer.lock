@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e0a53995a91579980bae93ffe97d3e70",
+    "content-hash": "0c32a141dc8a9167df6527b14de2f200",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2125,6 +2125,46 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2016-09-20T12:50:39+00:00"
+        },
+        {
+            "name": "toplan/filter-manager",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/toplan/FilterManager.git",
+                "reference": "a2b0d648321c81bd2f292dd888bf74d2e6c58140"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/toplan/FilterManager/a2b0d648321c81bd2f292dd888bf74d2e6c58140.zip",
+                "reference": "a2b0d648321c81bd2f292dd888bf74d2e6c58140",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ],
+                "psr-0": {
+                    "Toplan\\FilterManager": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "toplan",
+                    "email": "toplan710@gmail.com"
+                }
+            ],
+            "description": "Filter manager package for product list,elegant generate url.",
+            "keywords": [
+                "filter",
+                "product list filter manager"
+            ],
+            "time": "2016-12-05T08:50:55+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

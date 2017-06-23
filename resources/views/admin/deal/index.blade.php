@@ -3,8 +3,11 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 团购商品列表 </nav>
 <div class="page-container">
-<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+<div class="cl pd-5 bg-1 bk-gray mt-20">
+	<form action="{{url('admin/deal/index')}}" method="post">
+		{!! csrf_field() !!}
 	<div class="text-c">
+		商家名称：<input style="width:120px;" class="input-text" type="text" value="" name="shangjianame">
 		 <span class="select-box inline">
 			<select name="category_id" class="select">
 				<option value="0">全部分类</option>
@@ -28,13 +31,15 @@
 		<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
 		</button>
 	</div>
+	</form>
 </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort">
 			<thead>
 				<tr class="text-c">
 					<th width="20">ID</th>
-					<th width="100">商品名称</th>
+					<th width="50">商品名称</th>
+					<th width="50">商家名称</th>
 					<th width="40">栏目分类</th>
 					<th width="40">城市</th>
 					<th width="40">购买件数</th>
@@ -45,19 +50,20 @@
 				</tr>
 			</thead>
 			<tbody>
-				
+				@foreach($deals as $deal)
 				<tr class="text-c">
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td>{{$deal->id}}</td>
+					<td>{{$deal->name}}</td>
+					<td>{{getBisNameByBisId($deal->bis_id)}}</td>
+					<td>{{getCategoryNameBySeCategoryId($deal->category_id)}}</td>
+					<td>{{getSeCityName($deal->city_id)}}</td>
+					<td>{{$deal->buy_count}}</td>
+					<td>{{$deal->start_time}}-{{$deal->end_time}}</td>
+					<td>{{$deal->created_at}}</td>
+					<td>{{changeStatus($deal->status)}}</td>
 					<td class="td-manage"><a style="text-decoration:none" class="ml-5" onClick="" href="javascript:;" title="查看"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
-				
+				@endforeach
 			</tbody>
 		</table>
 	</div>

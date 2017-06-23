@@ -10,7 +10,8 @@
         "laravel/tinker": "~1.0",
         "laravist/geecaptcha": "^1.1",
         "mews/captcha": "^2.1",
-        "overtrue/pinyin": "~3.0"
+        "overtrue/pinyin": "~3.0",
+        "toplan/filter-manager": "~1.0.4"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.3",
