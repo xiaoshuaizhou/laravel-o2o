@@ -61,8 +61,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('featured/add', 'Admin\FeaturedController@add');
     Route::get('featured/index', 'Admin\FeaturedController@index');
     Route::post('featured/create', 'Admin\FeaturedController@create');
-
-
+    Route::get('featured/status/{id}/{status}', 'Admin\StatusController@featuredstatus');
+    Route::get('featured/del/{del}', 'Admin\FeaturedController@destory');
 });
 
 //商户后台

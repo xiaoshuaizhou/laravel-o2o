@@ -57,7 +57,7 @@ class Citys extends Model
     public function changStatus($id,$status) {
         $city = $this::where('id' , $id)->first();
         $status == 0 ? $city->status = 1 : $city->status =0;
-        $category->save();
+        $city->save();
     }
 
     /**

@@ -29,9 +29,15 @@ class FeaturedController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.featured.index');
+        $type = $request->type;
+        if (empty($type)){
+            $type = 0;
+        }
+        $featureds = config('app.featured');
+        $datas = $this->featured->getNorMalFeaturedByType($type);
+        return view('admin.featured.index', compact('featureds', 'datas'));
     }
 
     /**
@@ -51,5 +57,17 @@ class FeaturedController extends Controller
     {
         $this->featured->create($request->all());
         return back();
+    }
+
+    /**
+     * 删除推荐位
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destory($id)
+    {
+        $this->featured->destory($id);
+        return back();
+
     }
 }

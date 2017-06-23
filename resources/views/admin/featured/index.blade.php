@@ -9,8 +9,9 @@
       <div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
         <select name="type" class="select">
           
-          <option value="" ></option>
-          
+          @foreach($featureds as $key=>$featured)
+            <option value="{{$key}}">{{$featured}}</option>
+          @endforeach
         </select>
         </span>
       </div>
@@ -32,20 +33,34 @@
         </tr>
       </thead>
       <tbody>
-        
+        @foreach($datas as $data)
         <tr class="text-c">
-          <td></td>
-          <td><a href="" target="_blank"></a></td>
-          <td class="text-c"></td>
-          <td></td>
-          <td class="td-status"><a href="" title="点击修改状态"></a></td>
-          <td class="td-manage"> <a style="text-decoration:none" class="ml-5" onClick="" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+          <td>{{$data->id}}</td>
+          <td><a href="" target="_blank">{{$data->title}}</a></td>
+          <td class="text-c">{{$data->url}}</td>
+          <td>{{$data->created_at}}</td>
+          <td class="td-status">
+            <a href="{{url('admin/featured/status', ['id' => $data->id, 'status'=>$data->status])}}" title="点击修改状态">{{changeStatus($data->status)}}</a>
+          </td>
+          <td class="td-manage">
+            <a style="text-decoration:none" class="ml-5" onClick="o2o_del('{{$data->id}}', '{{url('admin/featured/del',['id'=>$data->id])}}')" href="javascript:;" title="删除">
+              <i class="Hui-iconfont">&#xe6e2;</i>
+            </a>
+          </td>
         </tr>
-        
+        @endforeach
       </tbody>
     </table>
   </div>
 </div>
 <!--包含头部文件-->
 @include('bis.public.footer')
+<script>
+    function o2o_del(id,url){
+
+        layer.confirm('确认要删除吗？',function(index){
+            window.location.href=url;
+        });
+    }
+</script>
 

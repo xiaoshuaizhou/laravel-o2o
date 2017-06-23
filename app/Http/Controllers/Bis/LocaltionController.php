@@ -101,9 +101,7 @@ class LocaltionController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destory($id) {
-        $location = $this->location->getLocationById($id);
-        $location->status = 2;
-        $location->save();
+        $this->location->destory($id);
         return back();
     }
 }

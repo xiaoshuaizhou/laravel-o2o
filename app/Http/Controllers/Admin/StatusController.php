@@ -8,6 +8,7 @@ use App\Models\Admin\Category;
 use App\Models\Admin\Citys;
 use App\Models\Bis\Bis;
 use App\Models\Bis\Deal;
+use App\Models\Bis\Featured;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,6 +18,7 @@ class StatusController extends Controller
     public $City;
     public $bis;
     public $deal;
+    public $featured;
     /**
      * StatusController constructor.
      * @param $Category
@@ -25,12 +27,14 @@ class StatusController extends Controller
             Category $Category,
             Citys $citys,
             Deal $deal,
-            Bis $bis
+            Bis $bis,
+            Featured $featured
     ) {
         $this->Category = $Category;
         $this->City = $citys;
         $this->bis = $bis;
         $this->deal = $deal;
+        $this->featured = $featured;
     }
     /**
      * 修改分类状态
@@ -114,6 +118,22 @@ class StatusController extends Controller
         $this->bis->changStatusDel($id, $status);
         event(new UserChangeStatus($this->bis->latest()->first()));
 
+        return back();
+    }
+
+    /**
+     * 推荐位修改状态
+     * @param $id
+     * @param $status
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function featuredstatus(Request $request, $id, $status)
+    {
+        $this->validate($request, [
+            $id => 'numeric',
+            $status => 'in:0,1,-1',
+        ]);
+        $this->featured->changStatus($id, $status);
         return back();
     }
 }

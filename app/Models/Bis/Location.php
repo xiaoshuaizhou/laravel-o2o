@@ -48,11 +48,12 @@ class Location extends Model
     }
 
     /**
-     * 查询一条数据
+     * 删除分店
      * @param $id
-     * @return mixed
      */
-    public function getLocationById($id) {
-        return $this->where('id', $id)->first();
+    public function destory($id) {
+        $location = $this->location->find($id);
+        $location->status = 2;
+        $location->save();;
     }
 }
