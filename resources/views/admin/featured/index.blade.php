@@ -1,5 +1,5 @@
 <!--包含头部文件-->
-{include file="public/header" /}
+@include('bis.public.header')
 <body>
 <nav class="breadcrumb"></nav>
 <div class="page-container">
@@ -47,4 +47,5 @@
   </div>
 </div>
 <!--包含头部文件-->
-{include file="public/footer" /}
+@include('bis.public.footer')
+

@@ -1,5 +1,5 @@
 <!--包含头部文件-->
-{include file="public/header" /}
+@include('bis.public.header')
 <body>
 <div class="cl pd-5 bg-1 bk-gray mt-20"> 添加推荐位信息</div>
 <article class="page-container">
@@ -25,9 +25,9 @@
 			<div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
 				<select name="type" class="select">
 					
-					
-					<option value=""></option>
-					
+					@foreach($featureds as $key=>$featured)
+					<option value="{{$key}}">{{$featured}}</option>
+					@endforeach
 				</select>
 				</span>
 			</div>
@@ -56,11 +56,16 @@
 <script>
 /**定义页面全局变量**/
 var SCOPE = {
-    'city_url' : '{:url('api/city/getCitysByParentId')}',
-    'category_url' : '{:url('api/category/getCategoryByParentId')}',
-	'uploadify_swf' : '__STATIC__/admin/uploadify/uploadify.swf',
-	'image_upload' : '{:url('api/image/upload')}',
+    'city_url' : "{{url('bis/api/getCityByParentId')}}",
+    'category_url' : "{{url('bis/api/getCategoryByParentId')}}",
+    'uploadify_swf' : '/uploadify/uploadify.swf',
+    'img_url' : "{{url('bis/api/upload')}}",
 };
 </script>
 <!--包含头部文件-->
-{include file="public/footer" /}
+@include('bis.public.footer')
+<script>
+    var SCOPE={
+    }
+
+</script>

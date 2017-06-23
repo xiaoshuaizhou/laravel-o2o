@@ -7,5 +7,7 @@
 <script type="text/javascript" src="/hui/static/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="/hui/static/h-ui.admin/js/H-ui.admin.js"></script>
 <script type="text/javascript" src="/js/admin/js/common.js"></script>
+<script type="text/javascript" src="/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript" src="/js/admin/js/image.js"></script>
 </body>
 </html>

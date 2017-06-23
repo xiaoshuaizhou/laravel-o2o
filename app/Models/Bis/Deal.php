@@ -126,4 +126,14 @@ class Deal extends Model
 
         $deal->save();
     }
+    /**
+     * 团购商品下架（状态 == 2））
+     * @param $id
+     */
+    public function deleteDealById($id)
+    {
+        $deal = $this->find($id);
+        $deal->status = 2;
+        $deal->save();
+    }
 }

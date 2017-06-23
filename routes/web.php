@@ -57,6 +57,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/status/dealIndex/{id}/{status}', 'Admin\StatusController@dealIndex');
     Route::get('deal/edit/{id}', 'Admin\DealsController@edit');
     Route::post('deal/edit/', 'Admin\DealsController@update');
+    Route::get('deal/del/{id}', 'Admin\DealsController@destory');
+    Route::get('featured/add', 'Admin\FeaturedController@add');
+    Route::get('featured/index', 'Admin\FeaturedController@index');
 
 
 });

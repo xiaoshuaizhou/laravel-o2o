@@ -130,4 +130,15 @@ class DealsController extends Controller
         $this->deal->updateById($request->all());
         return back();
     }
+
+    /**
+     * 团购商品下架
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destory($id)
+    {
+        $this->deal->deleteDealById($id);
+        return back();
+    }
 }

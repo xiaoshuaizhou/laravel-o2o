@@ -21,6 +21,8 @@
     <link rel="stylesheet" type="text/css" href="/hui/lib/icheck/icheck.css" />
     <link rel="stylesheet" type="text/css" href="/hui/static/h-ui.admin/skin/default/skin.css" id="skin" />
     <link rel="stylesheet" type="text/css" href="/hui/static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" href="/uploadify/uploadify.css">
+
     <!--[if IE 6]>
     <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
