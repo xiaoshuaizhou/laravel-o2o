@@ -4,7 +4,7 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 团购商品列表 </nav>
 <div class="page-container">
 <div class="cl pd-5 bg-1 bk-gray mt-20">
-	<form action="{{url('admin/deal/index')}}" method="post">
+	<form action="{{url('admin/deal/review')}}" method="post">
 		{!! csrf_field() !!}
 	<div class="text-c">
 		商家名称：<input style="width:120px;" class="input-text" type="text" value="" name="shangjianame">

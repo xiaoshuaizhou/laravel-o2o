@@ -34,7 +34,16 @@ class Deal extends Model
      */
     public function getNormalDeals()
     {
-        $deals = $this->orderBy('id', 'desc')->get();
+        $deals = $this->where('status', 1)->orderBy('id', 'desc')->paginate(1);
+        return $deals;
+    }
+    /**
+     * 查询未审核的团购商品
+     * @return mixed
+     */
+    public function getNormalDealsReview()
+    {
+        $deals = $this->where('status', '<', 1)->orderBy('id', 'desc')->paginate(1);
         return $deals;
     }
 
@@ -43,19 +52,19 @@ class Deal extends Model
      * @param array $data
      * @return mixed
      */
-    public function getNormalDealsByWhere($data, $name=[], $time) {
-        $data['status'] = 1;
+    public function getNormalDealsByWhere($data, $name=[], $time, $status=1) {
+        $data['status'] = $status;
         if (empty($time)){
             if (empty($name)){
                 $deal = $this->where($data)
                         ->orderBy('id', 'desc')
-                        ->get();
+                        ->paginate(1);
                 return $deal;
             }else {
                 $deal = $this->where('name', 'like', '%' . $name['name'] . '%')
                         ->where($data)
                         ->orderBy('id', 'desc')
-                        ->get();
+                        ->paginate(1);
                 return $deal;
             }
         }else {
@@ -63,14 +72,14 @@ class Deal extends Model
                 $deal = $this->where($data)
                         ->whereBetween('created_at', [$time['start_time'], $time['end_time']])
                         ->orderBy('id', 'desc')
-                        ->get();
+                        ->paginate(1);
                 return $deal;
             }else {
                 $deal = $this->where('name', 'like', '%' . $name['name'] . '%')
                         ->where($data)
                         ->whereBetween('created_at', [$time['start_time'], $time['end_time']])
                         ->orderBy('id', 'desc')
-                        ->get();
+                        ->paginate(1);
                 return $deal;
             }
         }
