@@ -9,10 +9,9 @@
     <LINK rel="Bookmark" href="/favicon.ico" >
     <LINK rel="Shortcut Icon" href="/favicon.ico" />
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="/hui/lib/html5.js"></script>
-    <script type="text/javascript" src="/hui/lib/respond.min.js"></script>
-    <script type="text/javascript" src="/hui/lib/PIE_IE678.js"></script>
-    <script type="text/javascript" src="/js/admin/js/jq.js"></script>
+    <script type="text/javascript" src="lib/html5.js"></script>
+    <script type="text/javascript" src="lib/respond.min.js"></script>
+    <script type="text/javascript" src="lib/PIE_IE678.js"></script>
     <![endif]-->
     <link rel="stylesheet" href="/css/admin/css/bootstrap.min.css">
     <link rel="stylesheet" href="/hui/static/h-ui/css/H-ui.min.css">
@@ -21,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="/hui/lib/icheck/icheck.css" />
     <link rel="stylesheet" type="text/css" href="/hui/static/h-ui.admin/skin/default/skin.css" id="skin" />
     <link rel="stylesheet" type="text/css" href="/hui/static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" href="/css/admin/css/common.css">
     <link rel="stylesheet" href="/uploadify/uploadify.css">
 
     <!--[if IE 6]>

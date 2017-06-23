@@ -92,4 +92,8 @@
             </div>
         </div>
     </body>
+    <script>
+        var SCOPE={
+        }
+    </script>
 </html>

@@ -60,6 +60,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('deal/del/{id}', 'Admin\DealsController@destory');
     Route::get('featured/add', 'Admin\FeaturedController@add');
     Route::get('featured/index', 'Admin\FeaturedController@index');
+    Route::post('featured/create', 'Admin\FeaturedController@create');
 
 
 });

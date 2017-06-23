@@ -1,10 +1,11 @@
 <!--包含头部文件-->
-@include('bis.public.header')
+@include('admin.public.head')
 <body>
 <div class="cl pd-5 bg-1 bk-gray mt-20"> 添加推荐位信息</div>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-article-add" method="post" action="">
+	<form class="form form-horizontal" id="form-article-add" method="post" action="{{url('admin/featured/create')}}">
 		<div class="row cl">
+			{!! csrf_field() !!}
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>标题：</label>
 			<div class="formControls col-xs-8 col-sm-3">
 				<input type="text" class="input-text" value="" placeholder="" id="" name="title">
@@ -63,9 +64,20 @@ var SCOPE = {
 };
 </script>
 <!--包含头部文件-->
-@include('bis.public.footer')
+@include('admin.public.footer')
+<script type="text/javascript" src="/hui/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="/hui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" src="/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <script>
-    var SCOPE={
-    }
-
+    var SCOPE = {
+        'city_url' : "{{url('bis/api/getCityByParentId')}}",
+        'category_url' : "{{url('bis/api/getCategoryByParentId')}}",
+        'uploadify_swf' : '/uploadify/uploadify.swf',
+        'img_url' : "{{url('bis/api/upload')}}",
+    };
+</script>
+<script>
+    $(function(){
+        var ue = UE.getEditor('editor');
+    });
 </script>

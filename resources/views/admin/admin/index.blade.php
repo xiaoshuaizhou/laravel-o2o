@@ -60,3 +60,7 @@
 </section>
 <!--包含菜单文件-->
 @include('admin.public.footer')
+<script>
+    var SCOPE={
+    }
+</script>
