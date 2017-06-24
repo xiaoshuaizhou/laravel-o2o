@@ -86,4 +86,41 @@ class Category extends Model
         return $this->where(['id' => $id])->update(['listorder' => $listorder]);
 
     }
+
+    /**
+     * 首页分类展示
+     * @param int $parentId
+     * @param int $limit
+     * @return mixed
+     */
+    public function getIndexCategoryByParentId($parentId=0,$limit=5)
+    {
+        $condition = [
+          'parent_id' => $parentId,
+            'status' => 1
+        ];
+        $category = $this->where($condition)
+            ->orderBy('listorder', 'desc')
+            ->orderBy('id', 'desc');
+        if ($limit){
+            $category->limit($limit);
+        }
+        $category = $category->get();
+        return $category;
+    }
+
+    /**
+     * 根据一级分类城市的ID集合获取二级城市
+     * @param $ids
+     * @return mixed
+     */
+    public function getSecondCategoryByParentId($ids)
+    {
+        $cats = $this->whereIn('parent_id', $ids)
+            ->where('status', 1)
+            ->orderBy('listorder', 'desc')
+            ->orderBy('id', 'desc')
+            ->get();
+        return $cats;
+    }
 }

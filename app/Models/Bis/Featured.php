@@ -18,7 +18,7 @@ class Featured extends Model
         $condition = ['type' => $type];
         $featured = $this->where($condition)
                         ->where('status', '>=', 0)
-                        ->paginate(1);
+                        ->paginate();
         return $featured;
     }
 
