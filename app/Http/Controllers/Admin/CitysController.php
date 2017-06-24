@@ -44,7 +44,7 @@ class CitysController extends Controller
     public function store(Request $request) {
         $pinyin = new Pinyin();
         $data = [
-            'uname' => $pinyin->sentence(request('name')),
+            'uname' => $pinyin->permalink(request('name')),
             'listorder' => 0,
             'status' => 1,
             'is_default' => 0

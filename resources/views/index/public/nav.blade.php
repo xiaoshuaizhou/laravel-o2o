@@ -1,5 +1,5 @@
 <div class="search">
-    <img src="image/index/image/logo.png" />
+    <img src="/image/index/image/logo.png" />
 
 </div>
 

@@ -91,7 +91,7 @@ class LocaltionController extends Controller
     public function edit($id) {
         $citys = $this->city->findCitysByParentId();
         $categorys = $this->category->findFirstCategories();
-        $location = $this->location->getLocationById($id);
+        $location = $this->location->find($id);
         return view('bis.location.edit', compact('citys', 'categorys', 'location'));
     }
 
