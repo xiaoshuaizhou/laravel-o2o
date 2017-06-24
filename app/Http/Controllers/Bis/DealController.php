@@ -61,6 +61,9 @@ class DealController extends Controller
     public function add(Request $request) {
         $bisId = session('bisuser')->bis_id;
         $location = $this->location->find($request->location_ids[0]);
+        if (empty($location)){
+            abort(404, '分店不存在，请联系主管理员');
+        }
         $data = [
             'bis_id' => $bisId,
             'name' => $request->name,

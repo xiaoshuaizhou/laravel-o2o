@@ -157,3 +157,16 @@ function getBisNameByBisId($bisId)
     $bis = \App\Models\Bis\Bis::find($bisId);
     return $bis->name;
 }
+
+function countLocation($ids)
+{
+    if (empty($ids)){
+        return 1;
+    }
+    if (preg_match('/,/', $ids)){
+        $arr = explode(',', $ids);
+        return count($arr);
+    }else{
+        return 1;
+    }
+}

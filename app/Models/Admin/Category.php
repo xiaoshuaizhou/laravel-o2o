@@ -108,6 +108,27 @@ class Category extends Model
         $category = $category->get();
         return $category;
     }
+    /**
+     * 首页分类展示
+     * @param int $parentId
+     * @param int $limit
+     * @return mixed
+     */
+    public function getIndexCategoryByCategoryId($categoryId,$limit=5)
+    {
+        $condition = [
+            'parent_id' => $categoryId,
+            'status' => 1
+        ];
+        $category = $this->where($condition)
+            ->orderBy('listorder', 'desc')
+            ->orderBy('id', 'desc');
+        if ($limit){
+            $category->limit($limit);
+        }
+        $category = $category->get();
+        return $category;
+    }
 
     /**
      * 根据一级分类城市的ID集合获取二级城市

@@ -30,7 +30,11 @@ class IndexController extends CommonController
         $right = $this->featured->getNorMalFeaturedByType(1);
         $indexfeatured = $indexfeatured->toArray()['data'];
         $right = $right->toArray()['data'];
-        return view('index.index', compact('citys', 'city', 'cats', 'indexfeatured', 'right'));
+        //同时满足分类和城市的条件
+        $datas = $this->deal->getDealByCategoryIdAndCityId(3, $this->citys->id);
+        //获取四个子分类
+        $meishiCategory = $this->category->getIndexCategoryByCategoryId($datas[0]->category_id,4);
+        return view('index.index', compact('citys', 'city', 'cats', 'indexfeatured', 'right', 'datas','meishiCategory'));
     }
 
     /**
