@@ -32,9 +32,14 @@ class IndexController extends CommonController
         $right = $right->toArray()['data'];
         //同时满足分类和城市的条件
         $datas = $this->deal->getDealByCategoryIdAndCityId(3, $this->citys->id);
+        if (empty($datas->toArray())){
+            abort(404, '当前城市没有数据');
+        }
         //获取四个子分类
+        $controller = 'index';
+        $title = '首页';
         $meishiCategory = $this->category->getIndexCategoryByCategoryId($datas[0]->category_id,4);
-        return view('index.index', compact('citys', 'city', 'cats', 'indexfeatured', 'right', 'datas','meishiCategory'));
+        return view('index.index', compact('citys', 'title', 'city', 'cats', 'indexfeatured', 'right', 'datas','meishiCategory', 'controller'));
     }
 
     /**
@@ -48,7 +53,7 @@ class IndexController extends CommonController
      * @param $citys
      * @param $cityName
      */
-    private function getCity($citys, $cityName)
+    public function getCity($citys, $cityName)
     {
         $defaultName = '';
         foreach ($citys as $city) {
@@ -57,7 +62,7 @@ class IndexController extends CommonController
                 break;
             }
         }
-            $defaultName = $defaultName ? $defaultName : 'beijing';
+            $defaultName = $defaultName ? $defaultName : 'zhaoyangqu';
             if (session('cityuname') && empty(request('city'))){
                 $cityuname = session('cityuname');
             }else {

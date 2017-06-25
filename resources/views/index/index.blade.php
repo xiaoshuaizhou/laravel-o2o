@@ -11,9 +11,9 @@
                             <ul class="reco-words">
                                 <li><a href="//t10.nuomi.com/pc/t10/index" target="_blank">精选品牌</a></li>
                                 @foreach($meishiCategory as $vo)
-                                <li><a href="{{url('index/list', ['id' => $vo->id])}}" target="_blank">{{$vo->name}}</a></li>
+                                <li><a href="//bj.nuomi.com/327" target="_blank">其他美食</a></li>
                                 @endforeach
-                                <li><a href="{{url('index/list', ['id' => 3])}}" class="no-right-border no-right-padding" target="_blank">全部<span class="all-cate-arrow"></span></a></li>
+                                <li><a href="{{url('index/list', ['id'])}}" class="no-right-border no-right-padding" target="_blank">全部<span class="all-cate-arrow"></span></a></li>
                             </ul>
                         </div>
                         <ul class="itemlist eight-row-height">
@@ -37,7 +37,7 @@
                                     </div>
                                 </a>
                                 <div class="contentbox">
-                                    <a href="{{url('index/detail', ['id'=>$data->id])}}" target="_blank">
+                                    <a href="{{url('index/detail', ['id'=>$data->id, 'city_id' => $data->city_id, 'cat_id' => $data->category_id])}}" target="_blank">
                                         <div class="header">
                                             <h4 class="title ">【{{countLocation($data->location_ids)}}店通用】好伦哥</h4>
                                         </div>

@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>首页</title>
+    <title>{{$title}}</title>
     <link rel="shortcut icon" href="">
     <link rel="stylesheet" href="/css/index/base.css" />
     <link rel="stylesheet" href="/css/index/common.css" />
-    <link rel="stylesheet" href="/css/index/index.css" />
+    <link rel="stylesheet" href="/css/index/{{$controller}}.css" />
+
     <script type="text/javascript" src="/js/index/html5shiv.js"></script>
     <script type="text/javascript" src="/js/index/respond.min.js"></script>
     <script type="text/javascript" src="/js/index/jquery-1.11.3.min.js"></script>

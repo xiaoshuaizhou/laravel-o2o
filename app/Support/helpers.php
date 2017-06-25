@@ -158,6 +158,10 @@ function getBisNameByBisId($bisId)
     return $bis->name;
 }
 
+/**
+ * @param $ids
+ * @return int
+ */
 function countLocation($ids)
 {
     if (empty($ids)){
@@ -169,4 +173,36 @@ function countLocation($ids)
     }else{
         return 1;
     }
+}
+/**
+ * 获取当前控制器名
+ *
+ * @return string
+ */
+function getCurrentControllerName()
+{
+    return getCurrentAction()['controller'];
+}
+
+/**
+ * 获取当前方法名
+ *
+ * @return string
+ */
+function getCurrentMethodName()
+{
+    return getCurrentAction()['method'];
+}
+
+/**
+ * 获取当前控制器与方法
+ *
+ * @return array
+ */
+function getCurrentAction()
+{
+    $action = \Route::current()->getActionName();
+    list($class, $method) = explode('@', $action);
+
+    return ['controller' => $class, 'method' => $method];
 }

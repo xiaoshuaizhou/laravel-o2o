@@ -50,6 +50,7 @@
             <div class="slide-holder" id="slide-holder">
                 <a href="#" class="slide-prev"><i class="slide-arrow-left"></i></a>
                 <a href="#" class="slide-next"><i class="slide-arrow-right"></i></a>
+                @if($controller == 'index')
                 <ul class="slideshow">
                     @foreach($indexfeatured as $v)
                     <li><a href="" class="item-large">
@@ -58,6 +59,7 @@
                     </li>
                     @endforeach
                 </ul>
+                    @endif
             </div>
             <div class="list-container">
 
@@ -66,12 +68,14 @@
     </div>
     <div class="right-sidebar">
         <div class="right-ad">
+            @if($controller == 'index')
             <ul class="slidepic">
                 @foreach($right as $val)
                 <li><a><img src="{{$val['image']}}" /></a></li>
                 @endforeach
 
             </ul>
+                @endif
         </div>
 
     </div>
