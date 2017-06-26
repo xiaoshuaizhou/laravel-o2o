@@ -15,7 +15,7 @@
                             <dl>
                                 <dt class="title"><a href="{{url('index/list',['id'=>$key])}}" target="_blank">{{$cat[0]}}</a></dt>
                                 @foreach($cat[1] as $sedcat)
-                                <dd><a href="{{url('index/list', ['id'=>$sedcat['id']])}}}" target="_blank" class="">{{$sedcat['name']}}</a></dd>
+                                <dd><a href="{{url('index/list', ['id'=>$sedcat['id']])}}" target="_blank" class="">{{$sedcat['name']}}</a></dd>
                                 @endforeach
                             </dl>
                         </div>

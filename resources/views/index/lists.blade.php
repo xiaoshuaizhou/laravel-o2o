@@ -15,30 +15,20 @@
                             <div class="w-filter-normal-ab  filter-list-ab">
                                 <h5 class="filter-label-ab">分类</h5>
                                 <span class="filter-all-ab">
-                                    <a class="w-filter-item-ab  item-all-auto-ab"><span class="item-content filter-active-all-ab ">全部</span></a>
+                                    <a href="{{url('index/list', ['id' => 0])}}" class="w-filter-item-ab  item-all-auto-ab"><span class="item-content @if($id ==0) filter-active-all-ab @endif">全部</span></a>
                                 </span>
                                 <div class="j-filter-items-wrap-ab filter-items-wrap-ab">
                                     <div class="j-filter-items-ab filter-items-ab filter-content-ab">
-                                        <a class="w-filter-item-ab"><span class="item-content">今日新单</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">中餐/家常菜</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">小龙虾</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">素食</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">粥店</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">台湾菜/客家菜</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">其他美食</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">今日新单</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">中餐/家常菜</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">小龙虾</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">素食</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">粥店</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">台湾菜/客家菜</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">其他美食</span></a>
+                                        @foreach($categroys as $category)
+                                        <a class="w-filter-item-ab " href="{{url('index/list', ['id' => $category['id']])}}"><span class="item-content @if($category['id'] == $categoryParentId) filter-active-all-ab @endif">{{$category['name']}}</span></a>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
                     </div>
+                    @if($secondCategorys)
                     <div class="filter-wrapper">
                         <div class="normal-filter ">
                             <div class="w-filter-normal-ab  filter-list-ab">
@@ -48,26 +38,15 @@
                                 </span>
                                 <div class="j-filter-items-wrap-ab filter-items-wrap-ab">
                                     <div class="j-filter-items-ab filter-items-ab filter-content-ab">
-                                        <a class="w-filter-item-ab"><span class="item-content">今日新单</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">中餐/家常菜</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">小龙虾</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">素食</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">粥店</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">台湾菜/客家菜</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">其他美食</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">今日新单</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">中餐/家常菜</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">小龙虾</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">素食</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">粥店</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">台湾菜/客家菜</span></a>
-                                        <a class="w-filter-item-ab"><span class="item-content">其他美食</span></a>
+                                        @foreach($secondCategorys as $val)
+                                        <a href="{{url('index/list', ['id' => $val['id']])}}" class="w-filter-item-ab"><span class="item-content @if($val['id'] == $id) filter-active-all-ab @endif">{{$val['name']}}</span></a>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
+                    @endif
                 </div>
                 <div class="w-sort-bar">
                     <div class="bar-area" style="position: relative; left: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; top: 0px;">

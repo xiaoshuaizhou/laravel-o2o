@@ -9,9 +9,9 @@
                         <div class="floor-header">
                             <h3>美食推荐</h3>
                             <ul class="reco-words">
-                                <li><a href="//t10.nuomi.com/pc/t10/index" target="_blank">精选品牌</a></li>
+                                <li><a href="/" target="_blank">精选品牌</a></li>
                                 @foreach($meishiCategory as $vo)
-                                <li><a href="{{url('index/list', ['id'=>$vo->id])}}" target="_blank">其他美食</a></li>
+                                <li><a href="{{url('index/list', ['id'=>$vo->id])}}" target="_blank">{{$vo->name}}</a></li>
                                 @endforeach
                                 <li><a href="{{url('index/list', ['id'=>$vo->id])}}" class="no-right-border no-right-padding" target="_blank">全部<span class="all-cate-arrow"></span></a></li>
                             </ul>
