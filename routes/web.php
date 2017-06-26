@@ -20,6 +20,7 @@ Route::get('index/welcome', 'Index\IndexController@welcome');
 Route::get('index/index/{city}', 'Index\IndexController@index');
 Route::get('index/detail/{id}/{city_id}/{cat_id}', 'Index\DetailController@index');
 Route::get('index/map/{data}', 'Index\MapController@getMapImage');
+Route::get('index/list/{id}', 'Index\ListsController@index');
 //主管理员后台
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', function () {

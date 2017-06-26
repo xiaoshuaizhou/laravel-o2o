@@ -155,16 +155,8 @@
                                     <div class="branch-detail">
                                         <div>
                                             <div class="w-area-filter">
-                                                <label>筛选：</label>
-                                                <select name="city" class="af-content"><option value="100010000" selected="">北京市</option></select>
-                                                <select name="district" class="af-content">
-                                                    <option selected="">全部城区</option>
-                                                    <option value="307">朝阳区</option>
-                                                    <option value="392">海淀区</option>
-                                                    <option value="395">丰台区</option>
-                                                    <option value="408">通州区</option>
-                                                    <option value="6547">平谷区</option>
-                                                </select>
+                                                <label>分店信息：</label>
+
                                             </div>
                                             <div class="branch-list-content">
                                                 <div class="w-branch-list">

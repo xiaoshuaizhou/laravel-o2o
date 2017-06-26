@@ -26,6 +26,9 @@ class IndexController extends CommonController
         $this->getCity($citys, $cityName);
         $cats = $this->getCats();
         $city = $this->citys;
+        session()->put('city', $city);
+        session()->put('citys', $citys);
+        session()->put('cats', $cats);
         $indexfeatured = $this->featured->getNorMalFeaturedByType(0);
         $right = $this->featured->getNorMalFeaturedByType(1);
         $indexfeatured = $indexfeatured->toArray()['data'];
