@@ -149,7 +149,7 @@ class Deal extends Model
         $deals = $this->where('category_id', $catId)
             ->where('city_id', $cityId)
             ->where('status', 1)
-//            ->where('end_time', '>', time()) //修改完类型  end_time修复bug
+            ->where('end_time', '>', time()) //修改完类型  end_time修复bug
             ->orderBy('listorder', 'desc')
             ->orderBy('id', 'desc');
         if ($limit){

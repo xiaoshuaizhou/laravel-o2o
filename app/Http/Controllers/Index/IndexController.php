@@ -31,7 +31,7 @@ class IndexController extends CommonController
         $indexfeatured = $indexfeatured->toArray()['data'];
         $right = $right->toArray()['data'];
         //同时满足分类和城市的条件
-        $datas = $this->deal->getDealByCategoryIdAndCityId(3, $this->citys->id);
+        $datas = $this->deal->getDealByCategoryIdAndCityId(5, $this->citys->id);
         if (empty($datas->toArray())){
             abort(404, '当前城市没有数据');
         }
@@ -62,7 +62,7 @@ class IndexController extends CommonController
                 break;
             }
         }
-            $defaultName = $defaultName ? $defaultName : 'zhaoyangqu';
+            $defaultName = $defaultName ? $defaultName : 'haidianqu';
             if (session('cityuname') && empty(request('city'))){
                 $cityuname = session('cityuname');
             }else {

@@ -20,14 +20,14 @@ class CreateDealsTable extends Migration
             $table->string('location_ids',100);
             $table->string('image');
             $table->text('description');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->dateTime('start_time');
+            $table->dateTime('end_time');
             $table->decimal('origin_price',20,2);
             $table->decimal('current_price',20,2);
             $table->integer('buy_count');
             $table->integer('total_count');
-            $table->time('coupons_begin_time');
-            $table->time('coupons_end_time');
+            $table->dateTime('coupons_begin_time');
+            $table->dateTime('coupons_end_time');
             $table->string('xpoint',20);
             $table->string('ypoint',20);
             $table->decimal('balance_price',20,2);

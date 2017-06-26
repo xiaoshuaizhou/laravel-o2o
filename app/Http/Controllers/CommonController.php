@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin\Category;
 use App\Models\Admin\Citys;
+use App\Models\Bis\Bis;
 use App\Models\Bis\Deal;
 use App\Models\Bis\Featured;
+use App\Models\Bis\Location;
 use Illuminate\Http\Request;
 
 /**
@@ -30,6 +32,8 @@ class CommonController extends Controller
      * @var Deal
      */
     public $deal;
+    public $location;
+    public $bis;
 
     /**
      * CommonController constructor.
@@ -42,12 +46,16 @@ class CommonController extends Controller
         Citys $citys,
         Category $category,
         Featured $featured,
-        Deal $deal
+        Deal $deal,
+        Location $location,
+        Bis $bis
     )
     {
         $this->city = $citys;
         $this->category = $category;
         $this->featured = $featured;
         $this->deal = $deal;
+        $this->location = $location;
+        $this->bis = $bis;
     }
 }

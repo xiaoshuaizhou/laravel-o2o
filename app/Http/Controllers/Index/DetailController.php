@@ -5,11 +5,21 @@ namespace App\Http\Controllers\Index;
 use App\Http\Controllers\CommonController;
 use App\Models\Admin\Category;
 use App\Models\Admin\Citys;
+use App\Models\Bis\Deal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class DetailController extends CommonController
 {
+
+    /**
+     * 商品详情页
+     * @param Request $request
+     * @param $id
+     * @param $city_id
+     * @param $cat_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request, $id, $city_id, $cat_id)
     {
         $indexfeatured = $this->featured->getNorMalFeaturedByType(0);
@@ -18,9 +28,35 @@ class DetailController extends CommonController
         $category = Category::find($cat_id);
         $citys = $this->city->getNormalCity();
         $cats = $this->getCats();
+        $deal = $this->deal->find($id);
+        $bisId = $deal->bis_id;
+        $shanghuinfo = $this->bis->find($bisId);
+
+        $locations = $this->location->getNormalLocationByIds($deal->location_ids);
         $controller =  'detail';
         $title = '详情页';
-        return  view('index.detail', compact('citys', 'city', 'category', 'cats', 'indexfeatured', 'right', 'controller', 'title'));
+        $overplus = $deal->total_count - $deal->buy_count;
+        //记录商品抢购时间
+        $flag = 0;
+        if ($deal->start_time > date('Y-m-d H:i:s')){
+            $flag = 1;
+            $dtime = strtotime($deal->start_time)-strtotime(date('Y-m-d H:i:s'));
+            $timedate = '';
+            $d = floor($dtime/(24*3600));
+            if ($d){
+                $timedate .= $d . "天";
+            }
+            $h = floor($dtime%(24*3600)/3600);
+            if ($h){
+                $timedate .= $d . "小时";
+            }
+            $m = floor($dtime%(24*3600)%3600/60);
+            if ($m){
+                $timedate .= $m . "分钟";
+            }
+        }
+        $mapStr = $locations[0]->xpoint . ',' . $locations[0]['ypoint'];
+        return  view('index.detail', compact('shanghuinfo', 'mapStr', 'timedate', 'overplus', 'locations', 'citys', 'city', 'category', 'cats', 'indexfeatured', 'right', 'controller', 'title', 'deal', 'flag'));
     }
     private function getCats()
     {

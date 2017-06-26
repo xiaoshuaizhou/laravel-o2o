@@ -56,4 +56,21 @@ class Location extends Model
         $location->status = 2;
         $location->save();;
     }
+
+    /**
+     * 根据ids查询分店信息
+     * @param $ids
+     * @return string
+     */
+    public function getNormalLocationByIds($ids) {
+        if (empty($ids)){
+            return '';
+        }
+
+        $deal = $this->whereIn('id', [$ids])
+            ->where('status', 1)
+            ->get();
+        return $deal;
+    }
+
 }
