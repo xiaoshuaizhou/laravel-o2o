@@ -14,7 +14,7 @@ class ListsController extends CommonController
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index($id, $order) {
+    public function index($id) {
         $title = '团购网';
         $city = session('city');
         $citys = session('citys');
