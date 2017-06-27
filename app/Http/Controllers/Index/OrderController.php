@@ -76,6 +76,7 @@ class OrderController extends CommonController
             'user_id' => \Auth::user()->id,
             'username' => \Auth::user()->username,
             'deal_id' => $id,
+            'deal_count' => intval($count),
             'total_price' => $price,
             'referer' => $_SERVER['HTTP_REFERER'],
         ];
