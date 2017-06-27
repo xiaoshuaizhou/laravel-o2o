@@ -51,13 +51,12 @@
                 <div class="w-sort-bar">
                     <div class="bar-area" style="position: relative; left: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; top: 0px;">
                         <span class="sort-area">
-                            <a class="sort-default sort-default-active">默认</a>
-                            <a href="{{url('index/list', ['id' => $id, 'order' => 1])}}" class="sort-item sort-down" title="点击按销量降序排序">销量↓</a>
-                            <a  href="{{url('index/list', ['id' => $id, 'order' => 2])}}" class="sort-item price-default price" title="点击按价格降序排序">价格↓</a>
+                            <a class="sort-default @if($orderflag == '') sort-default-active @endif ">默认</a>
+                            <a href="{{url('index/list', ['id' => $id, 'order' => 1])}}" class="sort-item sort-down @if($orderflag == 'order_sales') sort-default-active @endif" title="点击按销量降序排序">销量↓</a>
+                            <a  href="{{url('index/list', ['id' => $id, 'order' => 2])}}" class="sort-item price-default price @if($orderflag == 'order_price') sort-default-active @endif" title="点击按价格降序排序">价格↓</a>
                             
-                            <a  href="{{url('index/list', ['id' => $id, 'order' => 3])}}" class="sort-item sort-up" title="发布时间由近到远">最新发布↑</a>
+                            <a  href="{{url('index/list', ['id' => $id, 'order' => 3])}}" class="sort-item sort-up @if($orderflag == 'order_time') sort-default-active @endif" title="发布时间由近到远">最新发布↑</a>
                         </span>
-                        
                     </div>
                 </div>
                 <ul class="itemlist eight-row-height">

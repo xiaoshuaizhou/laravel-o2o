@@ -14,7 +14,7 @@ class ListsController extends CommonController
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index($id) {
+    public function index(Request $request, $id) {
         $title = '团购网';
         $city = session('city');
         $citys = session('citys');
@@ -41,12 +41,22 @@ class ListsController extends CommonController
         if ($categoryParentId){
             $secondCategorys = $this->category->findFirstCategories($categoryParentId);
         }
+        $orderflag = '';
+        if ($request->order && $request->order == 1){
+            $orderflag = 'order_sales';
+        }
+        if ($request->order && $request->order == 2){
+            $orderflag = 'order_price';
+        }
+        if ($request->order && $request->order == 3){
+            $orderflag = 'order_time';
+        }
         //销量排序
 //        if ($order == 1){
 //
 //        }
 
 
-        return view('index.lists', compact('title', 'controller', 'city', 'citys', 'cats', 'categroys', 'secondCategorys', 'id', 'categoryParentId'));
+        return view('index.lists', compact('orderflag', 'title', 'controller', 'city', 'citys', 'cats', 'categroys', 'secondCategorys', 'id', 'categoryParentId'));
     }
 }
