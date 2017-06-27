@@ -32,14 +32,14 @@
                                             </div>
                                         </div>
                                         <div class="borderbox">
-                                            <img src="{{$data->image}}" />
+                                            <a  target="_blank" href="{{url('index/detail', ['id' => $data->id])}}"><img src="{{$data->image}}" /></a>
                                         </div>
                                     </div>
                                 </a>
                                 <div class="contentbox">
                                     <a href="{{url('index/detail', ['id'=>$data->id, 'city_id' => $data->city_id, 'cat_id' => $data->category_id])}}" target="_blank">
                                         <div class="header">
-                                            <h4 class="title ">【{{countLocation($data->location_ids)}}店通用】好伦哥</h4>
+                                            <h4 class="title ">【{{countLocation($data->location_ids)}}店通用】</h4>
                                         </div>
                                         <p>{{$data->name}}</p>
                                     </a>

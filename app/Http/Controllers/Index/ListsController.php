@@ -26,14 +26,17 @@ class ListsController extends CommonController
             $firstCatIds[] = $categroy['id'];
         }
         //一级分类
+        $data = [];
         if (in_array($id, $firstCatIds)){
             $categoryParentId = $id;
+            $data['category_id'] = $id;
         }elseif ($id && !in_array($id, $firstCatIds)){ //二级分类
             $category = $this->category->find($id);
             if (!$category || $category->status != 1){
                 abort(404, '分类不存在');
             }
             $categoryParentId = $category->parent_id;
+            $data['se_category_id'] = $id;
         }else{ //ID = 0
             $categoryParentId = 0;
         }
@@ -42,21 +45,17 @@ class ListsController extends CommonController
             $secondCategorys = $this->category->findFirstCategories($categoryParentId);
         }
         $orderflag = '';
-        if ($request->order && $request->order == 1){
+        if ($request->order && $request->order == 'order_sales'){
             $orderflag = 'order_sales';
         }
-        if ($request->order && $request->order == 2){
+        if ($request->order && $request->order == 'order_price'){
             $orderflag = 'order_price';
         }
-        if ($request->order && $request->order == 3){
+        if ($request->order && $request->order == 'order_time'){
             $orderflag = 'order_time';
         }
-        //销量排序
-//        if ($order == 1){
-//
-//        }
+        $deals = $this->deal->getDealByConditions($data, $orderflag);
 
-
-        return view('index.lists', compact('orderflag', 'title', 'controller', 'city', 'citys', 'cats', 'categroys', 'secondCategorys', 'id', 'categoryParentId'));
+        return view('index.lists', compact('deals', 'orderflag', 'title', 'controller', 'city', 'citys', 'cats', 'categroys', 'secondCategorys', 'id', 'categoryParentId'));
     }
 }

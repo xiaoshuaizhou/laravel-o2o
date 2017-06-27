@@ -7,6 +7,9 @@
     <title>{{$title}}</title>
     <link rel="shortcut icon" href="">
     <link rel="stylesheet" href="/css/index/base.css" />
+    <link rel="stylesheet" href="/css/admin/css/common.css">
+    <link rel="stylesheet" href="/css/admin/css/bootstrap.min.css">
+
     <link rel="stylesheet" href="/css/index/common.css" />
     <link rel="stylesheet" href="/css/index/{{$controller}}.css" />
 

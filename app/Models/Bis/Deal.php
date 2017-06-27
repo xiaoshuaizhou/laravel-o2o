@@ -158,4 +158,28 @@ class Deal extends Model
         $deals = $deals->get();
         return $deals;
     }
+
+    /**
+     * 多条件查询，排序商品
+     * @param array $data
+     * @param $order
+     * @return mixed
+     */
+    public function getDealByConditions($data=[], $order) {
+        if (empty($data)){
+            abort(404, '数据出错，请重试');
+        }
+        $deals = $this->where($data);
+        if ($order == 'order_sales'){
+            $deals->orderBy('buy_count', 'desc');
+        }elseif ($order == 'order_price'){
+            $deals->orderBy('current_price', 'desc');
+        }elseif($order == 'order_time'){
+            $deals->orderBy('created_at', 'desc');
+        }
+        $deals = $deals->paginate();
+
+        return $deals;
+
+    }
 }
