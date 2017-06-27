@@ -8,6 +8,7 @@ use App\Models\Bis\Bis;
 use App\Models\Bis\Deal;
 use App\Models\Bis\Featured;
 use App\Models\Bis\Location;
+use App\Models\Index\Order;
 use Illuminate\Http\Request;
 
 /**
@@ -32,9 +33,18 @@ class CommonController extends Controller
      * @var Deal
      */
     public $deal;
+    /**
+     * @var Location
+     */
     public $location;
+    /**
+     * @var Bis
+     */
     public $bis;
-
+    /**
+     * @var
+     */
+    public $order;
     /**
      * CommonController constructor.
      * @param Citys $citys
@@ -48,7 +58,8 @@ class CommonController extends Controller
         Featured $featured,
         Deal $deal,
         Location $location,
-        Bis $bis
+        Bis $bis,
+        Order $order
     )
     {
         $this->city = $citys;
@@ -57,5 +68,6 @@ class CommonController extends Controller
         $this->deal = $deal;
         $this->location = $location;
         $this->bis = $bis;
+        $this->order = $order;
     }
 }

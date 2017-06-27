@@ -22,6 +22,8 @@ Route::get('index/detail/{id}/{city_id}/{cat_id}', 'Index\DetailController@index
 Route::get('index/map/{data}', 'Index\MapController@getMapImage');
 Route::get('index/list/{id}/{order?}', 'Index\ListsController@index');
 Route::get('index/order/{id}/{count}', 'Index\OrderController@confirm');
+Route::get('index/order/{id}/{count}/{price}', 'Index\OrderController@index');
+Route::get('index/pay/{id}', 'Index\PayController@index');
 //主管理员后台
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', function () {

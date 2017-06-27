@@ -236,13 +236,13 @@
             num++;
             inputChange(num);
         });
-$(".o2o-click").click(function () {
-    var count = $(".buycount-ctrl input").val();
-    var id = "{{$deal->id}}";
-    var url = "{{url('index/order')}}" + "/" + id + "/" + count;
-    window.open(url);
+        $(".o2o-click").click(function () {
+            var count = $(".buycount-ctrl input").val();
+            var id = "{{$deal->id}}";
+            var url = "{{url('index/order')}}" + "/" + id + "/" + count;
+            window.open(url);
 
-});
+        });
         $(".sn-list li").click(function(){
             var index = $(".sn-list li").index(this)
             $(".sn-list li").removeClass("spec-nav-current");

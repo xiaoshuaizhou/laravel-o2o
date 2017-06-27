@@ -206,3 +206,13 @@ function getCurrentAction()
 
     return ['controller' => $class, 'method' => $method];
 }
+
+/**
+ * 设置订单号
+ */
+function setOrderNum()
+{
+    list($t1, $t2) = explode(' ', microtime());
+    $t3 = explode(',', $t1*100000);
+    return $t3[0] . $t2 . rand(10000, 99999);
+}
