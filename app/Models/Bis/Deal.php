@@ -169,6 +169,20 @@ class Deal extends Model
         if (empty($data)){
             abort(404, '数据出错，请重试');
         }
+
+        //商品和分类多对多的关系
+//        $datas[] = 'end_time > '. date('Y-m-d H:i:s'); //使用定时器定时任务扫描表中的时间
+//        if ($data['se_category_id']){
+//            $datas[] = " find_in_set(".$data['se_category_id'].", se_category_id)" ;
+//        }
+//        if (!empty($data['category_id'])){
+//            $datas[] = " category_id = ".$data['category_id'] ;
+//        }
+//        $datas[] = 'status=1';
+//        if ($data['city_id']){
+//            $datas[] = " city_id = ".$data['city_id'] ;
+//        }
+
         $deals = $this->where($data);
         if ($order == 'order_sales'){
             $deals->orderBy('buy_count', 'desc');

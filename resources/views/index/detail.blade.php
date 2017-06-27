@@ -105,7 +105,7 @@
                                 @if($flag != 1)
                                 <div class="item-buy-area">
                                     <div style="float:left" class="static-hook-real static-hook-id-12">
-                                        <a href="" class="btn-buy btn-buy-qrnew j-btn-buy btn-hit">立即抢购</a>
+                                        <a href="" class="o2o-click  btn-buy btn-buy-qrnew j-btn-buy btn-hit">立即抢购</a>
                                     </div>
                                 </div>
                                     @else
@@ -236,9 +236,13 @@
             num++;
             inputChange(num);
         });
+$(".o2o-click").click(function () {
+    var count = $(".buycount-ctrl input").val();
+    var id = "{{$deal->id}}";
+    var url = "{{url('index/order')}}" + "/" + id + "/" + count;
+    window.open(url);
 
-        
-
+});
         $(".sn-list li").click(function(){
             var index = $(".sn-list li").index(this)
             $(".sn-list li").removeClass("spec-nav-current");

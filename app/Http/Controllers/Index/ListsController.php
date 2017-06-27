@@ -54,6 +54,7 @@ class ListsController extends CommonController
         if ($request->order && $request->order == 'order_time'){
             $orderflag = 'order_time';
         }
+        $data['city_id'] = $city->id;
         $deals = $this->deal->getDealByConditions($data, $orderflag);
 
         return view('index.lists', compact('deals', 'orderflag', 'title', 'controller', 'city', 'citys', 'cats', 'categroys', 'secondCategorys', 'id', 'categoryParentId'));
