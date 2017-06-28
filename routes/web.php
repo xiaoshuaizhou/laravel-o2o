@@ -24,6 +24,7 @@ Route::get('index/list/{id}/{order?}', 'Index\ListsController@index');
 Route::get('index/order/{id}/{count}', 'Index\OrderController@confirm');
 Route::get('index/order/{id}/{count}/{price}', 'Index\OrderController@index');
 Route::get('index/pay/{id}', 'Index\PayController@index');
+Route::any('weixinpay/notify', 'Index\WechatController@notify');
 //主管理员后台
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', function () {
