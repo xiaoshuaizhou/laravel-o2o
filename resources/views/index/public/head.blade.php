@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>{{$title}}</title>
     <link rel="shortcut icon" href="">
-    <link rel="stylesheet" href="/css/index/base.css" />
+    <link rel="stylesheet" href="{{asset('/css/index/base.css')}}" />
     <link rel="stylesheet" href="/css/admin/css/common.css">
     <link rel="stylesheet" href="/css/admin/css/bootstrap.min.css">
 
