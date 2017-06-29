@@ -67,7 +67,7 @@
     </div>
     <div class="footer-content">
         <div class="copyright-info">
-            
+
         </div>
     </div>
 
@@ -79,19 +79,19 @@
         var time = setInterval(moveleft,5000);
 
         //轮播图左移
-        function moveleft(){
-            $("#slide-holder ul").animate({marginLeft: "-737px"},600, function () {
-                $("#slide-holder ul li").eq(0).appendTo($("#slide-holder ul"));
-                $("#slide-holder ul").css("marginLeft","0px");
-            });
-        }
-
-        //轮播图右移
-        function moveright(){
-            $("#slide-holder ul").css({marginLeft: "-737px"});
-            $("#slide-holder ul li").eq(($("#slide-holder ul li").length)-1).prependTo($("#slide-holder ul"));
-            $("#slide-holder ul").animate({marginLeft: "0px"},600);
-        }
+//        function moveleft(){
+//            $("#slide-holder ul").animate({marginLeft: "-737px"},600, function () {
+//                $("#slide-holder ul li").eq(0).appendTo($("#slide-holder ul"));
+//                $("#slide-holder ul").css("marginLeft","0px");
+//            });
+//        }
+//
+//        //轮播图右移
+//        function moveright(){
+//            $("#slide-holder ul").css({marginLeft: "-737px"});
+//            $("#slide-holder ul li").eq(($("#slide-holder ul li").length)-1).prependTo($("#slide-holder ul"));
+//            $("#slide-holder ul").animate({marginLeft: "0px"},600);
+//        }
 
         //右滑箭头点击事件
         $(".slide-next").click(function () {

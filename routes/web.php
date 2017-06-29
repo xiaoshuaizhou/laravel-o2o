@@ -25,6 +25,13 @@ Route::get('index/order/{id}/{count}', 'Index\OrderController@confirm');
 Route::get('index/order/{id}/{count}/{price}', 'Index\OrderController@index');
 Route::get('index/pay/{id}', 'Index\PayController@index');
 Route::any('weixinpay/notify', 'Index\WechatController@notify');
+Route::any('weixinpay/payqrcode/{id}', 'Index\WechatController@payQrcode');
+Route::get('weixinpay/index',function (){
+    return view('index');
+});
+Route::get('/wechat/example/native', function (){
+    return view('native');
+});
 //主管理员后台
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', function () {
