@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>{{$title}}</title>
     <link rel="shortcut icon" href="">
-    <link rel="stylesheet" href="/css/index/base.css" />
-    <link rel="stylesheet" href="/css/admin/css/common.css">
-    <link rel="stylesheet" href="/css/admin/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{URL::asset('css/index/base.css')}}" />
+    <link rel="stylesheet" href="{{URL::asset('css/admin/css/common.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('css/admin/css/bootstrap.min.css')}}">
 
-    <link rel="stylesheet" href="/css/index/common.css" />
-    <link rel="stylesheet" href="/css/index/{{$controller}}.css" />
+    <link rel="stylesheet" href="{{URL::asset('css/index/common.css')}}" />
+    <link rel="stylesheet" href="{{URL::asset("css/index/"."$controller.css")}}" />
 
-    <script type="text/javascript" src="/js/index/html5shiv.js"></script>
-    <script type="text/javascript" src="/js/index/respond.min.js"></script>
-    <script type="text/javascript" src="/js/index/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="{{URL::asset('js/index/html5shiv.js')}}"></script>
+    <script type="text/javascript" src="{{URL::asset('js/index/respond.min.js')}}"></script>
+    <script type="text/javascript" src="{{URL::asset('js/index/jquery-1.11.3.min.js')}}"></script>
 </head>
 <body>
 <div class="header-bar">
