@@ -14,6 +14,7 @@
 .top-container .mid-area .slide-holder{
     height: 259px;
     width: 737px;
+    margin-left: -16px;
     overflow: hidden;
     position: relative;
 }

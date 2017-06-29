@@ -53,7 +53,7 @@
                 @if($controller == 'index')
                 <ul class="slideshow">
                     @foreach($indexfeatured as $v)
-                    <li><a href="" class="item-large">
+                    <li><a href="" style="margin-left: -10px;" class="item-large">
                             <img class="ad-pic" src="{{$v['image']}}" />
                         </a>
                     </li>

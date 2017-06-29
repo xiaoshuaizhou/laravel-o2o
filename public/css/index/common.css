@@ -34,7 +34,7 @@
     width: 10px;
     height: 7px;
     margin-left: 2px;
-    background: url("../image/arrow-down_3d94809.png") no-repeat;
+    background: url("../../../image/arrow-down_3d94809.png") no-repeat;
     transition: .3s;
 }
 .header-inner .father li:nth-child(3):hover{
@@ -335,7 +335,7 @@
     text-align: center;
 }
 .icons span{
-    background-image: url("../image/common_z_993ec79.png");
+    background-image: url("../../../image/common_z_993ec79.png");
     display: inline-block;
     height: 40px;
     margin-right: 8px;
