@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Models\Bis\Deal;
+use App\Models\Index\Order;
 use App\Wxpay\Database\WxPayResults;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,6 +15,18 @@ use \App\Wxpay\WxPayNotify;
 use \App\Wxpay\PayNotifyCallBack;
 class WechatController extends Controller
 {
+    public $order;
+    public $deal;
+
+    /**
+     * WechatController constructor.
+     * @param $order
+     */
+    public function __construct(Order $order, Deal $deal) {
+        $this->order = $order;
+        $this->deal = $deal;
+    }
+
     public function notify(Request $request) {
         //微信发送的数据是 流的数据形式
         $wechatDate = file_get_contents("php://input");
@@ -30,9 +44,28 @@ class WechatController extends Controller
         if ($wechatDate['return_code'] === 'FAIL' || $wechatDate['result_code'] !== 'SUCCESS'){
             //给微信返回失败 码  和失败信息
             $resultObj->setData('reture_code', 'FAIL');
-            $resultObj->setData('reture_msg', $e->getMessage());
+            $resultObj->setData('reture_msg', 'ERROR');
             $resultObj->toXml();
         }
+        //根据out_trade_to查询订单
+        $outTradeTo = $wechatDate['out_trade_no'];
+        $order = Order::where('out_trade_no', $outTradeTo)->first();
+        if (empty($order) || $order->pay_status == 1){
+            $resultObj->setData('reture_code', 'SUCCESS');
+            $resultObj->setData('reture_msg', 'OK');
+            $resultObj->toXml();
+        }
+        //跟新订单和商品表
+        try{
+            $orderRes = $this->order->updateOrderByOutTradeTo($outTradeTo, $wechatDate);
+            $this->deal->updateBuyCountById($order->deal_id, $order->deal_count);
+        }catch (\Exception $e){
+            //跟新失败  告诉微信服务器   需要回调
+            $resultObj->setData('reture_code', 'FAIL');
+            $resultObj->setData('reture_msg', 'ERROR');
+            $resultObj->toXml();
+        }
+
         $resultObj->setData('reture_code', 'SUCCESS');
         $resultObj->setData('reture_msg', 'OK');
         $resultObj->toXml();

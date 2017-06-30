@@ -196,4 +196,15 @@ class Deal extends Model
         return $deals;
 
     }
+
+    /**
+     * 购买商品
+     * @param $id
+     * @param $count
+     * @return mixed
+     */
+    public function updateBuyCountById($id, $count) {
+       return  $this->where('id', $id)->increment('buy_count', $count);
+
+    }
 }

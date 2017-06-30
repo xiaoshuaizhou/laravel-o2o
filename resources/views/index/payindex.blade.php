@@ -69,7 +69,7 @@
                         <td class="fl_left ">
                             <ul class="order-list">
                                 <li>
-                                    <span class="order-list-no">订单1:</span>
+                                    <span class="order-list-no">订单:</span>
                                     <span class="order-list-name">{{$deal->name}}</span><span class="order-list-number">{{$order->deal_count}}份</span>
                                 </li>
                             </ul>
@@ -86,7 +86,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" herf="{{url(back())}}" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-default"  data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -100,44 +100,36 @@
             keyboard: true
         })
     });
-    $('#myModalLabel').modal(options);
     //校验正整数
     function isNaN(number){
         var reg = /^[1-9]\d*$/;
         return reg.test(number);
     }
+    function get_pay_status() {
+        var url = "{{url('index/orders/paystatus')}}";
 
-    function inputChange(num){
-        if(!isNaN(num)){
-            $(".buycount-ctrl input").val("1");
-        }
-        else{
-            $(".buycount-ctrl input").val(num);
-            $(".j-sumPrice").text($("td .font14").text() * num - $(".j-cellActivity span").text());
-            $(".sum .price").text($("td .font14").text() * num - $(".j-cellActivity span").text());
-            if(num == 1){
-                $(".buycount-ctrl a").eq(0).addClass("disabled");
+        var pay_success_url = "{{url('index/pays/paysuccess')}}";
+        var id = "{{$order->id}}";
+        var postData = {
+            'id' : id,
+            '_token' :'{{ csrf_token() }}'
+        };
+        $.ajax({
+            url : url,
+            type : 'POST',
+            data : postData,
+            success : function (data) {
+                console.log(data);
+                if (data.status == 1){
+                    self.location.href=pay_success_url;
+                }
+            },
+            error : function (data) {
+                alert("操作失败，请重试");
             }
-            else{
-                $(".buycount-ctrl a").eq(0).removeClass("disabled");
-            }
-        }
+        });
     }
-
-    $(".buycount-ctrl input").keyup(function(){
-        var num = $(".buycount-ctrl input").val();
-        inputChange(num);
-    });
-    $(".minus").click(function(){
-        var num = $(".buycount-ctrl input").val();
-        num--;
-        inputChange(num);
-    });
-    $(".plus").click(function(){
-        var num = $(".buycount-ctrl input").val();
-        num++;
-        inputChange(num);
-    });
+    window.setInterval("get_pay_status()", 2000);
 </script>
 </body>
 </html>

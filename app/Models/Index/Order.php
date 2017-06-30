@@ -18,4 +18,26 @@ class Order extends Model
         $order = $this->create($data);
         return $order->id;
     }
+
+    /**
+     * 根据微信订单号跟新数据
+     * @param $outtradeTo
+     * @param $wecahtData
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateOrderByOutTradeTo($outtradeTo, $wecahtData) {
+        $order = $this->where('out_trade_no', $outtradeTo)->first();
+        if (!empty($wecahtData['transaction_id'])){
+            $order->transaction_id = $wecahtData['transaction_id'];
+        }
+        if (!empty($wecahtData['total_fee'])){
+            $order->pay_amount = $wecahtData['total_fee'] / 100;
+            $order->pay_status = 1;
+        }
+        if (!empty($wecahtData['time_end'])){
+            $order->pay_time = $wecahtData['time_end'];
+        }
+        $order->save();
+        return back();
+    }
 }

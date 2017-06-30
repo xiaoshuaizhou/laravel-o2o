@@ -32,6 +32,11 @@ Route::get('weixinpay/index',function (){
 Route::get('/wechat/example/native', function (){
     return view('native');
 });
+
+Route::post('index/orders/paystatus', 'Index\OrderController@paystatus');
+
+Route::get('index/pays/paysuccess', 'Index\PayController@paysuccess');
+
 //主管理员后台
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', function () {

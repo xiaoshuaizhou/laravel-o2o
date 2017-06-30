@@ -66,4 +66,17 @@ class PayController extends Controller
 
         return view('index.payindex', compact('title', 'controller', 'city', 'citys', 'cats', 'order', 'deal', 'url'));
     }
+
+    /**
+     * 支付状态
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function paysuccess() {
+        $title = '支付页';
+        $controller = '';
+        $city = session('city');
+        $citys = session('citys');
+        $cats = session('cats');
+        return view('index.paysuccess',compact('title', 'controller', 'citys', 'city', $cats));
+    }
 }
