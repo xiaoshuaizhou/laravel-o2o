@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Wxpay\Database\WxPayResults;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \App\Wxpay\Database\WxPayUnifiedOrder;
@@ -16,6 +17,25 @@ class WechatController extends Controller
         //微信发送的数据是 流的数据形式
         $wechatDate = file_get_contents("php://input");
         file_put_contents('/tmp/wechat.txt', $wechatDate , FILE_APPEND);
+
+        try {
+            $resultObj = new WxPayResults();
+            $wechatDate = $resultObj->Init($wechatDate);
+        }catch (\Exception $e){
+            //给微信返回失败 码  和失败信息
+            $resultObj->setData('reture_code', 'FAIL');
+            $resultObj->setData('reture_msg', $e->getMessage());
+            $resultObj->toXml();
+        }
+        if ($wechatDate['return_code'] === 'FAIL' || $wechatDate['result_code'] !== 'SUCCESS'){
+            //给微信返回失败 码  和失败信息
+            $resultObj->setData('reture_code', 'FAIL');
+            $resultObj->setData('reture_msg', $e->getMessage());
+            $resultObj->toXml();
+        }
+        $resultObj->setData('reture_code', 'SUCCESS');
+        $resultObj->setData('reture_msg', 'OK');
+        $resultObj->toXml();
     }
 
     public function payQrcode($id) {

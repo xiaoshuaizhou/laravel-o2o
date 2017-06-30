@@ -81,11 +81,11 @@ class OrderController extends CommonController
             'referer' => $_SERVER['HTTP_REFERER'],
         ];
             try{
-                $this->order->create($data);
+                $id = $this->order->creates($data);
             }catch (\Exception $exception){
                 abort(404, '订单提交失败');
             }
-            return redirect(url('index/pay', ['id'=> $deal->id]));
+            return redirect(url('index/pay', ['id'=> $id]));
     }
 
 }
