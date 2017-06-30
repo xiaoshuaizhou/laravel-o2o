@@ -213,6 +213,6 @@ function getCurrentAction()
 function setOrderNum()
 {
     list($t1, $t2) = explode(' ', microtime());
-    $t3 = explode(',', $t1*100000);
+    $t3 = explode(',', $t1*1000000);
     return $t3[0] . $t2 . rand(10000, 99999);
 }

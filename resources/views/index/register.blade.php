@@ -50,7 +50,7 @@
                 </p>
                 
                 <p class="pass-form-item">
-                    <input type="submit" value="注册" class="pass-button">
+                    <input type="submit" value="注111册" class="pass-button">
                 </p>
             </form>
            

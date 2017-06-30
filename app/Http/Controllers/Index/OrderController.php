@@ -80,12 +80,30 @@ class OrderController extends CommonController
             'total_price' => $price,
             'referer' => $_SERVER['HTTP_REFERER'],
         ];
-            try{
-                $this->order->create($data);
-            }catch (\Exception $exception){
-                abort(404, '订单提交失败');
-            }
-            return redirect(url('index/pay', ['id'=> $deal->id]));
+        try{
+            $id = $this->order->creates($data);
+        }catch (\Exception $exception){
+            abort(404, '订单提交失败');
+        }
+        return redirect(url('index/pay', ['id'=> $id]));
+    }
+
+    /**
+     * 判断支付状态
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function paystatus(Request $request) {
+        $id = request('id');
+        $id = $id ? $id : 0;
+        if (!$id){
+            return response()->json(['status'=>0]);
+        }
+        $order = $this->order->where('id', $id)->first();
+        if ($order->pay_status == 1 ){
+            return response()->json(['status' => 1]);
+        }
+        return response()->json(['status'=>0]);
     }
 
 }
