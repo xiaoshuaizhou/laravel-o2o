@@ -44,7 +44,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="containers">
     <div class="top-container">
         <div class="mid-area">
             <div class="slide-holder" id="slide-holder">
@@ -53,7 +53,7 @@
                 @if($controller == 'index')
                 <ul class="slideshow">
                     @foreach($indexfeatured as $v)
-                    <li><a href="" style="margin-left: -10px;" class="item-large">
+                    <li><a href="" class="item-large">
                             <img class="ad-pic" src="{{$v['image']}}" />
                         </a>
                     </li>
@@ -71,9 +71,8 @@
             @if($controller == 'index')
             <ul class="slidepic">
                 @foreach($right as $val)
-                <li><a><img src="{{$val['image']}}" /></a></li>
+                <li><a><img class="imagess" style="width: 400px;height: 267px;" src="{{$val['image']}}" /></a></li>
                 @endforeach
-
             </ul>
                 @endif
         </div>

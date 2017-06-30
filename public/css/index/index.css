@@ -1,4 +1,4 @@
-.container {
+.containers{
     width: 1200px;
     margin: 0 auto;
 }
@@ -14,7 +14,6 @@
 .top-container .mid-area .slide-holder{
     height: 259px;
     width: 737px;
-    margin-left: -16px;
     overflow: hidden;
     position: relative;
 }
@@ -76,7 +75,7 @@
     width: 737px;
 }
 .mid-area .slide-holder .slideshow li .ad-pic {
-    width: 737px;
+    width: 738px;
     position: absolute;
     top: 0;
     bottom: 0;
