@@ -34,7 +34,7 @@ class IndexController extends CommonController
         $indexfeatured = $indexfeatured->toArray()['data'];
         $right = $right->toArray()['data'];
         //同时满足分类和城市的条件
-        $datas = $this->deal->getDealByCategoryIdAndCityId(5, $this->citys->id);
+        $datas = $this->deal->getDealByCategoryIdAndCityId(4, $this->citys->id);
         if (empty($datas->toArray())){
             abort(404, '当前城市没有数据');
         }

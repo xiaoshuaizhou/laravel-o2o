@@ -6,6 +6,7 @@
     @else
     <h1>不存在该入驻申请情况</h1>
     @endif
+        <a href="{{back()}}">点击返回！！</a>
 </div>
 @include('bis.public.footer')
 </body>

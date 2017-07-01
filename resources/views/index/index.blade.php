@@ -76,7 +76,7 @@
         $("#slide-holder ul").css({width: width + "px"});
 
         //轮播图自动轮播
-//        var time = setInterval(moveleft,5000);
+        var time = setInterval(moveleft,5000);
 
         //轮播图左移
         function moveleft(){

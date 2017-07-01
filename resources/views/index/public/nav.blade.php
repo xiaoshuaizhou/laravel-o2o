@@ -71,7 +71,7 @@
             @if($controller == 'index')
             <ul class="slidepic">
                 @foreach($right as $val)
-                <li><a><img class="imagess" style="width: 400px;height: 267px;" src="{{$val['image']}}" /></a></li>
+                <li><a><img class="imagess" style="width: 235px;height: 267px;" src="{{$val['image']}}" /></a></li>
                 @endforeach
             </ul>
                 @endif

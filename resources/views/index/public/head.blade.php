@@ -6,15 +6,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>{{$title}}</title>
     <link rel="shortcut icon" href="">
-<<<<<<< HEAD
-    <link rel="stylesheet" href="{{asset('/css/index/base.css')}}" />
-    <link rel="stylesheet" href="/css/admin/css/common.css">
-    <link rel="stylesheet" href="/css/admin/css/bootstrap.min.css">
-=======
     <link rel="stylesheet" href="{{URL::asset('css/index/base.css')}}" />
     <link rel="stylesheet" href="{{URL::asset('css/admin/css/common.css')}}">
     <link rel="stylesheet" href="{{URL::asset('css/admin/css/bootstrap.min.css')}}">
->>>>>>> 78c04463b9be0f253582d23cf29526ab8869d58f
 
     <link rel="stylesheet" href="{{URL::asset('css/index/common.css')}}" />
     <link rel="stylesheet" href="{{URL::asset("css/index/"."$controller.css")}}" />
