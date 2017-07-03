@@ -26,7 +26,7 @@ class DetailController extends CommonController
         $right = $this->featured->getNorMalFeaturedByType(1);
         $city = Citys::find($city_id);
         $category = Category::find($cat_id);
-        $citys = $this->city->getNormalCity();
+        $citys = $this->cityRepository->getNormalCity();
         $cats = $this->getCats();
         $deal = $this->deal->find($id);
         $bisId = $deal->bis_id;
@@ -60,12 +60,12 @@ class DetailController extends CommonController
     }
     private function getCats()
     {
-        $categorys = $this->category->getIndexCategoryByParentId(0,5);
+        $categorys = $this->categoryRepository->getIndexCategoryByParentId(0,5);
         $ids = $sedArr = $recomCat = [];
         foreach ($categorys as $category) {
             $ids[] = $category->id;
         }
-        $sedCats = $this->category->getSecondCategoryByParentId($ids);
+        $sedCats = $this->categoryRepository->getSecondCategoryByParentId($ids);
         foreach ($sedCats as $sedcat) {
             $sedArr[$sedcat->parent_id][] = ['id' => $sedcat->id, 'name' => $sedcat->name];
         }

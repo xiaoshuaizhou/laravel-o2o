@@ -7,7 +7,6 @@
  */
 
 namespace App\Api;
-use App\Common\CommonFunction;
 
 
 /**

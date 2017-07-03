@@ -45,7 +45,7 @@
 <script>
     var SCOPE={
         'listorder_url' : '{{url('/admin/category/listorder')}}',
-    }
+    };
     /*页面 全屏-添加*/
     function o2o_edit(title,url){
         var index = layer.open({

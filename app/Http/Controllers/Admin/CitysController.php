@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Admin\Citys;
+use App\Repositories\Admin\CityRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Overtrue\Pinyin\Pinyin;
+
+/**
+ * Class CitysController
+ * @package App\Http\Controllers\Admin
+ */
 class CitysController extends Controller
 {
-    public $city;
+    /**
+     * @var CityRepository
+     */
+    public $cityRepository;
 
     /**
      * CitysController constructor.
      * @param $city
      */
-    public function __construct(Citys $city) {
-        $this->city = $city;
+    public function __construct(CityRepository $cityRepository) {
+        $this->cityRepository = $cityRepository;
     }
 
     /**
@@ -23,7 +30,7 @@ class CitysController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
-        $citys = $this->city->getCitysByParentId();
+        $citys = $this->cityRepository->getCitysByParentId();
         return view('admin.city.index',compact('citys'));
     }
 
@@ -32,7 +39,7 @@ class CitysController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function add() {
-        $citys = $this->city->getCitysByParentId();
+        $citys = $this->cityRepository->getCitysByParentId();
         return view('admin.city.add',compact('citys'));
     }
 
@@ -42,14 +49,7 @@ class CitysController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request) {
-        $pinyin = new Pinyin();
-        $data = [
-            'uname' => $pinyin->permalink(request('name')),
-            'listorder' => 0,
-            'status' => 1,
-            'is_default' => 0
-        ];
-        $this->city->create(array_merge($request->all(), $data));
+        $this->cityRepository->create($request->all());
         return back();
     }
 
@@ -59,8 +59,8 @@ class CitysController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id) {
-        $city = $this->city->getCityById($id);
-        $citys = $this->city->getCitysByParentId();
+        $city = $this->cityRepository->getCityById($id);
+        $citys = $this->cityRepository->getCitysByParentId();
         return view('admin.city.edit',compact(['city','citys']));
     }
 
@@ -70,7 +70,7 @@ class CitysController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request) {
-        $this->city->updateCityById($request->all());
+        $this->cityRepository->updateCityById($request->all());
         return back();
     }
     /**
@@ -79,7 +79,7 @@ class CitysController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getSonsCitys($id) {
-        $citys = $this->city->getCitysByParentId($id);
+        $citys = $this->cityRepository->getCitysByParentId($id);
         return view('admin.city.index',compact('citys'));
     }
 
@@ -90,12 +90,11 @@ class CitysController extends Controller
      */
     public function delete($id) {
         $data = ['status' => -1];
-        $city = $this->city->find($id);
+        $city = $this->cityRepository->find($id);
         $city->update($data);
 
         return back();
     }
-
     /**
      * 根据listorder排序   ajax异步
      * @param Request $request
@@ -105,7 +104,7 @@ class CitysController extends Controller
     {
         $id = $request->get('id');
         $listorder = $request->get('listorder');
-        $state = $this->city->listorder($id, $listorder);
+        $state = $this->cityRepository->listorder($id, $listorder);
         return  $state ?  response()->json(['msg' => 'success']) :  response()->json(['msg' => 'error']);
     }
 }

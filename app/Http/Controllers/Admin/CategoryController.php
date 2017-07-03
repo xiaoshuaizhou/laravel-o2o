@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Mailer\UserMailer;
-use App\Models\Admin\Category;
+use App\Repositories\Admin\CategoryRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -13,14 +13,17 @@ use App\Http\Controllers\Controller;
  */
 class CategoryController extends Controller
 {
-    public $category;
+    /**
+     * @var CategoryRepository
+     */
+    public $categoryRepository;
 
     /**
      * CategoryController constructor.
      * @param $category
      */
-    public function __construct( Category $category) {
-        $this->category = $category;
+    public function __construct( CategoryRepository $categoryRepository) {
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -28,7 +31,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
-        $categorys = $this->category->getSonsCategoryes();
+        $categorys = $this->categoryRepository->getSonsCategoryes();
         return view('admin.category.index', compact('categorys'));
     }
 
@@ -37,7 +40,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function add() {
-        $firstCategories = $this->category->getFistCategories();
+        $firstCategories = $this->categoryRepository->getFistCategories();
         return view('admin.category/add', compact('firstCategories'));
     }
 
@@ -47,11 +50,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request) {
-        $data = [
-            'listorder' => 0,
-            'status' => 1,
-        ];
-        $this->category->create(array_merge($request->all(), $data));
+        $this->categoryRepository->create($request->all());
         return back();
     }
     /**
@@ -60,7 +59,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getSonsCategorys($id) {
-        $categorys = $this->category->getSonsCategoryes($id);
+        $categorys = $this->categoryRepository->getSonsCategoryes($id);
         return view('admin.category.index', compact('categorys'));
     }
     /**
@@ -69,8 +68,8 @@ class CategoryController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id) {
-        $category = $this->category->getCategoryById($id);
-        $categorys = $this->category->getFistCategories();
+        $category = $this->categoryRepository->getCategoryById($id);
+        $categorys = $this->categoryRepository->getFistCategories();
         return view('admin.category.edit', compact(['category','categorys']));
     }
     /**
@@ -79,7 +78,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request) {
-        $category = $this->category->getCategoryById(request('id'));
+        $category = $this->categoryRepository->getCategoryById(request('id'));
         $category->update($request->all());
 
         return back();
@@ -90,7 +89,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function delete($id) {
-        $category = $this->category->getCategoryById($id);
+        $category = $this->categoryRepository->getCategoryById($id);
         $data = ['status' => -1];
         $category->update($data);
 
@@ -106,10 +105,14 @@ class CategoryController extends Controller
     {
         $id = $request->get('id');
         $listorder = $request->get('listorder');
-        $state = $this->category->listorder($id, $listorder);
+        $state = $this->categoryRepository->listorder($id, $listorder);
         return $state ? response()->json(['msg'=>'success']) : response()->json(['msg'=>'error']);
     }
 
+    /**
+     * 测试方法
+     * @return bool
+     */
     public function test() {
         return UserMailer::send('zhouxiaoshuai3@gmail.com', 'title', 'content');
     }

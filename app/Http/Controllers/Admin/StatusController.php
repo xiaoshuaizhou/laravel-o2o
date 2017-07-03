@@ -9,13 +9,15 @@ use App\Models\Admin\Citys;
 use App\Models\Bis\Bis;
 use App\Models\Bis\Deal;
 use App\Models\Bis\Featured;
+use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\Admin\CityRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class StatusController extends Controller
 {
-    public $Category;
-    public $City;
+    public $categoryRepository;
+    public $cityRepository;
     public $bis;
     public $deal;
     public $featured;
@@ -24,14 +26,14 @@ class StatusController extends Controller
      * @param $Category
      */
     public function __construct(
-            Category $Category,
-            Citys $citys,
+            CategoryRepository $categoryRepository,
+            CityRepository $cityRepository,
             Deal $deal,
             Bis $bis,
             Featured $featured
     ) {
-        $this->Category = $Category;
-        $this->City = $citys;
+        $this->categoryRepository = $categoryRepository;
+        $this->cityRepository = $cityRepository;
         $this->bis = $bis;
         $this->deal = $deal;
         $this->featured = $featured;
@@ -48,7 +50,7 @@ class StatusController extends Controller
                 $id => 'numeric',
                 $status => 'in:0,1,-1',
         ]);
-        $this->Category->changStatus($id, $status);
+        $this->categoryRepository->changStatus($id, $status);
         return back();
     }
     /**
@@ -78,7 +80,7 @@ class StatusController extends Controller
                 $id => 'numeric',
                 $status => 'in:0,1,-1',
         ]);
-        $this->City->changStatus($id, $status);
+        $this->cityRepository->changStatus($id, $status);
         return back();
     }
 

@@ -9,6 +9,9 @@ use App\Models\Bis\Deal;
 use App\Models\Bis\Featured;
 use App\Models\Bis\Location;
 use App\Models\Index\Order;
+use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\Admin\CityRepository;
+use App\Repositories\Index\OrderRepository;
 use Illuminate\Http\Request;
 
 /**
@@ -20,11 +23,11 @@ class CommonController extends Controller
     /**
      * @var Citys
      */
-    public $city;
+    public $cityRepository;
     /**
      * @var Category
      */
-    public $category;
+    public $categoryRepository;
     /**
      * @var Featured
      */
@@ -44,7 +47,7 @@ class CommonController extends Controller
     /**
      * @var
      */
-    public $order;
+    public $orderRepository;
     /**
      * CommonController constructor.
      * @param Citys $citys
@@ -53,21 +56,21 @@ class CommonController extends Controller
      * @param Deal $deal
      */
     public function __construct(
-        Citys $citys,
-        Category $category,
+        CityRepository $cityRepository,
+        CategoryRepository $categoryRepository,
         Featured $featured,
         Deal $deal,
         Location $location,
         Bis $bis,
-        Order $order
+        OrderRepository $orderRepository
     )
     {
-        $this->city = $citys;
-        $this->category = $category;
+        $this->cityRepository = $cityRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->featured = $featured;
         $this->deal = $deal;
         $this->location = $location;
         $this->bis = $bis;
-        $this->order = $order;
+        $this->orderRepository = $orderRepository;
     }
 }

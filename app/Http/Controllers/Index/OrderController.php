@@ -9,9 +9,11 @@ use App\Models\Bis\Bis;
 use App\Models\Bis\Deal;
 use App\Models\Bis\Featured;
 use App\Models\Bis\Location;
-use App\Models\Index\Order;
+use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\Admin\CityRepository;
+use App\Repositories\Index\OrderRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Auth;
 
 class OrderController extends CommonController
 {
@@ -24,8 +26,8 @@ class OrderController extends CommonController
      * @param Location $location
      * @param Bis $bis
      */
-    public function __construct(Citys $citys, Category $category, Featured $featured, Deal $deal, Location $location, Bis $bis, Order $order) {
-        parent::__construct($citys, $category, $featured, $deal, $location, $bis, $order);
+    public function __construct(CityRepository $cityRepository, CategoryRepository $categoryRepository, Featured $featured, Deal $deal, Location $location, Bis $bis, OrderRepository $orderRepository) {
+        parent::__construct($cityRepository, $categoryRepository, $featured, $deal, $location, $bis, $orderRepository);
         $this->middleware('auth');
     }
 
@@ -73,15 +75,15 @@ class OrderController extends CommonController
         $data = [
             'out_trade_no' => $orderNum,
             'status' => 1,
-            'user_id' => \Auth::user()->id,
-            'username' => \Auth::user()->username,
+            'user_id' => Auth::user()->id,
+            'username' => Auth::user()->username,
             'deal_id' => $id,
             'deal_count' => intval($count),
             'total_price' => $price,
             'referer' => $_SERVER['HTTP_REFERER'],
         ];
         try{
-            $id = $this->order->creates($data);
+            $id = $this->orderRepository->creates($data);
         }catch (\Exception $exception){
             abort(404, '订单提交失败');
         }
@@ -99,7 +101,7 @@ class OrderController extends CommonController
         if (!$id){
             return response()->json(['status'=>0]);
         }
-        $order = $this->order->where('id', $id)->first();
+        $order = $this->orderRepository->whereForm($id);
         if ($order->pay_status == 1 ){
             return response()->json(['status' => 1]);
         }

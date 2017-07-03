@@ -22,7 +22,7 @@ class IndexController extends CommonController
      */
     public function index(Request $request) {
         $cityName = $request->city;
-        $citys = $this->city->getNormalCity();
+        $citys = $this->cityRepository->getNormalCity();
         $this->getCity($citys, $cityName);
         $cats = $this->getCats();
         $city = $this->citys;
@@ -41,7 +41,7 @@ class IndexController extends CommonController
         //获取四个子分类
         $controller = 'index';
         $title = '首页';
-        $meishiCategory = $this->category->getIndexCategoryByCategoryId($datas[0]->category_id,4);
+        $meishiCategory = $this->categoryRepository->getIndexCategoryByCategoryId($datas[0]->category_id,4);
         return view('index.index', compact('citys', 'title', 'city', 'cats', 'indexfeatured', 'right', 'datas','meishiCategory', 'controller'));
     }
 
@@ -72,7 +72,7 @@ class IndexController extends CommonController
                 $cityuname = $cityName ? $cityName : trim($defaultName);
                 session('cityuname', $cityuname);
             }
-            $this->citys = $this->city->where('uname', $cityuname)->first();
+            $this->citys = $this->cityRepository->whereFrom($cityuname);
     }
 
     /**
@@ -82,12 +82,12 @@ class IndexController extends CommonController
      */
     private function getCats()
     {
-        $categorys = $this->category->getIndexCategoryByParentId(0,5);
+        $categorys = $this->categoryRepository->getIndexCategoryByParentId(0,5);
         $ids = $sedArr = $recomCat = [];
         foreach ($categorys as $category) {
             $ids[] = $category->id;
         }
-        $sedCats = $this->category->getSecondCategoryByParentId($ids);
+        $sedCats = $this->categoryRepository->getSecondCategoryByParentId($ids);
         foreach ($sedCats as $sedcat) {
             $sedArr[$sedcat->parent_id][] = ['id' => $sedcat->id, 'name' => $sedcat->name];
         }

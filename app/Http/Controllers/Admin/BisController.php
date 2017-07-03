@@ -2,20 +2,39 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Admin\Category;
-use App\Models\Admin\Citys;
 use App\Models\Bis\Account;
 use App\Models\Bis\Bis;
 use App\Models\Bis\Location;
+use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\Admin\CityRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class BisController
+ * @package App\Http\Controllers\Admin
+ */
 class BisController extends Controller
 {
+    /**
+     * @var Bis
+     */
     public $bis;
-    public $city;
-    public $category;
+    /**
+     * @var CityRepository
+     */
+    public $cityRepository;
+    /**
+     * @var CategoryRepository
+     */
+    public $categoryRepository;
+    /**
+     * @var Account
+     */
     public $account;
+    /**
+     * @var Location
+     */
     public $location;
     /**
      * BisController constructor.
@@ -23,16 +42,16 @@ class BisController extends Controller
      */
     public function __construct(
         Bis $bis,
-        Citys $citys,
-        Category $category,
+        CityRepository $cityRepository,
+        CategoryRepository $categoryRepository,
         Account $account,
         Location $location
     )
     {
         $this->bis = $bis;
-        $this->city = $citys;
+        $this->cityRepository = $cityRepository;
         $this->account = $account;
-        $this->category = $category;
+        $this->categoryRepository = $categoryRepository;
         $this->location = $location;
     }
 
@@ -75,8 +94,8 @@ class BisController extends Controller
         $bis = $this->bis->getBisById($id);
         $account = $this->account->getBisByBisId($id);
         $location = $this->location->getBisByBisId($id);
-        $citys = $this->city->findCitysByParentId();
-        $categorys = $this->category->findFirstCategories();
+        $citys = $this->cityRepository->findCitysByParentId();
+        $categorys = $this->categoryRepository->findFirstCategories();
         return view('admin.bis.detail', compact('bis','citys','categorys', 'account', 'location'));
     }
 }

@@ -44,6 +44,9 @@
 <!--包含头部文件-->
 @include('admin.public.footer')
 <script>
+    var SCOPE={
+        'listorder_url' : '{{url('admin/city/listorder')}}',
+    };
     /*页面 全屏-添加*/
     function o2o_edit(title,url){
         var index = layer.open({
@@ -68,7 +71,7 @@
     $('.listorder input').blur(function () {
         var id = $(this).attr('att-id');
         var listorder = $(this).val();
-        var url = '{{url('admin/city/listorder')}}';
+        var url = SCOPE.listorder_url;
         var postData = {
             'id' : id,
             'listorder' : listorder,
