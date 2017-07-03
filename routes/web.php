@@ -11,101 +11,93 @@
 |
 */
           
-Route::get('/', 'Index\IndexController@index');
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('index/welcome', 'Index\IndexController@welcome');
-Route::get('index/index/{city}', 'Index\IndexController@index');
-Route::get('index/detail/{id}/{city_id}/{cat_id}', 'Index\DetailController@index');
-Route::get('index/map/{data}', 'Index\MapController@getMapImage');
-Route::get('index/list/{id}/{order?}', 'Index\ListsController@index');
-Route::get('index/order/{id}/{count}', 'Index\OrderController@confirm');
-Route::get('index/order/{id}/{count}/{price}', 'Index\OrderController@index');
-Route::get('index/pay/{id}', 'Index\PayController@index');
-Route::any('weixinpay/notify', 'Index\WechatController@notify');
-Route::any('weixinpay/payqrcode/{id}', 'Index\WechatController@payQrcode');
 Route::get('weixinpay/index',function (){
     return view('index');
 });
-Route::get('/wechat/example/native', function (){
-    return view('native');
+//前台模块
+Route::namespace('Index')->group(function (){
+    Route::get('/', 'IndexController@index');
+    Route::get('index/welcome', 'IndexController@welcome');
+    Route::get('index/index/{city}', 'IndexController@index');
+    Route::get('index/detail/{id}/{city_id}/{cat_id}', 'DetailController@index');
+    Route::get('index/map/{data}', 'MapController@getMapImage');
+    Route::get('index/list/{id}/{order?}', 'ListsController@index');
+    Route::get('index/order/{id}/{count}', 'OrderController@confirm');
+    Route::get('index/order/{id}/{count}/{price}', 'OrderController@index');
+    Route::get('index/pay/{id}', 'PayController@index');
+    Route::any('weixinpay/notify', 'WechatController@notify');
+    Route::any('weixinpay/payqrcode/{id}', 'WechatController@payQrcode');
+    Route::post('index/orders/paystatus', 'OrderController@paystatus');
+    Route::get('index/pays/paysuccess', 'PayController@paysuccess');
 });
-
-Route::post('index/orders/paystatus', 'Index\OrderController@paystatus');
-
-Route::get('index/pays/paysuccess', 'Index\PayController@paysuccess');
-
 //主管理员后台
-Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+Route::namespace('Admin')->prefix('admin')->middleware('admin')->group(function (){
     Route::get('/', function () {
         return view('admin.admin.index');
     });
-
-    Route::get('test', 'Admin\CategoryController@test');
-    Route::get('/category', 'Admin\CategoryController@index');
-    Route::get('/category/add', 'Admin\CategoryController@add');
-    Route::get('/category/{id}', 'Admin\CategoryController@getSonsCategorys');
-    Route::post('/category/add', 'Admin\CategoryController@store');
-    Route::get('/status/index/{id}/{status}', 'Admin\StatusController@index');
-    Route::get('category/edit/{id}','Admin\CategoryController@edit');
-    Route::post('category/edit/','Admin\CategoryController@update');
-    Route::post('category/listorder', 'Admin\CategoryController@listorder');
-    Route::get('category/del/{id}', 'Admin\CategoryController@delete');
+    Route::get('test', 'CategoryController@test');
+    Route::get('/category', 'CategoryController@index');
+    Route::get('/category/add', 'CategoryController@add');
+    Route::get('/category/{id}', 'CategoryController@getSonsCategorys');
+    Route::post('/category/add', 'CategoryController@store');
+    Route::get('/status/index/{id}/{status}', 'StatusController@index');
+    Route::get('category/edit/{id}','CategoryController@edit');
+    Route::post('category/edit/','CategoryController@update');
+    Route::post('category/listorder', 'CategoryController@listorder');
+    Route::get('category/del/{id}', 'CategoryController@delete');
     //城市管理
-    Route::get('city','Admin\CitysController@index');
-    Route::get('city/add','Admin\CitysController@add');
-    Route::post('city/add','Admin\CitysController@store');
-    Route::get('city/{id}', 'Admin\CitysController@getSonsCitys');
-    Route::get('city/edit/{id}', 'Admin\CitysController@edit');
-    Route::post('city/edit/', 'Admin\CitysController@update');
-    Route::post('city/listorder', 'Admin\CitysController@listorder');
-
-    Route::get('city/del/{id}', 'Admin\CitysController@delete');
-    Route::get('status/citystatus/{id}/{status}', 'Admin\StatusController@city');
-    Route::get('/bis/apply', 'Admin\BisController@apply');
-    Route::get('status/bisstatus/{id}/{status}', 'Admin\StatusController@bis');
-    Route::get('/bis/index', 'Admin\BisController@index');
-    Route::get('/bis/del', 'Admin\BisController@destory');
-    Route::get('bis/detail/{id}', 'Admin\BisController@detail');
-    Route::get('bis/destory/{id}/{status}', 'Admin\StatusController@destory');
-    Route::get('/deal/index', 'Admin\DealsController@index');
-    Route::post('/deal/index', 'Admin\DealsController@index');
-    Route::get('/deal/review', 'Admin\DealsController@review');
-    Route::post('/deal/review', 'Admin\DealsController@review');
-    Route::get('/status/dealIndex/{id}/{status}', 'Admin\StatusController@dealIndex');
-    Route::get('deal/edit/{id}', 'Admin\DealsController@edit');
-    Route::post('deal/edit/', 'Admin\DealsController@update');
-    Route::get('deal/del/{id}', 'Admin\DealsController@destory');
-    Route::get('featured/add', 'Admin\FeaturedController@add');
-    Route::get('featured/index', 'Admin\FeaturedController@index');
-    Route::post('featured/create', 'Admin\FeaturedController@create');
-    Route::get('featured/status/{id}/{status}', 'Admin\StatusController@featuredstatus');
-    Route::get('featured/del/{del}', 'Admin\FeaturedController@destory');
+    Route::get('city','CitysController@index');
+    Route::get('city/add','CitysController@add');
+    Route::post('city/add','CitysController@store');
+    Route::get('city/{id}', 'CitysController@getSonsCitys');
+    Route::get('city/edit/{id}', 'CitysController@edit');
+    Route::post('city/edit/', 'CitysController@update');
+    Route::post('city/listorder', 'CitysController@listorder');
+    Route::get('city/del/{id}', 'CitysController@delete');
+    Route::get('status/citystatus/{id}/{status}', 'StatusController@city');
+    Route::get('/bis/apply', 'BisController@apply');
+    Route::get('status/bisstatus/{id}/{status}', 'StatusController@bis');
+    Route::get('/bis/index', 'BisController@index');
+    Route::get('/bis/del', 'BisController@destory');
+    Route::get('bis/detail/{id}', 'BisController@detail');
+    Route::get('bis/destory/{id}/{status}', 'StatusController@destory');
+    Route::get('/deal/index', 'DealsController@index');
+    Route::post('/deal/index', 'DealsController@index');
+    Route::get('/deal/review', 'DealsController@review');
+    Route::post('/deal/review', 'DealsController@review');
+    Route::get('/status/dealIndex/{id}/{status}', 'StatusController@dealIndex');
+    Route::get('deal/edit/{id}', 'DealsController@edit');
+    Route::post('deal/edit/', 'DealsController@update');
+    Route::get('deal/del/{id}', 'DealsController@destory');
+    Route::get('featured/add', 'FeaturedController@add');
+    Route::get('featured/index', 'FeaturedController@index');
+    Route::post('featured/create', 'FeaturedController@create');
+    Route::get('featured/status/{id}/{status}', 'StatusController@featuredstatus');
+    Route::get('featured/del/{del}', 'FeaturedController@destory');
 });
 
 //商户后台
-
-Route::group(['prefix' => 'bis'], function (){
-    Route::get('/', 'Bis\IndexController@index');
-    Route::get('login', 'Bis\LoginController@index');
-    Route::post('login', 'Bis\LoginController@login');
-    Route::get('register', 'Bis\RegisterController@index');
-    Route::post('register/add', 'Bis\RegisterController@store');
-    Route::post('/api/upload', 'Bis\ApiController@upload');
-
-    Route::post('/api/getCityByParentId', 'Bis\ApiController@getCityByParentId');
-    Route::post('/api/getCategoryByParentId', 'Bis\ApiController@getCategoryByParentId');
-    Route::post('/api/upload', 'Bis\ApiController@upload');
-    Route::get('register/waiting/{id}', 'Bis\RegisterController@waiting');
-    Route::any('logout', 'Bis\LoginController@logout');
-    Route::get('/location/create', 'Bis\LocaltionController@create');
-    Route::post('/location/create', 'Bis\LocaltionController@store');
-    Route::get('/location/', 'Bis\LocaltionController@index');
-    Route::get('/location/edit/{id}', 'Bis\LocaltionController@edit');
-    Route::get('/locations/del/{id}', 'Bis\LocaltionController@destory');
-    Route::get('/deal/', 'Bis\DealController@index');
-    Route::get('/deal/create', 'Bis\DealController@create');
-    Route::post('/deal/create', 'Bis\DealController@add');
+Route::namespace('Bis')->prefix('bis')->group(function (){
+    Route::get('/', 'IndexController@index');
+    Route::get('login', 'LoginController@index');
+    Route::post('login', 'LoginController@login');
+    Route::get('register', 'RegisterController@index');
+    Route::post('register/add', 'RegisterController@store');
+    Route::post('/api/upload', 'ApiController@upload');
+    Route::post('/api/getCityByParentId', 'ApiController@getCityByParentId');
+    Route::post('/api/getCategoryByParentId', 'ApiController@getCategoryByParentId');
+    Route::post('/api/upload', 'ApiController@upload');
+    Route::get('register/waiting/{id}', 'RegisterController@waiting');
+    Route::any('logout', 'LoginController@logout');
+    Route::get('/location/create', 'LocaltionController@create');
+    Route::post('/location/create', 'LocaltionController@store');
+    Route::get('/location/', 'LocaltionController@index');
+    Route::get('/location/edit/{id}', 'LocaltionController@edit');
+    Route::get('/locations/del/{id}', 'LocaltionController@destory');
+    Route::get('/deal/', 'DealController@index');
+    Route::get('/deal/create', 'DealController@create');
+    Route::post('/deal/create', 'DealController@add');
 });
