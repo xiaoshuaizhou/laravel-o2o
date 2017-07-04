@@ -8,31 +8,52 @@ use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\BisRepository;
+use App\Repositories\Bis\DealRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Toplan\FilterManager\Facades\FilterManager;
 
+/**
+ * Class DealsController
+ * @package App\Http\Controllers\Admin
+ */
 class DealsController extends Controller
 {
+    /**
+     * @var CityRepository
+     */
     public $cityRepository;
+    /**
+     * @var CategoryRepository
+     */
     public $categoryRepository;
+    /**
+     * @var BisRepository
+     */
     public $bisRepository;
-    public $deal;
+    /**
+     * @var DealRepository
+     */
+    public $dealRepository;
+
     /**
      * DealsController constructor.
-     * @param $city
+     * @param BisRepository $bisRepository
+     * @param CityRepository $cityRepository
+     * @param CategoryRepository $categoryRepository
+     * @param DealRepository $dealRepository
      */
     public function __construct(
             BisRepository $bisRepository,
             CityRepository $cityRepository,
             CategoryRepository $categoryRepository,
-            Deal $deal
+            DealRepository $dealRepository
     )
     {
         $this->cityRepository = $cityRepository;
         $this->categoryRepository = $categoryRepository;
         $this->bisRepository = $bisRepository;
-        $this->deal = $deal;
+        $this->dealRepository = $dealRepository;
     }
 
     /**
@@ -63,9 +84,9 @@ class DealsController extends Controller
                 $time_data['start_time'] = $request->start_time;
                 $time_data['end_time'] = $request->end_time;
             }
-            $deals = $this->deal->getNormalDealsByWhere($sdata, $sdataname, $time_data);
+            $deals = $this->dealRepository->getNormalDealsByWhere($sdata, $sdataname, $time_data);
         }else {
-            $deals = $this->deal->getNormalDeals();
+            $deals = $this->dealRepository->getNormalDeals();
         }
         $citys = $this->cityRepository->getNormalCity();
         $categorys = $this->categoryRepository->findFirstCategories();
@@ -99,9 +120,9 @@ class DealsController extends Controller
                 $time_data['start_time'] = $request->start_time;
                 $time_data['end_time'] = $request->end_time;
             }
-            $deals = $this->deal->getNormalDealsByWhere($sdata, $sdataname, $time_data,0);
+            $deals = $this->dealRepository->getNormalDealsByWhere($sdata, $sdataname, $time_data,0);
         }else {
-            $deals = $this->deal->getNormalDealsReview();
+            $deals = $this->dealRepository->getNormalDealsReview();
         }
         $citys = $this->cityRepository->getNormalCity();
         $categorys = $this->categoryRepository->findFirstCategories();
@@ -116,7 +137,7 @@ class DealsController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id) {
-        $deal = $this->deal->getNormalDealById($id);
+        $deal = $this->dealRepository->getNormalDealById($id);
         $citys = $this->cityRepository->getNormalCity();
         $categorys = $this->categoryRepository->findFirstCategories();
         $location = Location::where('bis_id', $deal->bis_id)->first();
@@ -129,7 +150,7 @@ class DealsController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request) {
-        $this->deal->updateById($request->all());
+        $this->dealRepository->updateById($request->all());
         return back();
     }
 
@@ -140,7 +161,7 @@ class DealsController extends Controller
      */
     public function destory($id)
     {
-        $this->deal->deleteDealById($id);
+        $this->dealRepository->deleteDealById($id);
         return back();
     }
 }

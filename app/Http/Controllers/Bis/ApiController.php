@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Bis;
 
-use App\Models\Admin\Category;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use Illuminate\Http\Request;
@@ -10,11 +9,8 @@ use App\Http\Controllers\Controller;
 use Response;
 class ApiController extends Controller
 {
-
-
     public $cityRepository;
     public $categoryRepository;
-
     /**
      * ApiController constructor.
      * @param CityRepository $cityRepository

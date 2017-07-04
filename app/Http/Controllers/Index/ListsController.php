@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Index;
 
 use App\Http\Controllers\CommonController;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class ListsController extends CommonController
 {
@@ -55,7 +54,7 @@ class ListsController extends CommonController
             $orderflag = 'order_time';
         }
         $data['city_id'] = $city->id;
-        $deals = $this->deal->getDealByConditions($data, $orderflag);
+        $deals = $this->dealRepository->getDealByConditions($data, $orderflag);
 
         return view('index.lists', compact('deals', 'orderflag', 'title', 'controller', 'city', 'citys', 'cats', 'categroys', 'secondCategorys', 'id', 'categoryParentId'));
     }

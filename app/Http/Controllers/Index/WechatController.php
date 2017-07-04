@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Index;
 
 use App\Models\Bis\Deal;
+use App\Repositories\Bis\DealRepository;
 use App\Repositories\Index\OrderRepository;
 use App\Wxpay\Database\WxPayResults;
 use Illuminate\Http\Request;
@@ -16,15 +17,15 @@ use \App\Wxpay\PayNotifyCallBack;
 class WechatController extends Controller
 {
     public $orderRepository;
-    public $deal;
+    public $dealRepository;
 
     /**
      * WechatController constructor.
      * @param $order
      */
-    public function __construct(OrderRepository $orderRepository, Deal $deal) {
+    public function __construct(OrderRepository $orderRepository, DealRepository $dealRepository) {
         $this->orderRepository = $orderRepository;
-        $this->deal = $deal;
+        $this->dealRepository = $dealRepository;
     }
 
     public function notify(Request $request) {
@@ -58,7 +59,7 @@ class WechatController extends Controller
         //跟新订单和商品表
         try{
             $orderRes = $this->orderRepository->updateOrderByOutTradeTo($outTradeTo, $wechatDate);
-            $this->deal->updateBuyCountById($order->deal_id, $order->deal_count);
+            $this->dealRepository->updateBuyCountById($order->deal_id, $order->deal_count);
         }catch (\Exception $e){
             //跟新失败  告诉微信服务器   需要回调
             $resultObj->setData('reture_code', 'FAIL');

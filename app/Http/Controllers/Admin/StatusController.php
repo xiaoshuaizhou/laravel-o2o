@@ -10,31 +10,56 @@ use App\Models\Bis\Featured;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\BisRepository;
+use App\Repositories\Bis\DealRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class StatusController
+ * @package App\Http\Controllers\Admin
+ */
 class StatusController extends Controller
 {
+    /**
+     * @var CategoryRepository
+     */
     public $categoryRepository;
+    /**
+     * @var CityRepository
+     */
     public $cityRepository;
+    /**
+     * @var BisRepository
+     */
     public $bisRepository;
-    public $deal;
+    /**
+     * @var DealRepository
+     */
+    public $dealRepository;
+    /**
+     * @var Featured
+     */
     public $featured;
+
     /**
      * StatusController constructor.
-     * @param $Category
+     * @param CategoryRepository $categoryRepository
+     * @param CityRepository $cityRepository
+     * @param DealRepository $dealRepository
+     * @param BisRepository $bisRepository
+     * @param Featured $featured
      */
     public function __construct(
             CategoryRepository $categoryRepository,
             CityRepository $cityRepository,
-            Deal $deal,
+            DealRepository $dealRepository,
             BisRepository $bisRepository,
             Featured $featured
     ) {
         $this->categoryRepository = $categoryRepository;
         $this->cityRepository = $cityRepository;
         $this->bisRepository = $bisRepository;
-        $this->deal = $deal;
+        $this->dealRepository = $dealRepository;
         $this->featured = $featured;
     }
     /**
@@ -64,7 +89,7 @@ class StatusController extends Controller
                 $id => 'numeric',
                 $status => 'in:0,1,-1',
         ]);
-        $this->deal->changStatus($id, $status);
+        $this->dealRepository->changStatus($id, $status);
         return back();
     }
     /**

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Index;
 
 use App\Http\Controllers\CommonController;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class DetailController extends CommonController
 {
@@ -25,7 +24,7 @@ class DetailController extends CommonController
         $category = $this->categoryRepository->find($cat_id);
         $citys = $this->cityRepository->getNormalCity();
         $cats = $this->getCats();
-        $deal = $this->deal->find($id);
+        $deal = $this->dealRepository->find($id);
         $bisId = $deal->bis_id;
         $shanghuinfo = $this->bisRepository->find($bisId);
 

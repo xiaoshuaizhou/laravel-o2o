@@ -2,22 +2,40 @@
 
 namespace App\Http\Controllers\Bis;
 
-use App\Models\Bis\Account;
-use App\Models\Bis\Deal;
 use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\AccountRepository;
+use App\Repositories\Bis\DealRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class DealController
+ * @package App\Http\Controllers\Bis
+ */
 class DealController extends Controller
 {
+    /**
+     * @var CityRepository
+     */
     public $cityRepository;
+    /**
+     * @var CategoryRepository
+     */
     public $categoryRepository;
+    /**
+     * @var AccountRepository
+     */
     public $accountRepository;
+    /**
+     * @var Location
+     */
     public $location;
-    public $deal;
+    /**
+     * @var DealRepository
+     */
+    public $dealRepository;
 
     /**
      * DealController constructor.
@@ -25,20 +43,20 @@ class DealController extends Controller
      * @param CityRepository $cityRepository
      * @param CategoryRepository $categoryRepository
      * @param Location $location
-     * @param Deal $deal
+     * @param DealRepository $dealRepository
      */
     public function __construct(
             AccountRepository $accountRepository,
             CityRepository $cityRepository,
             CategoryRepository $categoryRepository,
             Location $location,
-            Deal $deal
+            DealRepository $dealRepository
     ) {
         $this->cityRepository = $cityRepository;
         $this->categoryRepository = $categoryRepository;
         $this->accountRepository = $accountRepository;
         $this->location = $location;
-        $this->deal = $deal;
+        $this->dealRepository = $dealRepository;
     }
 
     /**
@@ -46,7 +64,7 @@ class DealController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
-        $deals = $this->deal->getNormalDeals();
+        $deals = $this->dealRepository->getNormalDeals();
         return view('bis.deal.index',compact('deals'));
     }
 
@@ -94,7 +112,7 @@ class DealController extends Controller
             'xpoint' => $location->xpoint,
             'ypoint' => $location->ypoint,
         ];
-        $this->deal->create($data);
+        $this->dealRepository->create($data);
         return back();
     }
 }

@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Index;
 
 use App\Http\Controllers\CommonController;
-use App\Models\Bis\Bis;
-use App\Models\Bis\Deal;
 use App\Models\Bis\Featured;
 use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\BisRepository;
+use App\Repositories\Bis\DealRepository;
 use App\Repositories\Index\OrderRepository;
 use Illuminate\Http\Request;
 use Auth;
@@ -21,13 +20,13 @@ class OrderController extends CommonController
      * @param CityRepository $cityRepository
      * @param CategoryRepository $categoryRepository
      * @param Featured $featured
-     * @param Deal $deal
+     * @param DealRepository $dealRepository
      * @param Location $location
      * @param BisRepository $bisRepository
      * @param OrderRepository $orderRepository
      */
-    public function __construct(CityRepository $cityRepository, CategoryRepository $categoryRepository, Featured $featured, Deal $deal, Location $location, BisRepository $bisRepository, OrderRepository $orderRepository) {
-        parent::__construct($cityRepository, $categoryRepository, $featured, $deal, $location, $bisRepository, $orderRepository);
+    public function __construct(CityRepository $cityRepository, CategoryRepository $categoryRepository, Featured $featured, DealRepository $dealRepository, Location $location, BisRepository $bisRepository, OrderRepository $orderRepository) {
+        parent::__construct($cityRepository, $categoryRepository, $featured, $dealRepository, $location, $bisRepository, $orderRepository);
         $this->middleware('auth');
     }
 
@@ -48,7 +47,7 @@ class OrderController extends CommonController
             abort(404, '参数不合法');
         }
         $count = $count ? intval($count) : 1;
-        $deal = $this->deal->find($id);
+        $deal = $this->dealRepository->find($id);
         if (empty($deal) || $deal->status != 1){
             abort(404, '商品不存在');
         }
@@ -63,7 +62,7 @@ class OrderController extends CommonController
      * @param $price
      */
     public function index($id, $count, $price) {
-        $deal = $this->deal->find($id);
+        $deal = $this->dealRepository->find($id);
         if (empty($deal) || $deal->status != 1){
             abort(404, '商品不存在');
         }

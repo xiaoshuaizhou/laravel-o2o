@@ -12,6 +12,7 @@ use App\Models\Index\Order;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\BisRepository;
+use App\Repositories\Bis\DealRepository;
 use App\Repositories\Index\OrderRepository;
 use Illuminate\Http\Request;
 
@@ -34,9 +35,9 @@ class CommonController extends Controller
      */
     public $featured;
     /**
-     * @var Deal
+     * @var DealRepository
      */
-    public $deal;
+    public $dealRepository;
     /**
      * @var Location
      */
@@ -55,7 +56,7 @@ class CommonController extends Controller
      * @param CityRepository $cityRepository
      * @param CategoryRepository $categoryRepository
      * @param Featured $featured
-     * @param Deal $deal
+     * @param DealRepository $dealRepository
      * @param Location $location
      * @param BisRepository $bisRepository
      * @param OrderRepository $orderRepository
@@ -64,7 +65,7 @@ class CommonController extends Controller
         CityRepository $cityRepository,
         CategoryRepository $categoryRepository,
         Featured $featured,
-        Deal $deal,
+        DealRepository $dealRepository,
         Location $location,
         BisRepository $bisRepository,
         OrderRepository $orderRepository
@@ -73,7 +74,7 @@ class CommonController extends Controller
         $this->cityRepository = $cityRepository;
         $this->categoryRepository = $categoryRepository;
         $this->featured = $featured;
-        $this->deal = $deal;
+        $this->dealRepository = $dealRepository;
         $this->location = $location;
         $this->bisRepository = $bisRepository;
         $this->orderRepository = $orderRepository;

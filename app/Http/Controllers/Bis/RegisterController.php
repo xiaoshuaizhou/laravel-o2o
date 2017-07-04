@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Bis;
 
 use App\Api\Map;
 use App\Events\UserRegister;
-use App\Models\Bis\Bis;
 use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
