@@ -29,8 +29,8 @@ class IndexController extends CommonController
         session()->put('city', $city);
         session()->put('citys', $citys);
         session()->put('cats', $cats);
-        $indexfeatured = $this->featured->getNorMalFeaturedByType(0);
-        $right = $this->featured->getNorMalFeaturedByType(1);
+        $indexfeatured = $this->featuredRepository->getNorMalFeaturedByType(0);
+        $right = $this->featuredRepository->getNorMalFeaturedByType(1);
         $indexfeatured = $indexfeatured->toArray()['data'];
         $right = $right->toArray()['data'];
         //同时满足分类和城市的条件

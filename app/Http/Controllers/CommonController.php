@@ -13,6 +13,7 @@ use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\BisRepository;
 use App\Repositories\Bis\DealRepository;
+use App\Repositories\Bis\FeaturedRepository;
 use App\Repositories\Index\OrderRepository;
 use Illuminate\Http\Request;
 
@@ -31,9 +32,9 @@ class CommonController extends Controller
      */
     public $categoryRepository;
     /**
-     * @var Featured
+     * @var FeaturedRepository
      */
-    public $featured;
+    public $featuredRepository;
     /**
      * @var DealRepository
      */
@@ -55,7 +56,7 @@ class CommonController extends Controller
      * CommonController constructor.
      * @param CityRepository $cityRepository
      * @param CategoryRepository $categoryRepository
-     * @param Featured $featured
+     * @param FeaturedRepository $featuredRepository
      * @param DealRepository $dealRepository
      * @param Location $location
      * @param BisRepository $bisRepository
@@ -64,7 +65,7 @@ class CommonController extends Controller
     public function __construct(
         CityRepository $cityRepository,
         CategoryRepository $categoryRepository,
-        Featured $featured,
+        FeaturedRepository $featuredRepository,
         DealRepository $dealRepository,
         Location $location,
         BisRepository $bisRepository,
@@ -73,7 +74,7 @@ class CommonController extends Controller
     {
         $this->cityRepository = $cityRepository;
         $this->categoryRepository = $categoryRepository;
-        $this->featured = $featured;
+        $this->featuredRepository = $featuredRepository;
         $this->dealRepository = $dealRepository;
         $this->location = $location;
         $this->bisRepository = $bisRepository;

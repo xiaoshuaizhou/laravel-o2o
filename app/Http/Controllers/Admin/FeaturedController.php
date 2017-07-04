@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Bis\Featured;
+use App\Repositories\Bis\FeaturedRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -13,17 +14,17 @@ use App\Http\Controllers\Controller;
 class FeaturedController extends Controller
 {
     /**
-     * @var Featured
+     * @var FeaturedRepository
      */
-    public $featured;
+    public $featuredRepository;
 
     /**
      * FeaturedController constructor.
-     * @param $featured
+     * @param FeaturedRepository $featuredRepository
      */
-    public function __construct(Featured $featured)
+    public function __construct(FeaturedRepository $featuredRepository)
     {
-        $this->featured = $featured;
+        $this->featuredRepository = $featuredRepository;
     }
 
     /**
@@ -36,7 +37,7 @@ class FeaturedController extends Controller
             $type = 0;
         }
         $featureds = config('app.featured');
-        $datas = $this->featured->getNorMalFeaturedByType($type);
+        $datas = $this->featuredRepository->getNorMalFeaturedByType($type);
         return view('admin.featured.index', compact('featureds', 'datas'));
     }
 
@@ -55,7 +56,7 @@ class FeaturedController extends Controller
      */
     public function create(Request $request)
     {
-        $this->featured->create($request->all());
+        $this->featuredRepository->create($request->all());
         return back();
     }
 
@@ -66,7 +67,7 @@ class FeaturedController extends Controller
      */
     public function destory($id)
     {
-        $this->featured->destory($id);
+        $this->featuredRepository->destory($id);
         return back();
 
     }

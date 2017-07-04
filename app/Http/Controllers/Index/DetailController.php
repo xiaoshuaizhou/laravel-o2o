@@ -18,8 +18,8 @@ class DetailController extends CommonController
      */
     public function index(Request $request, $id, $city_id, $cat_id)
     {
-        $indexfeatured = $this->featured->getNorMalFeaturedByType(0);
-        $right = $this->featured->getNorMalFeaturedByType(1);
+        $indexfeatured = $this->featuredRepository->getNorMalFeaturedByType(0);
+        $right = $this->featuredRepository->getNorMalFeaturedByType(1);
         $city = $this->cityRepository->find($city_id);
         $category = $this->categoryRepository->find($cat_id);
         $citys = $this->cityRepository->getNormalCity();
@@ -54,6 +54,10 @@ class DetailController extends CommonController
         $mapStr = $locations[0]->xpoint . ',' . $locations[0]['ypoint'];
         return  view('index.detail', compact('shanghuinfo', 'mapStr', 'timedate', 'overplus', 'locations', 'citys', 'city', 'category', 'cats', 'indexfeatured', 'right', 'controller', 'title', 'deal', 'flag'));
     }
+
+    /**
+     * @return array
+     */
     private function getCats()
     {
         $categorys = $this->categoryRepository->getIndexCategoryByParentId(0,5);

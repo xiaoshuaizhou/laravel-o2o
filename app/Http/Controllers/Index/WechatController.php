@@ -14,20 +14,35 @@ use \App\Wxpay\WxPayConfig;
 use \App\Wxpay\WxPayApi;
 use \App\Wxpay\WxPayNotify;
 use \App\Wxpay\PayNotifyCallBack;
+
+/**
+ * Class WechatController
+ * @package App\Http\Controllers\Index
+ */
 class WechatController extends Controller
 {
+    /**
+     * @var OrderRepository
+     */
     public $orderRepository;
+    /**
+     * @var DealRepository
+     */
     public $dealRepository;
 
     /**
      * WechatController constructor.
-     * @param $order
+     * @param OrderRepository $orderRepository
+     * @param DealRepository $dealRepository
      */
     public function __construct(OrderRepository $orderRepository, DealRepository $dealRepository) {
         $this->orderRepository = $orderRepository;
         $this->dealRepository = $dealRepository;
     }
 
+    /**
+     * @param Request $request
+     */
     public function notify(Request $request) {
         //微信发送的数据是 流的数据形式
         $wechatDate = file_get_contents("php://input");
@@ -72,6 +87,10 @@ class WechatController extends Controller
         $resultObj->toXml();
     }
 
+    /**
+     * @param $id
+     * @return string
+     */
     public function payQrcode($id) {
         //统一下单
         $notify = new \App\Wxpay\NativePay();

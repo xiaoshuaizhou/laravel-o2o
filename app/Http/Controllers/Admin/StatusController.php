@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Events\UserChangeStatus;
 use App\Events\UserRegister;
-use App\Models\Bis\Bis;
-use App\Models\Bis\Deal;
 use App\Models\Bis\Featured;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\BisRepository;
 use App\Repositories\Bis\DealRepository;
+use App\Repositories\Bis\FeaturedRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -39,7 +38,7 @@ class StatusController extends Controller
     /**
      * @var Featured
      */
-    public $featured;
+    public $featuredRepository;
 
     /**
      * StatusController constructor.
@@ -47,20 +46,20 @@ class StatusController extends Controller
      * @param CityRepository $cityRepository
      * @param DealRepository $dealRepository
      * @param BisRepository $bisRepository
-     * @param Featured $featured
+     * @param FeaturedRepository $featuredRepository
      */
     public function __construct(
             CategoryRepository $categoryRepository,
             CityRepository $cityRepository,
             DealRepository $dealRepository,
             BisRepository $bisRepository,
-            Featured $featured
+            FeaturedRepository $featuredRepository
     ) {
         $this->categoryRepository = $categoryRepository;
         $this->cityRepository = $cityRepository;
         $this->bisRepository = $bisRepository;
         $this->dealRepository = $dealRepository;
-        $this->featured = $featured;
+        $this->featuredRepository = $featuredRepository;
     }
     /**
      * 修改分类状态
@@ -159,7 +158,7 @@ class StatusController extends Controller
             $id => 'numeric',
             $status => 'in:0,1,-1',
         ]);
-        $this->featured->changStatus($id, $status);
+        $this->featuredRepository->changStatus($id, $status);
         return back();
     }
 }

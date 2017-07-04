@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Bis;
 
+use DB;
 use App\Api\Map;
 use App\Events\UserRegister;
 use App\Models\Bis\Location;
@@ -13,12 +14,31 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class RegisterController
+ * @package App\Http\Controllers\Bis
+ */
 class RegisterController extends Controller
 {
+    /**
+     * @var CityRepository
+     */
     public $cityRepository;
+    /**
+     * @var CategoryRepository
+     */
     public $categoryRepository;
+    /**
+     * @var BisRepository
+     */
     public $bisRepository;
+    /**
+     * @var Location
+     */
     public $location;
+    /**
+     * @var AccountRepository
+     */
     public $accountRepository;
 
     /**
@@ -65,7 +85,7 @@ class RegisterController extends Controller
             abort(404,'获取位置失败');
         }
 
-        \DB::beginTransaction();
+        DB::beginTransaction();
         try {
             //商户基本信息
             $bisData = [
@@ -118,9 +138,9 @@ class RegisterController extends Controller
                     'is_man' => 1, //总管理员
             ];
             $this->accountRepository->create($accountData);
-            \DB::commit();
+            DB::commit();
         }catch (\Exception $e){
-            \DB::rollBack();
+            DB::rollBack();
         }
         //使用事件处理邮件发送
         event(new UserRegister($this->bisRepository->latestFirst());
