@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\AccountRepository;
 use App\Repositories\Bis\BisRepository;
+use App\Repositories\Bis\LocationRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -33,26 +33,31 @@ class BisController extends Controller
      */
     public $accountRepository;
     /**
-     * @var Location
+     * @var LocationRepository
      */
-    public $location;
+    public $locationRepository;
+
     /**
      * BisController constructor.
-     * @param $bis
+     * @param BisRepository $bisRepository
+     * @param CityRepository $cityRepository
+     * @param CategoryRepository $categoryRepository
+     * @param AccountRepository $accountRepository
+     * @param LocationRepository $locationRepository
      */
     public function __construct(
         BisRepository $bisRepository,
         CityRepository $cityRepository,
         CategoryRepository $categoryRepository,
         AccountRepository $accountRepository,
-        Location $location
+        LocationRepository $locationRepository
     )
     {
         $this->bisRepository = $bisRepository;
         $this->cityRepository = $cityRepository;
         $this->accountRepository = $accountRepository;
         $this->categoryRepository = $categoryRepository;
-        $this->location = $location;
+        $this->locationRepository = $locationRepository;
     }
 
     /**
@@ -93,7 +98,7 @@ class BisController extends Controller
     {
         $bis = $this->bisRepository->getBisById($id);
         $account = $this->accountRepository->getBisByBisId($id);
-        $location = $this->location->getBisByBisId($id);
+        $location = $this->locationRepository->getBisByBisId($id);
         $citys = $this->cityRepository->findCitysByParentId();
         $categorys = $this->categoryRepository->findFirstCategories();
         return view('admin.bis.detail', compact('bis','citys','categorys', 'account', 'location'));

@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Bis;
 
 use DB;
 use App\Api\Map;
-use App\Events\UserRegister;
-use App\Models\Bis\Location;
-use App\Repositories\Admin\CategoryRepository;
-use App\Repositories\Admin\CityRepository;
-use App\Repositories\Bis\AccountRepository;
-use App\Repositories\Bis\BisRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Events\UserRegister;
 use App\Http\Controllers\Controller;
+use App\Repositories\Bis\BisRepository;
+use App\Repositories\Admin\CityRepository;
+use App\Repositories\Bis\AccountRepository;
+use App\Repositories\Bis\LocationRepository;
+use App\Repositories\Admin\CategoryRepository;
 
 /**
  * Class RegisterController
@@ -33,9 +33,9 @@ class RegisterController extends Controller
      */
     public $bisRepository;
     /**
-     * @var Location
+     * @var LocationRepository
      */
-    public $location;
+    public $locationRepository;
     /**
      * @var AccountRepository
      */
@@ -46,14 +46,20 @@ class RegisterController extends Controller
      * @param CityRepository $cityRepository
      * @param CategoryRepository $categoryRepository
      * @param BisRepository $bisRepository
-     * @param Location $location
+     * @param LocationRepository $locationRepository
      * @param AccountRepository $accountRepository
      */
-    public function __construct(CityRepository $cityRepository, CategoryRepository $categoryRepository, BisRepository $bisRepository, Location $location, AccountRepository $accountRepository) {
+    public function __construct(
+            BisRepository $bisRepository,
+            CityRepository $cityRepository,
+            CategoryRepository $categoryRepository,
+            LocationRepository $locationRepository,
+            AccountRepository $accountRepository
+    ) {
+        $this->bisRepository = $bisRepository;
         $this->cityRepository = $cityRepository;
         $this->categoryRepository = $categoryRepository;
-        $this->bisRepository = $bisRepository;
-        $this->location = $location;
+        $this->locationRepository = $locationRepository;
         $this->accountRepository = $accountRepository;
     }
 
@@ -127,7 +133,7 @@ class RegisterController extends Controller
                     'ypoint' => empty($lnglat['result']['location']['lat']) ? '' : $lnglat['result']['location']['lat'],
                     'bank_info' => $request->bank_info,
             ];
-            $this->location->create($locationData);
+            $this->locationRepository->create($locationData);
             //账户信息
             $accountData = [
                     'bis_id' => $bis->id,

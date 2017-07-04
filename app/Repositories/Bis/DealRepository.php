@@ -10,11 +10,14 @@ use App\Models\Bis\Deal;
  */
 class DealRepository
 {
+    /**
+     * @var Deal
+     */
     public $deal;
 
     /**
      * DealRepository constructor.
-     * @param $deal
+     * @param Deal $deal
      */
     public function __construct(Deal $deal) {
         $this->deal = $deal;
@@ -202,5 +205,13 @@ class DealRepository
      */
     public function find($id) {
         return $this->deal->find($id);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function whereForm($id) {
+        return $this->deal->where('id', $id)->first();
     }
 }

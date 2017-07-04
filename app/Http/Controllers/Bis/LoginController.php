@@ -7,8 +7,16 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Redirect;
+
+/**
+ * Class LoginController
+ * @package App\Http\Controllers\Bis
+ */
 class LoginController extends Controller
 {
+    /**
+     * @var AccountRepository
+     */
     public $accountRepository;
 
     /**

@@ -7,10 +7,22 @@ use App\Repositories\Admin\CityRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Response;
+
+/**
+ * Class ApiController
+ * @package App\Http\Controllers\Bis
+ */
 class ApiController extends Controller
 {
+    /**
+     * @var CityRepository
+     */
     public $cityRepository;
+    /**
+     * @var CategoryRepository
+     */
     public $categoryRepository;
+
     /**
      * ApiController constructor.
      * @param CityRepository $cityRepository

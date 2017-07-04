@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Index;
 
-use App\Models\Bis\Deal;
 use App\Repositories\Bis\DealRepository;
 use App\Repositories\Index\OrderRepository;
 use App\Wxpay\Database\WxPayResults;
@@ -35,7 +34,10 @@ class WechatController extends Controller
      * @param OrderRepository $orderRepository
      * @param DealRepository $dealRepository
      */
-    public function __construct(OrderRepository $orderRepository, DealRepository $dealRepository) {
+    public function __construct(
+            OrderRepository $orderRepository,
+            DealRepository $dealRepository
+    ) {
         $this->orderRepository = $orderRepository;
         $this->dealRepository = $dealRepository;
     }

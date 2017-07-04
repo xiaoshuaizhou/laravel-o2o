@@ -3,9 +3,21 @@
 namespace App\Repositories\Bis;
 use App\Models\Bis\Account;
 
+/**
+ * Class AccountRepository
+ * @package App\Repositories\Bis
+ */
 class AccountRepository
 {
+    /**
+     * @var Account
+     */
     public $account;
+
+    /**
+     * AccountRepository constructor.
+     * @param Account $account
+     */
     public function __construct(Account $account) {
         $this->account = $account;
     }

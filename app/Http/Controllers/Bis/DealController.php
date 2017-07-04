@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Bis;
 
-use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\AccountRepository;
 use App\Repositories\Bis\DealRepository;
+use App\Repositories\Bis\LocationRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -29,9 +29,9 @@ class DealController extends Controller
      */
     public $accountRepository;
     /**
-     * @var Location
+     * @var LocationRepository
      */
-    public $location;
+    public $locationRepository;
     /**
      * @var DealRepository
      */
@@ -42,20 +42,20 @@ class DealController extends Controller
      * @param AccountRepository $accountRepository
      * @param CityRepository $cityRepository
      * @param CategoryRepository $categoryRepository
-     * @param Location $location
+     * @param LocationRepository $locationRepository
      * @param DealRepository $dealRepository
      */
     public function __construct(
             AccountRepository $accountRepository,
             CityRepository $cityRepository,
             CategoryRepository $categoryRepository,
-            Location $location,
+            LocationRepository $locationRepository,
             DealRepository $dealRepository
     ) {
         $this->cityRepository = $cityRepository;
         $this->categoryRepository = $categoryRepository;
         $this->accountRepository = $accountRepository;
-        $this->location = $location;
+        $this->locationRepository = $locationRepository;
         $this->dealRepository = $dealRepository;
     }
 
@@ -76,7 +76,7 @@ class DealController extends Controller
         $bisId = session('bisuser')->bis_id;
         $citys = $this->cityRepository->findCitysByParentId();
         $categorys = $this->categoryRepository->findFirstCategories();
-        $bisLocations = $this->location->getBisByBisIds($bisId);
+        $bisLocations = $this->locationRepository->getBisByBisIds($bisId);
         return view('bis.deal.add', compact('citys', 'categorys', 'bisLocations'));
     }
 
@@ -87,7 +87,7 @@ class DealController extends Controller
      */
     public function add(Request $request) {
         $bisId = session('bisuser')->bis_id;
-        $location = $this->location->find($request->location_ids[0]);
+        $location = $this->locationRepository->find($request->location_ids[0]);
         if (empty($location)){
             abort(404, '分店不存在，请联系主管理员');
         }

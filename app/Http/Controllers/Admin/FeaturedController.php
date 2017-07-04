@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Bis\Featured;
 use App\Repositories\Bis\FeaturedRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

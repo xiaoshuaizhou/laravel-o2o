@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Bis\Bis;
-use App\Models\Bis\Deal;
-use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\BisRepository;
 use App\Repositories\Bis\DealRepository;
+use App\Repositories\Bis\LocationRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Toplan\FilterManager\Facades\FilterManager;
@@ -35,6 +33,10 @@ class DealsController extends Controller
      * @var DealRepository
      */
     public $dealRepository;
+    /**
+     * @var LocationRepository
+     */
+    public $locationRepository;
 
     /**
      * DealsController constructor.
@@ -42,18 +44,21 @@ class DealsController extends Controller
      * @param CityRepository $cityRepository
      * @param CategoryRepository $categoryRepository
      * @param DealRepository $dealRepository
+     * @param LocationRepository $locationRepository
      */
     public function __construct(
             BisRepository $bisRepository,
             CityRepository $cityRepository,
             CategoryRepository $categoryRepository,
-            DealRepository $dealRepository
+            DealRepository $dealRepository,
+            LocationRepository $locationRepository
     )
     {
         $this->cityRepository = $cityRepository;
         $this->categoryRepository = $categoryRepository;
         $this->bisRepository = $bisRepository;
         $this->dealRepository = $dealRepository;
+        $this->locationRepository = $locationRepository;
     }
 
     /**
@@ -140,7 +145,7 @@ class DealsController extends Controller
         $deal = $this->dealRepository->getNormalDealById($id);
         $citys = $this->cityRepository->getNormalCity();
         $categorys = $this->categoryRepository->findFirstCategories();
-        $location = Location::where('bis_id', $deal->bis_id)->first();
+        $location = $this->locationRepository->whereFormBisId($deal->bis_id);
         return view('admin.deal.edit', compact('citys', 'categorys', 'deal', 'location'));
     }
 

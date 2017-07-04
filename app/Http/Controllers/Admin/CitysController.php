@@ -19,7 +19,7 @@ class CitysController extends Controller
 
     /**
      * CitysController constructor.
-     * @param $city
+     * @param CityRepository $cityRepository
      */
     public function __construct(CityRepository $cityRepository) {
         $this->cityRepository = $cityRepository;
@@ -49,7 +49,7 @@ class CitysController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request) {
-        $this->cityRepository->create($request->all());
+        $this->cityRepository->created($request->all());
         return back();
     }
 

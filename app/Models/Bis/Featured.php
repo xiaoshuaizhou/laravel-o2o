@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Featured extends Model
 {
-    protected $fillable = ['title', 'image', 'type', 'url', 'status', 'listorder', 'description'];
+    protected $fillable = ['title', 'image', 'type', 'url', 'status', 'listorder',
+            'description'];
 
 }

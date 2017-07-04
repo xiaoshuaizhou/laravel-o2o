@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Index;
 
-use App\Http\Controllers\CommonController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\CommonController;
 
 class DetailController extends CommonController
 {
@@ -28,7 +28,7 @@ class DetailController extends CommonController
         $bisId = $deal->bis_id;
         $shanghuinfo = $this->bisRepository->find($bisId);
 
-        $locations = $this->location->getNormalLocationByIds($deal->location_ids);
+        $locations = $this->locationRepository->getNormalLocationByIds($deal->location_ids);
         $controller =  'detail';
         $title = '详情页';
         $overplus = $deal->total_count - $deal->buy_count;
@@ -54,7 +54,6 @@ class DetailController extends CommonController
         $mapStr = $locations[0]->xpoint . ',' . $locations[0]['ypoint'];
         return  view('index.detail', compact('shanghuinfo', 'mapStr', 'timedate', 'overplus', 'locations', 'citys', 'city', 'category', 'cats', 'indexfeatured', 'right', 'controller', 'title', 'deal', 'flag'));
     }
-
     /**
      * @return array
      */

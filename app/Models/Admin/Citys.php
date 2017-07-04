@@ -3,7 +3,6 @@
 namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
-use Overtrue\Pinyin\Pinyin;
 
 class Citys extends Model
 {

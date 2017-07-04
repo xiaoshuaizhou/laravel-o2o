@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Events\UserChangeStatus;
 use App\Events\UserRegister;
-use App\Models\Bis\Featured;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\BisRepository;
@@ -36,7 +35,7 @@ class StatusController extends Controller
      */
     public $dealRepository;
     /**
-     * @var Featured
+     * @var FeaturedRepository
      */
     public $featuredRepository;
 

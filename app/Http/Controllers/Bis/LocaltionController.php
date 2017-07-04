@@ -3,39 +3,52 @@
 namespace App\Http\Controllers\Bis;
 
 use App\Api\Map;
-use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
+use App\Repositories\Bis\LocationRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class LocaltionController
+ * @package App\Http\Controllers\Bis
+ */
 class LocaltionController extends Controller
 {
+    /**
+     * @var CityRepository
+     */
     public $cityRepository;
+    /**
+     * @var CategoryRepository
+     */
     public $categoryRepository;
-    public $location;
+    /**
+     * @var LocationRepository
+     */
+    public $locationRepository;
 
     /**
      * LocaltionController constructor.
      * @param CityRepository $cityRepository
      * @param CategoryRepository $categoryRepository
-     * @param Location $location
+     * @param LocationRepository $locationRepository
      */
     public function __construct(
             CityRepository $cityRepository,
             CategoryRepository $categoryRepository,
-            Location $location
+            LocationRepository $locationRepository
     ) {
         $this->cityRepository = $cityRepository;
         $this->categoryRepository = $categoryRepository;
-        $this->location = $location;
+        $this->locationRepository = $locationRepository;
     }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
-        $locations = $this->location->getBisByIsMain();
+        $locations = $this->locationRepository->getBisByIsMain();
         return view('bis.location.index', compact('locations'));
     }
     /**
@@ -53,7 +66,7 @@ class LocaltionController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request) {
-                //校验数据 request
+        //校验数据 request
         //获取经纬度
         $lnglat = Map::getLngLat($request->address);
         if (empty($lnglat) || $lnglat['status'] != 0 || $lnglat['result']['precise'] != 1){
@@ -83,7 +96,7 @@ class LocaltionController extends Controller
                 'ypoint' => empty($lnglat['result']['location']['lat']) ? '' : $lnglat['result']['location']['lat'],
                 'bank_info' => $request->bank_info,
         ];
-        $this->location->create($locationData);
+        $this->locationRepository->create($locationData);
         return back();
     }
 
@@ -94,7 +107,7 @@ class LocaltionController extends Controller
     public function edit($id) {
         $citys = $this->cityRepository->findCitysByParentId();
         $categorys = $this->categoryRepository->findFirstCategories();
-        $location = $this->location->find($id);
+        $location = $this->locationRepository->find($id);
         return view('bis.location.edit', compact('citys', 'categorys', 'location'));
     }
 
@@ -104,7 +117,7 @@ class LocaltionController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destory($id) {
-        $this->location->destory($id);
+        $this->locationRepository->destory($id);
         return back();
     }
 }

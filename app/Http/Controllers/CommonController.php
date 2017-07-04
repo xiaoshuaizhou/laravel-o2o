@@ -2,18 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin\Category;
-use App\Models\Admin\Citys;
-use App\Models\Bis\Bis;
-use App\Models\Bis\Deal;
-use App\Models\Bis\Featured;
-use App\Models\Bis\Location;
-use App\Models\Index\Order;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\BisRepository;
 use App\Repositories\Bis\DealRepository;
 use App\Repositories\Bis\FeaturedRepository;
+use App\Repositories\Bis\LocationRepository;
 use App\Repositories\Index\OrderRepository;
 use Illuminate\Http\Request;
 
@@ -24,11 +18,11 @@ use Illuminate\Http\Request;
 class CommonController extends Controller
 {
     /**
-     * @var Citys
+     * @var CityRepository
      */
     public $cityRepository;
     /**
-     * @var Category
+     * @var CategoryRepository
      */
     public $categoryRepository;
     /**
@@ -40,9 +34,9 @@ class CommonController extends Controller
      */
     public $dealRepository;
     /**
-     * @var Location
+     * @var LocationRepository
      */
-    public $location;
+    public $locationRepository;
     /**
      * @var BisRepository
      */
@@ -58,7 +52,7 @@ class CommonController extends Controller
      * @param CategoryRepository $categoryRepository
      * @param FeaturedRepository $featuredRepository
      * @param DealRepository $dealRepository
-     * @param Location $location
+     * @param LocationRepository $locationRepository
      * @param BisRepository $bisRepository
      * @param OrderRepository $orderRepository
      */
@@ -67,7 +61,7 @@ class CommonController extends Controller
         CategoryRepository $categoryRepository,
         FeaturedRepository $featuredRepository,
         DealRepository $dealRepository,
-        Location $location,
+        LocationRepository $locationRepository,
         BisRepository $bisRepository,
         OrderRepository $orderRepository
     )
@@ -76,7 +70,7 @@ class CommonController extends Controller
         $this->categoryRepository = $categoryRepository;
         $this->featuredRepository = $featuredRepository;
         $this->dealRepository = $dealRepository;
-        $this->location = $location;
+        $this->locationRepository = $locationRepository;
         $this->bisRepository = $bisRepository;
         $this->orderRepository = $orderRepository;
     }

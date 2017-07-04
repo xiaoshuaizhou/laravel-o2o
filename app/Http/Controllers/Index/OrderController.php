@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Index;
 
 use App\Http\Controllers\CommonController;
-use App\Models\Bis\Featured;
-use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\BisRepository;
 use App\Repositories\Bis\DealRepository;
 use App\Repositories\Bis\FeaturedRepository;
+use App\Repositories\Bis\LocationRepository;
 use App\Repositories\Index\OrderRepository;
 use Illuminate\Http\Request;
 use Auth;
@@ -20,14 +19,30 @@ class OrderController extends CommonController
      * OrderController constructor.
      * @param CityRepository $cityRepository
      * @param CategoryRepository $categoryRepository
-     * @param Featured $featured
+     * @param FeaturedRepository $featuredRepository
      * @param DealRepository $dealRepository
-     * @param Location $location
+     * @param LocationRepository $locationRepository
      * @param BisRepository $bisRepository
      * @param OrderRepository $orderRepository
      */
-    public function __construct(CityRepository $cityRepository, CategoryRepository $categoryRepository, FeaturedRepository $featuredRepository, DealRepository $dealRepository, Location $location, BisRepository $bisRepository, OrderRepository $orderRepository) {
-        parent::__construct($cityRepository, $categoryRepository, $featuredRepository, $dealRepository, $location, $bisRepository, $orderRepository);
+    public function __construct(
+            CityRepository $cityRepository,
+            CategoryRepository $categoryRepository,
+            FeaturedRepository $featuredRepository,
+            DealRepository $dealRepository,
+            LocationRepository $locationRepository,
+            BisRepository $bisRepository,
+            OrderRepository $orderRepository
+    ) {
+        parent::__construct(
+                $cityRepository,
+                $categoryRepository,
+                $featuredRepository,
+                $dealRepository,
+                $locationRepository,
+                $bisRepository,
+                $orderRepository
+        );
         $this->middleware('auth');
     }
 

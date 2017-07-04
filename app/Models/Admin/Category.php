@@ -3,7 +3,6 @@
 namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
-use Request;
 class Category extends Model
 {
     protected $table = 'categorys';

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
-use App\Models\Bis\Deal;
+use App\Repositories\Bis\DealRepository;
 use App\Repositories\Index\OrderRepository;
 use App\Wxpay\Database\WxPayUnifiedOrder;
 use Illuminate\Http\Request;
@@ -14,15 +14,25 @@ use Auth;
  */
 class PayController extends Controller
 {
+    /**
+     * @var OrderRepository
+     */
     public $orderRepository;
+    /**
+     * @var DealRepository
+     */
+    public $dealRepository;
     /**
      * PayController constructor.
      */
-    public function __construct(OrderRepository $orderRepository) {
+    public function __construct(
+            OrderRepository $orderRepository,
+            DealRepository $dealRepository
+    ) {
         $this->orderRepository = $orderRepository;
+        $this->dealRepository = $dealRepository;
         $this->middleware('auth');
     }
-
     /**
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -45,7 +55,7 @@ class PayController extends Controller
         if ($order->username != Auth::user()->username){
             abort(404, '非本人操作，请重新提交');
         }
-        $deal = Deal::where('id', $order->deal_id)->first();
+        $deal = $this->dealRepository->whereForm($order->deal_id);
         //生成支付二维码
         $notify = new \App\Wxpay\NativePay();
         $input = new WxPayUnifiedOrder();
