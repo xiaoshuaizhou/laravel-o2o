@@ -42,7 +42,7 @@ class LocationRepository
      * @return mixed
      */
     public function whereFormBisId($bisId) {
-        return $this->location->where('bis_id', $bisId)->first()
+        return $this->location->where('bis_id', $bisId)->first();
     }
     /**
      * 根据bis_id查询 全部数据

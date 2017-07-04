@@ -88,7 +88,7 @@ class RegisterController extends Controller
         //获取经纬度
         $lnglat = Map::getLngLat($request->address);
         if (empty($lnglat) || $lnglat['status'] != 0 || $lnglat['result']['precise'] != 1){
-            abort(404,'获取位置失败');
+            return abort(404,'获取位置失败');exit;
         }
 
         DB::beginTransaction();
@@ -147,9 +147,10 @@ class RegisterController extends Controller
             DB::commit();
         }catch (\Exception $e){
             DB::rollBack();
+            return back();
         }
         //使用事件处理邮件发送
-        event(new UserRegister($this->bisRepository->latestFirst());
+        event(new UserRegister($this->bisRepository->latestFirst()));
         return $this->waiting($bis->id);
 
     }

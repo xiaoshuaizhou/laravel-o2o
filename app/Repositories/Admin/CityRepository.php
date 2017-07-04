@@ -135,7 +135,7 @@ class CityRepository
         $res = $this->city->where($condition)
             ->orderBy('id', 'desc')
             ->orderBy('listorder', 'desc')
-            ->paginate();
+            ->paginate(5);
         return $res;
     }
     /**
