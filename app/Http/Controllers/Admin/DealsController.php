@@ -7,6 +7,7 @@ use App\Models\Bis\Deal;
 use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
+use App\Repositories\Bis\BisRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Toplan\FilterManager\Facades\FilterManager;
@@ -15,20 +16,22 @@ class DealsController extends Controller
 {
     public $cityRepository;
     public $categoryRepository;
+    public $bisRepository;
     public $deal;
     /**
      * DealsController constructor.
      * @param $city
      */
     public function __construct(
+            BisRepository $bisRepository,
             CityRepository $cityRepository,
             CategoryRepository $categoryRepository,
             Deal $deal
-
     )
     {
         $this->cityRepository = $cityRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->bisRepository = $bisRepository;
         $this->deal = $deal;
     }
 
@@ -51,7 +54,7 @@ class DealsController extends Controller
                 $sdataname['name'] = $request->name;
             }
             if (!empty($request->shangjianame)){
-                $bis = Bis::where('name', 'like', '%'.$request->shangjianame.'%')->first();
+                $bis = $this->bisRepository->whereFormNameLike($request->shangjianame);
                 if (empty($bis)) abort(404,'商户名不存在');
                 $sdata['bis_id'] = $bis->id;
             }
@@ -87,7 +90,7 @@ class DealsController extends Controller
                 $sdataname['name'] = $request->name;
             }
             if (!empty($request->shangjianame)){
-                $bis = Bis::where('name', 'like', '%'.$request->shangjianame.'%')->first();
+                $bis = $this->bisRepository->whereFormNameLike($request->shangjianame);
                 if (empty($bis)) abort(404,'商户名不存在');
                 $sdata['bis_id'] = $bis->id;
             }

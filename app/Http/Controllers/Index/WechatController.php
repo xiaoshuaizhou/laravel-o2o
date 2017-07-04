@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Index;
 
 use App\Models\Bis\Deal;
-use App\Models\Index\Order;
 use App\Repositories\Index\OrderRepository;
 use App\Wxpay\Database\WxPayResults;
 use Illuminate\Http\Request;

@@ -9,6 +9,7 @@ use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\AccountRepository;
+use App\Repositories\Bis\BisRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,17 +18,22 @@ class RegisterController extends Controller
 {
     public $cityRepository;
     public $categoryRepository;
-    public $bis;
+    public $bisRepository;
     public $location;
     public $accountRepository;
+
     /**
      * RegisterController constructor.
-     * @param $city
+     * @param CityRepository $cityRepository
+     * @param CategoryRepository $categoryRepository
+     * @param BisRepository $bisRepository
+     * @param Location $location
+     * @param AccountRepository $accountRepository
      */
-    public function __construct(CityRepository $cityRepository, CategoryRepository $categoryRepository, Bis $bis, Location $location, AccountRepository $accountRepository) {
+    public function __construct(CityRepository $cityRepository, CategoryRepository $categoryRepository, BisRepository $bisRepository, Location $location, AccountRepository $accountRepository) {
         $this->cityRepository = $cityRepository;
         $this->categoryRepository = $categoryRepository;
-        $this->bis = $bis;
+        $this->bisRepository = $bisRepository;
         $this->location = $location;
         $this->accountRepository = $accountRepository;
     }
@@ -49,7 +55,7 @@ class RegisterController extends Controller
     public function store(Request $request) {
 
         $name = $this->accountRepository->whereFromUsername( $request->username);
-        $email = $this->bis->where('email', '=', $request->email)->first();
+        $email = $this->bisRepository->whereFormEmial($request->email);
         if ($name || $email){
             return abort(404, '该用户名或邮箱已经存在');exit;
         }
@@ -77,7 +83,7 @@ class RegisterController extends Controller
                     'faren_tel' => $request->faren_tel,
                     'email' => $request->email
             ];
-            $bis = $this->bis->create($bisData);
+            $bis = $this->bisRepository->create($bisData);
             //总店相关信息
             $data['cat'] = '';
             if (!empty($request->se_category_id)) {
@@ -118,7 +124,7 @@ class RegisterController extends Controller
             \DB::rollBack();
         }
         //使用事件处理邮件发送
-        event(new UserRegister($this->bis->latest()->first()));
+        event(new UserRegister($this->bisRepository->latestFirst());
         return $this->waiting($bis->id);
 
     }
@@ -132,7 +138,7 @@ class RegisterController extends Controller
         if (empty($id)){
             abort(404, '该信息有误，请重新填写');
         }
-        $detail = $this->bis->where('id', $id)->first();
+        $detail = $this->bisRepository->whereForm($id);
         return view('bis.register.waiting',compact('detail'));
     }
 }

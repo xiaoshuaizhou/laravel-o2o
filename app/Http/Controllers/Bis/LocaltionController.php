@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Bis;
 
 use App\Api\Map;
-use App\Models\Admin\Category;
-use App\Models\Admin\Citys;
 use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
@@ -16,9 +14,12 @@ class LocaltionController extends Controller
     public $cityRepository;
     public $categoryRepository;
     public $location;
+
     /**
      * LocaltionController constructor.
-     * @param $city
+     * @param CityRepository $cityRepository
+     * @param CategoryRepository $categoryRepository
+     * @param Location $location
      */
     public function __construct(
             CityRepository $cityRepository,

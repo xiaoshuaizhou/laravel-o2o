@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\BisRequest;
 use App\Models\Bis\Bis;
 use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\AccountRepository;
+use App\Repositories\Bis\BisRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,9 +19,9 @@ use App\Http\Controllers\Controller;
 class BisController extends Controller
 {
     /**
-     * @var Bis
+     * @var BisRepository
      */
-    public $bis;
+    public $bisRepository;
     /**
      * @var CityRepository
      */
@@ -41,14 +43,14 @@ class BisController extends Controller
      * @param $bis
      */
     public function __construct(
-        Bis $bis,
+        BisRepository $bisRepository,
         CityRepository $cityRepository,
         CategoryRepository $categoryRepository,
         AccountRepository $accountRepository,
         Location $location
     )
     {
-        $this->bis = $bis;
+        $this->bisRepository = $bisRepository;
         $this->cityRepository = $cityRepository;
         $this->accountRepository = $accountRepository;
         $this->categoryRepository = $categoryRepository;
@@ -61,7 +63,7 @@ class BisController extends Controller
      */
     public function index()
     {
-        $biss = $this->bis->getBisByStatus(1);
+        $biss = $this->bisRepository->getBisByStatus(1);
         return view('admin.bis.apply', compact('biss'));
     }
     /**
@@ -70,7 +72,7 @@ class BisController extends Controller
      */
     public function apply()
     {
-        $biss = $this->bis->getBisByStatus(0);
+        $biss = $this->bisRepository->getBisByStatus(0);
         return view('admin.bis.apply', compact('biss'));
     }
 
@@ -80,7 +82,7 @@ class BisController extends Controller
      */
     public function destory()
     {
-        $biss = $this->bis->getBisByStatus(2);
+        $biss = $this->bisRepository->getBisByStatus(2);
         return view('admin.bis.dellist', compact('biss'));
     }
 
@@ -91,7 +93,7 @@ class BisController extends Controller
      */
     public function detail($id)
     {
-        $bis = $this->bis->getBisById($id);
+        $bis = $this->bisRepository->getBisById($id);
         $account = $this->accountRepository->getBisByBisId($id);
         $location = $this->location->getBisByBisId($id);
         $citys = $this->cityRepository->findCitysByParentId();

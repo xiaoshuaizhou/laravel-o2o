@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Bis;
 
 use App\Models\Admin\Category;
-use App\Models\Admin\Citys;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Response;
 class ApiController extends Controller
 {
 
@@ -18,8 +17,8 @@ class ApiController extends Controller
 
     /**
      * ApiController constructor.
-     * @param City $city
-     * @param Category $category
+     * @param CityRepository $cityRepository
+     * @param CategoryRepository $categoryRepository
      */
     public function __construct(CityRepository $cityRepository, CategoryRepository $categoryRepository)
     {
@@ -36,12 +35,12 @@ class ApiController extends Controller
     {
         $citys = $this->cityRepository->findCitysByParentId($request->id);
         if ($citys && $request->id != 0){
-            return \Response::json([
+            return Response::json([
                     'status' => 1,
                     'data' => ($citys->toArray()),
             ]);
         }
-        return \Response::json([
+        return Response::json([
                 'status' => 0,
                 'data' => [],
         ]);
@@ -56,12 +55,12 @@ class ApiController extends Controller
     {
         $categorys = $this->categoryRepository->findFirstCategories($request->cid);
         if ($categorys->toArray() && $request->cid){
-            return \Response::json([
+            return Response::json([
                     'status' => 1,
                     'data' => $categorys->toArray(),
             ]);
         }
-        return \Response::json([
+        return Response::json([
                 'status' => 0,
                 'data' => [],
         ]);
@@ -80,12 +79,12 @@ class ApiController extends Controller
         $fileinfo = $file->move($filePath,  $fileName);
 
         if ($fileinfo && $fileinfo->getPathname()){
-            return \Response::json([
+            return Response::json([
                     'status' => 1,
                     'data' => '/' . $fileinfo->getPathname(),
             ]);
         }
-        return \Response::json([
+        return Response::json([
                 'status' => 0 ,
                 'data' => []
         ]);

@@ -9,6 +9,7 @@ use App\Models\Bis\Featured;
 use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
+use App\Repositories\Bis\BisRepository;
 use App\Repositories\Index\OrderRepository;
 use Illuminate\Http\Request;
 use Auth;
@@ -22,11 +23,11 @@ class OrderController extends CommonController
      * @param Featured $featured
      * @param Deal $deal
      * @param Location $location
-     * @param Bis $bis
+     * @param BisRepository $bisRepository
      * @param OrderRepository $orderRepository
      */
-    public function __construct(CityRepository $cityRepository, CategoryRepository $categoryRepository, Featured $featured, Deal $deal, Location $location, Bis $bis, OrderRepository $orderRepository) {
-        parent::__construct($cityRepository, $categoryRepository, $featured, $deal, $location, $bis, $orderRepository);
+    public function __construct(CityRepository $cityRepository, CategoryRepository $categoryRepository, Featured $featured, Deal $deal, Location $location, BisRepository $bisRepository, OrderRepository $orderRepository) {
+        parent::__construct($cityRepository, $categoryRepository, $featured, $deal, $location, $bisRepository, $orderRepository);
         $this->middleware('auth');
     }
 

@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers\Bis;
 
-use App\Models\Bis\Account;
+use App\Repositories\Bis\AccountRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Redirect;
 class LoginController extends Controller
 {
+    public $accountRepository;
+
+    /**
+     * LoginController constructor.
+     * @param AccountRepository $accountRepository
+     */
+    public function __construct(AccountRepository $accountRepository) {
+        $this->accountRepository = $accountRepository;
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -29,7 +39,7 @@ class LoginController extends Controller
             'username' => 'required',
             'password' => 'required'
         ]);
-        $acconnt = Account::where('username', $request->username)->first();
+        $acconnt = $this->accountRepository->whereFromUsername($request->username);
         if (empty($acconnt) || $acconnt->status != 1){
             return Redirect::back()->withErrors(['msg' => '账户不存在或者用户审核未通过']);
         }

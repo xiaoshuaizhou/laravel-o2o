@@ -9,6 +9,7 @@ use App\Models\Bis\Deal;
 use App\Models\Bis\Featured;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
+use App\Repositories\Bis\BisRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +17,7 @@ class StatusController extends Controller
 {
     public $categoryRepository;
     public $cityRepository;
-    public $bis;
+    public $bisRepository;
     public $deal;
     public $featured;
     /**
@@ -27,12 +28,12 @@ class StatusController extends Controller
             CategoryRepository $categoryRepository,
             CityRepository $cityRepository,
             Deal $deal,
-            Bis $bis,
+            BisRepository $bisRepository,
             Featured $featured
     ) {
         $this->categoryRepository = $categoryRepository;
         $this->cityRepository = $cityRepository;
-        $this->bis = $bis;
+        $this->bisRepository = $bisRepository;
         $this->deal = $deal;
         $this->featured = $featured;
     }
@@ -95,10 +96,10 @@ class StatusController extends Controller
             $id => 'numeric',
             $status => 'in:0,1,-1',
         ]);
-        $this->bis->changStatus($id, $status);
+        $this->bisRepository->changStatus($id, $status);
         //邮件通知商户
-        $this->bis->where('id', $id)->first();
-            event(new UserChangeStatus($this->bis->latest()->first()));
+        $this->bisRepository->whereForm($id);
+            event(new UserChangeStatus($this->bisRepository->latestFirst()));
         return back();
     }
 
@@ -115,8 +116,8 @@ class StatusController extends Controller
             $id => 'numeric',
             $status => 'in:0,1,-1,2',
         ]);
-        $this->bis->changStatusDel($id, $status);
-        event(new UserChangeStatus($this->bis->latest()->first()));
+        $this->bisRepository->changStatusDel($id, $status);
+        event(new UserChangeStatus($this->bisRepository->latestFirst()));
 
         return back();
     }

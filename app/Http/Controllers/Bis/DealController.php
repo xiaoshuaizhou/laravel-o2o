@@ -7,6 +7,7 @@ use App\Models\Bis\Deal;
 use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
+use App\Repositories\Bis\AccountRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,13 +15,20 @@ class DealController extends Controller
 {
     public $cityRepository;
     public $categoryRepository;
+    public $accountRepository;
     public $location;
     public $deal;
+
     /**
      * DealController constructor.
-     * @param $city
+     * @param AccountRepository $accountRepository
+     * @param CityRepository $cityRepository
+     * @param CategoryRepository $categoryRepository
+     * @param Location $location
+     * @param Deal $deal
      */
     public function __construct(
+            AccountRepository $accountRepository,
             CityRepository $cityRepository,
             CategoryRepository $categoryRepository,
             Location $location,
@@ -28,6 +36,7 @@ class DealController extends Controller
     ) {
         $this->cityRepository = $cityRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->accountRepository = $accountRepository;
         $this->location = $location;
         $this->deal = $deal;
     }
@@ -81,7 +90,7 @@ class DealController extends Controller
             'coupons_end_time' => ($request->coupons_end_time),
             'notes' => htmlentities($request->notes),
             'description' => htmlentities($request->description),
-            'account_id' => Account::where('bis_id', $bisId)->first()->id,
+            'account_id' => $this->accountRepository->whereFormBisId($bisId)->id,
             'xpoint' => $location->xpoint,
             'ypoint' => $location->ypoint,
         ];

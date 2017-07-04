@@ -37,5 +37,12 @@ class AccountRepository
     public function create($data) {
         return $this->create($data);
     }
+    /**
+     * @param $bisId
+     * @return mixed
+     */
+    public function whereFormBisId($bisId) {
+        return $this->account->where('bis_id', $bisId)->first();
+    }
 
 }

@@ -27,7 +27,7 @@ class DetailController extends CommonController
         $cats = $this->getCats();
         $deal = $this->deal->find($id);
         $bisId = $deal->bis_id;
-        $shanghuinfo = $this->bis->find($bisId);
+        $shanghuinfo = $this->bisRepository->find($bisId);
 
         $locations = $this->location->getNormalLocationByIds($deal->location_ids);
         $controller =  'detail';
