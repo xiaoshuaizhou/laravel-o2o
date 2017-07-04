@@ -2,34 +2,33 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Admin\Category;
-use App\Models\Admin\Citys;
-use App\Models\Bis\Account;
 use App\Models\Bis\Bis;
 use App\Models\Bis\Deal;
 use App\Models\Bis\Location;
+use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\Admin\CityRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Toplan\FilterManager\Facades\FilterManager;
 
 class DealsController extends Controller
 {
-    public $city;
-    public $category;
+    public $cityRepository;
+    public $categoryRepository;
     public $deal;
     /**
      * DealsController constructor.
      * @param $city
      */
     public function __construct(
-            Citys $city,
-            Category $category,
+            CityRepository $cityRepository,
+            CategoryRepository $categoryRepository,
             Deal $deal
 
     )
     {
-        $this->city = $city;
-        $this->category = $category;
+        $this->cityRepository = $cityRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->deal = $deal;
     }
 
@@ -65,8 +64,8 @@ class DealsController extends Controller
         }else {
             $deals = $this->deal->getNormalDeals();
         }
-        $citys = $this->city->getNormalCity();
-        $categorys = $this->category->findFirstCategories();
+        $citys = $this->cityRepository->getNormalCity();
+        $categorys = $this->categoryRepository->findFirstCategories();
         return view('admin.deal.index', compact('citys', 'categorys', 'deals'));
     }
 
@@ -101,8 +100,8 @@ class DealsController extends Controller
         }else {
             $deals = $this->deal->getNormalDealsReview();
         }
-        $citys = $this->city->getNormalCity();
-        $categorys = $this->category->findFirstCategories();
+        $citys = $this->cityRepository->getNormalCity();
+        $categorys = $this->categoryRepository->findFirstCategories();
 
         return view('admin.deal.review', compact('citys', 'categorys', 'deals'));
     }
@@ -115,8 +114,8 @@ class DealsController extends Controller
      */
     public function edit($id) {
         $deal = $this->deal->getNormalDealById($id);
-        $citys = $this->city->getNormalCity();
-        $categorys = $this->category->findFirstCategories();
+        $citys = $this->cityRepository->getNormalCity();
+        $categorys = $this->categoryRepository->findFirstCategories();
         $location = Location::where('bis_id', $deal->bis_id)->first();
         return view('admin.deal.edit', compact('citys', 'categorys', 'deal', 'location'));
     }

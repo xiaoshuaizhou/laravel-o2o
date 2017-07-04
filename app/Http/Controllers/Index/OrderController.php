@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Index;
 
 use App\Http\Controllers\CommonController;
-use App\Models\Admin\Category;
-use App\Models\Admin\Citys;
 use App\Models\Bis\Bis;
 use App\Models\Bis\Deal;
 use App\Models\Bis\Featured;
@@ -19,12 +17,13 @@ class OrderController extends CommonController
 {
     /**
      * OrderController constructor.
-     * @param Citys $citys
-     * @param Category $category
+     * @param CityRepository $cityRepository
+     * @param CategoryRepository $categoryRepository
      * @param Featured $featured
      * @param Deal $deal
      * @param Location $location
      * @param Bis $bis
+     * @param OrderRepository $orderRepository
      */
     public function __construct(CityRepository $cityRepository, CategoryRepository $categoryRepository, Featured $featured, Deal $deal, Location $location, Bis $bis, OrderRepository $orderRepository) {
         parent::__construct($cityRepository, $categoryRepository, $featured, $deal, $location, $bis, $orderRepository);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Index;
 
 use App\Models\Bis\Deal;
 use App\Models\Index\Order;
+use App\Repositories\Index\OrderRepository;
 use App\Wxpay\Database\WxPayResults;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,15 +16,15 @@ use \App\Wxpay\WxPayNotify;
 use \App\Wxpay\PayNotifyCallBack;
 class WechatController extends Controller
 {
-    public $order;
+    public $orderRepository;
     public $deal;
 
     /**
      * WechatController constructor.
      * @param $order
      */
-    public function __construct(Order $order, Deal $deal) {
-        $this->order = $order;
+    public function __construct(OrderRepository $orderRepository, Deal $deal) {
+        $this->orderRepository = $orderRepository;
         $this->deal = $deal;
     }
 
@@ -49,7 +50,7 @@ class WechatController extends Controller
         }
         //根据out_trade_to查询订单
         $outTradeTo = $wechatDate['out_trade_no'];
-        $order = Order::where('out_trade_no', $outTradeTo)->first();
+        $order = $this->orderRepository->whereFormByOutTradeNo($outTradeTo);
         if (empty($order) || $order->pay_status == 1){
             $resultObj->setData('reture_code', 'SUCCESS');
             $resultObj->setData('reture_msg', 'OK');
@@ -57,7 +58,7 @@ class WechatController extends Controller
         }
         //跟新订单和商品表
         try{
-            $orderRes = $this->order->updateOrderByOutTradeTo($outTradeTo, $wechatDate);
+            $orderRes = $this->orderRepository->updateOrderByOutTradeTo($outTradeTo, $wechatDate);
             $this->deal->updateBuyCountById($order->deal_id, $order->deal_count);
         }catch (\Exception $e){
             //跟新失败  告诉微信服务器   需要回调

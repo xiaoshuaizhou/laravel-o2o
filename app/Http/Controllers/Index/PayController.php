@@ -3,21 +3,23 @@
 namespace App\Http\Controllers\Index;
 
 use App\Models\Bis\Deal;
-use App\Models\Index\Order;
+use App\Repositories\Index\OrderRepository;
 use App\Wxpay\Database\WxPayUnifiedOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Auth;
 /**
  * Class PayController
  * @package App\Http\Controllers\Index
  */
 class PayController extends Controller
 {
+    public $orderRepository;
     /**
      * PayController constructor.
      */
-    public function __construct() {
+    public function __construct(OrderRepository $orderRepository) {
+        $this->orderRepository = $orderRepository;
         $this->middleware('auth');
     }
 
@@ -35,12 +37,12 @@ class PayController extends Controller
         if (empty($id)){
             abort(404, '请求不合法，请联系客服');
         }
-        $order = Order::where('id', $id)->first();
+        $order = $this->orderRepository->whereForm($id);
         if (empty($order) || $order->status != 1 || $order->pay_status != 0){
             return abort(404, '无法进行该操作');
         }
         //订单是否是用户本人提交
-        if ($order->username != \Auth::user()->username){
+        if ($order->username != Auth::user()->username){
             abort(404, '非本人操作，请重新提交');
         }
         $deal = Deal::where('id', $order->deal_id)->first();

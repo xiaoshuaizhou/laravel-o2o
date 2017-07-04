@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Index;
 
 use App\Http\Controllers\CommonController;
-use App\Models\Admin\Category;
-use App\Models\Admin\Citys;
-use App\Models\Bis\Deal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,8 +21,8 @@ class DetailController extends CommonController
     {
         $indexfeatured = $this->featured->getNorMalFeaturedByType(0);
         $right = $this->featured->getNorMalFeaturedByType(1);
-        $city = Citys::find($city_id);
-        $category = Category::find($cat_id);
+        $city = $this->cityRepository->find($city_id);
+        $category = $this->categoryRepository->find($cat_id);
         $citys = $this->cityRepository->getNormalCity();
         $cats = $this->getCats();
         $deal = $this->deal->find($id);

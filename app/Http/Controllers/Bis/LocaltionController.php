@@ -6,25 +6,27 @@ use App\Api\Map;
 use App\Models\Admin\Category;
 use App\Models\Admin\Citys;
 use App\Models\Bis\Location;
+use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\Admin\CityRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class LocaltionController extends Controller
 {
-    public $city;
-    public $category;
+    public $cityRepository;
+    public $categoryRepository;
     public $location;
     /**
      * LocaltionController constructor.
      * @param $city
      */
     public function __construct(
-            Citys $city,
-            Category $category,
+            CityRepository $cityRepository,
+            CategoryRepository $categoryRepository,
             Location $location
     ) {
-        $this->city = $city;
-        $this->category = $category;
+        $this->cityRepository = $cityRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->location = $location;
     }
 
@@ -40,8 +42,8 @@ class LocaltionController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create() {
-        $citys = $this->city->findCitysByParentId();
-        $categorys = $this->category->findFirstCategories();
+        $citys = $this->cityRepository->findCitysByParentId();
+        $categorys = $this->categoryRepository->findFirstCategories();
         return view('bis.location.add', compact('citys', 'categorys'));
     }
     /**
@@ -89,8 +91,8 @@ class LocaltionController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id) {
-        $citys = $this->city->findCitysByParentId();
-        $categorys = $this->category->findFirstCategories();
+        $citys = $this->cityRepository->findCitysByParentId();
+        $categorys = $this->categoryRepository->findFirstCategories();
         $location = $this->location->find($id);
         return view('bis.location.edit', compact('citys', 'categorys', 'location'));
     }

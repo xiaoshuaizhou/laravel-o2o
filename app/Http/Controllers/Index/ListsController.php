@@ -20,7 +20,7 @@ class ListsController extends CommonController
         $citys = session('citys');
         $cats = session('cats');
         $controller = 'lists';
-        $categroys = $this->category->findFirstCategories()->toArray();
+        $categroys = $this->categoryRepository->findFirstCategories()->toArray();
         $firstCatIds = [];
         foreach ($categroys as $categroy){
             $firstCatIds[] = $categroy['id'];
@@ -31,7 +31,7 @@ class ListsController extends CommonController
             $categoryParentId = $id;
             $data['category_id'] = $id;
         }elseif ($id && !in_array($id, $firstCatIds)){ //二级分类
-            $category = $this->category->find($id);
+            $category = $this->categoryRepository->find($id);
             if (!$category || $category->status != 1){
                 abort(404, '分类不存在');
             }
@@ -42,7 +42,7 @@ class ListsController extends CommonController
         }
         $secondCategorys = [];
         if ($categoryParentId){
-            $secondCategorys = $this->category->findFirstCategories($categoryParentId);
+            $secondCategorys = $this->categoryRepository->findFirstCategories($categoryParentId);
         }
         $orderflag = '';
         if ($request->order && $request->order == 'order_sales'){

@@ -4,40 +4,40 @@ namespace App\Http\Controllers\Bis;
 
 use App\Api\Map;
 use App\Events\UserRegister;
-use App\Models\Admin\Category;
-use App\Models\Admin\Citys;
-use App\Models\Bis\Account;
 use App\Models\Bis\Bis;
 use App\Models\Bis\Location;
+use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\Admin\CityRepository;
+use App\Repositories\Bis\AccountRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class RegisterController extends Controller
 {
-    public $city;
-    public $category;
+    public $cityRepository;
+    public $categoryRepository;
     public $bis;
     public $location;
-    public $account;
+    public $accountRepository;
     /**
      * RegisterController constructor.
      * @param $city
      */
-    public function __construct(Citys $city, Category $category, Bis $bis, Location $location, Account $account) {
-        $this->city = $city;
-        $this->category = $category;
+    public function __construct(CityRepository $cityRepository, CategoryRepository $categoryRepository, Bis $bis, Location $location, AccountRepository $accountRepository) {
+        $this->cityRepository = $cityRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->bis = $bis;
         $this->location = $location;
-        $this->account = $account;
+        $this->accountRepository = $accountRepository;
     }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
-        $citys = $this->city->findCitysByParentId();
-        $categorys = $this->category->findFirstCategories();
+        $citys = $this->cityRepository->findCitysByParentId();
+        $categorys = $this->categoryRepository->findFirstCategories();
         return view('bis.register.index', compact('citys', 'categorys'));
     }
 
@@ -48,7 +48,7 @@ class RegisterController extends Controller
      */
     public function store(Request $request) {
 
-        $name = $this->account->where('username', '=', $request->username)->first();
+        $name = $this->accountRepository->whereFromUsername( $request->username);
         $email = $this->bis->where('email', '=', $request->email)->first();
         if ($name || $email){
             return abort(404, '该用户名或邮箱已经存在');exit;
@@ -112,7 +112,7 @@ class RegisterController extends Controller
                     'last_login_time' => Carbon::now(),
                     'is_man' => 1, //总管理员
             ];
-            $this->account->create($accountData);
+            $this->accountRepository->create($accountData);
             \DB::commit();
         }catch (\Exception $e){
             \DB::rollBack();

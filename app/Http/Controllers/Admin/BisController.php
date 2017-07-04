@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Bis\Account;
 use App\Models\Bis\Bis;
 use App\Models\Bis\Location;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
+use App\Repositories\Bis\AccountRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -29,9 +29,9 @@ class BisController extends Controller
      */
     public $categoryRepository;
     /**
-     * @var Account
+     * @var AccountRepository
      */
-    public $account;
+    public $accountRepository;
     /**
      * @var Location
      */
@@ -44,13 +44,13 @@ class BisController extends Controller
         Bis $bis,
         CityRepository $cityRepository,
         CategoryRepository $categoryRepository,
-        Account $account,
+        AccountRepository $accountRepository,
         Location $location
     )
     {
         $this->bis = $bis;
         $this->cityRepository = $cityRepository;
-        $this->account = $account;
+        $this->accountRepository = $accountRepository;
         $this->categoryRepository = $categoryRepository;
         $this->location = $location;
     }
@@ -92,7 +92,7 @@ class BisController extends Controller
     public function detail($id)
     {
         $bis = $this->bis->getBisById($id);
-        $account = $this->account->getBisByBisId($id);
+        $account = $this->accountRepository->getBisByBisId($id);
         $location = $this->location->getBisByBisId($id);
         $citys = $this->cityRepository->findCitysByParentId();
         $categorys = $this->categoryRepository->findFirstCategories();

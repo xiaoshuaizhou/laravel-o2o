@@ -164,4 +164,11 @@ class CategoryRepository
             ->get();
         return $cats;
     }
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function find($id) {
+        return $this->category->find($id);
+    }
 }

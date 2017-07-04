@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Events\UserChangeStatus;
 use App\Events\UserRegister;
-use App\Models\Admin\Category;
-use App\Models\Admin\Citys;
 use App\Models\Bis\Bis;
 use App\Models\Bis\Deal;
 use App\Models\Bis\Featured;

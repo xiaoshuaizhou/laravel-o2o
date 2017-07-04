@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Bis;
 
-use App\Models\Admin\Category;
-use App\Models\Admin\Citys;
 use App\Models\Bis\Account;
 use App\Models\Bis\Deal;
 use App\Models\Bis\Location;
+use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\Admin\CityRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class DealController extends Controller
 {
-    public $city;
-    public $category;
+    public $cityRepository;
+    public $categoryRepository;
     public $location;
     public $deal;
     /**
@@ -21,13 +21,13 @@ class DealController extends Controller
      * @param $city
      */
     public function __construct(
-            Citys $city,
-            Category $category,
+            CityRepository $cityRepository,
+            CategoryRepository $categoryRepository,
             Location $location,
             Deal $deal
     ) {
-        $this->city = $city;
-        $this->category = $category;
+        $this->cityRepository = $cityRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->location = $location;
         $this->deal = $deal;
     }
@@ -47,8 +47,8 @@ class DealController extends Controller
      */
     public function create() {
         $bisId = session('bisuser')->bis_id;
-        $citys = $this->city->findCitysByParentId();
-        $categorys = $this->category->findFirstCategories();
+        $citys = $this->cityRepository->findCitysByParentId();
+        $categorys = $this->categoryRepository->findFirstCategories();
         $bisLocations = $this->location->getBisByBisIds($bisId);
         return view('bis.deal.add', compact('citys', 'categorys', 'bisLocations'));
     }

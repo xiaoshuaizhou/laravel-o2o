@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Bis;
 
 use App\Models\Admin\Category;
 use App\Models\Admin\Citys;
+use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\Admin\CityRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -11,18 +13,18 @@ class ApiController extends Controller
 {
 
 
-    public $city;
-    public $category;
+    public $cityRepository;
+    public $categoryRepository;
 
     /**
      * ApiController constructor.
      * @param City $city
      * @param Category $category
      */
-    public function __construct(Citys $city, Category $category)
+    public function __construct(CityRepository $cityRepository, CategoryRepository $categoryRepository)
     {
-        $this->city = $city;
-        $this->category = $category;
+        $this->cityRepository = $cityRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -32,7 +34,7 @@ class ApiController extends Controller
      */
     public function getCityByParentId(Request $request)
     {
-        $citys = $this->city->findCitysByParentId($request->id);
+        $citys = $this->cityRepository->findCitysByParentId($request->id);
         if ($citys && $request->id != 0){
             return \Response::json([
                     'status' => 1,
@@ -52,7 +54,7 @@ class ApiController extends Controller
      */
     public function getCategoryByParentId(Request $request)
     {
-        $categorys = $this->category->findFirstCategories($request->cid);
+        $categorys = $this->categoryRepository->findFirstCategories($request->cid);
         if ($categorys->toArray() && $request->cid){
             return \Response::json([
                     'status' => 1,

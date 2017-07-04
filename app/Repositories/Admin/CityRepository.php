@@ -30,7 +30,7 @@ class CityRepository
      * @param \Request $request
      * @return mixed
      */
-    public function create($request)
+    public function created($request)
     {
         $pinyin = new Pinyin();
         $data = [
@@ -40,6 +40,7 @@ class CityRepository
             'is_default' => 0
         ];
        $res = $this->city->create(array_merge($request, $data));
+
        return $res;
     }
     /**
@@ -136,5 +137,12 @@ class CityRepository
             ->orderBy('listorder', 'desc')
             ->paginate();
         return $res;
+    }
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function find($id) {
+        return $this->city->find($id);
     }
 }

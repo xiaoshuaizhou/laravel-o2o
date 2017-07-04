@@ -54,7 +54,6 @@ class OrderRepository
         $order->save();
         return back();
     }
-
     /**
      * @param $id
      * @return mixed
@@ -62,5 +61,12 @@ class OrderRepository
     public function whereForm($id)
     {
         return $this->order->where('id', $id)->first();
+    }
+    /**
+     * @param $outTradeTo
+     * @return mixed
+     */
+    public function whereFormByOutTradeNo($outTradeTo) {
+        return $this->order->where('out_trade_no', $outTradeTo)->first();
     }
 }
