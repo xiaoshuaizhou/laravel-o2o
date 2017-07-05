@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Repositories\Admin\CategoryRepository;
-use App\Repositories\Admin\CityRepository;
-use App\Repositories\Bis\BisRepository;
-use App\Repositories\Bis\DealRepository;
-use App\Repositories\Bis\LocationRepository;
+
+use App\Service\Admin\DealsService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Toplan\FilterManager\Facades\FilterManager;
@@ -17,84 +14,30 @@ use Toplan\FilterManager\Facades\FilterManager;
  */
 class DealsController extends Controller
 {
+
     /**
-     * @var CityRepository
+     * @var DealsService
      */
-    public $cityRepository;
-    /**
-     * @var CategoryRepository
-     */
-    public $categoryRepository;
-    /**
-     * @var BisRepository
-     */
-    public $bisRepository;
-    /**
-     * @var DealRepository
-     */
-    public $dealRepository;
-    /**
-     * @var LocationRepository
-     */
-    public $locationRepository;
+    public $dealsService;
 
     /**
      * DealsController constructor.
-     * @param BisRepository $bisRepository
-     * @param CityRepository $cityRepository
-     * @param CategoryRepository $categoryRepository
-     * @param DealRepository $dealRepository
-     * @param LocationRepository $locationRepository
+     * @param DealsService $dealsService
      */
-    public function __construct(
-            BisRepository $bisRepository,
-            CityRepository $cityRepository,
-            CategoryRepository $categoryRepository,
-            DealRepository $dealRepository,
-            LocationRepository $locationRepository
-    )
+    public function __construct(DealsService $dealsService)
     {
-        $this->cityRepository = $cityRepository;
-        $this->categoryRepository = $categoryRepository;
-        $this->bisRepository = $bisRepository;
-        $this->dealRepository = $dealRepository;
-        $this->locationRepository = $locationRepository;
+        $this->dealsService = $dealsService;
     }
 
     /**
      * 团购列表 多条件查询
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
-        if ($request->isMethod('post')){
-            $sdata = [];
-            $sdataname = [];
-            if (!empty($request->category_id)){
-                $sdata['category_id'] = $request->category_id;
-            }
-            if (!empty($request->city_id)){
-                $sdata['city_id'] = $request->city_id;
-            }
-            if (!empty($request->name)) {
-                $sdataname['name'] = $request->name;
-            }
-            if (!empty($request->shangjianame)){
-                $bis = $this->bisRepository->whereFormNameLike($request->shangjianame);
-                if (empty($bis)) abort(404,'商户名不存在');
-                $sdata['bis_id'] = $bis->id;
-            }
-            $time_data = [];
-            if ($request->start_time && $request->end_time && strtotime($request->end_time) > strtotime($request->start_time )){
-                $time_data['start_time'] = $request->start_time;
-                $time_data['end_time'] = $request->end_time;
-            }
-            $deals = $this->dealRepository->getNormalDealsByWhere($sdata, $sdataname, $time_data);
-        }else {
-            $deals = $this->dealRepository->getNormalDeals();
-        }
-        $citys = $this->cityRepository->getNormalCity();
-        $categorys = $this->categoryRepository->findFirstCategories();
+        $deals = $this->dealsService->indexService(Request::class);
+        $citys = $this->dealsService->getNormalCity();
+        $categorys = $this->dealsService->getNormalCategories();
         return view('admin.deal.index', compact('citys', 'categorys', 'deals'));
     }
 
@@ -102,36 +45,10 @@ class DealsController extends Controller
      * 待审核的团购商品
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function review(Request $request) {
-        if ($request->isMethod('post')){
-            $sdata = [];
-            $sdataname = [];
-            if (!empty($request->category_id)){
-                $sdata['category_id'] = $request->category_id;
-            }
-            if (!empty($request->city_id)){
-                $sdata['city_id'] = $request->city_id;
-            }
-            if (!empty($request->name)) {
-                $sdataname['name'] = $request->name;
-            }
-            if (!empty($request->shangjianame)){
-                $bis = $this->bisRepository->whereFormNameLike($request->shangjianame);
-                if (empty($bis)) abort(404,'商户名不存在');
-                $sdata['bis_id'] = $bis->id;
-            }
-            $time_data = [];
-            if ($request->start_time && $request->end_time && strtotime($request->end_time) > strtotime($request->start_time )){
-                $time_data['start_time'] = $request->start_time;
-                $time_data['end_time'] = $request->end_time;
-            }
-            $deals = $this->dealRepository->getNormalDealsByWhere($sdata, $sdataname, $time_data,0);
-        }else {
-            $deals = $this->dealRepository->getNormalDealsReview();
-        }
-        $citys = $this->cityRepository->getNormalCity();
-        $categorys = $this->categoryRepository->findFirstCategories();
-
+    public function review() {
+        $deals = $this->dealsService->reviewService(Request::class);
+        $citys = $this->dealsService->getNormalCity();
+        $categorys = $this->dealsService->getNormalCategories();
         return view('admin.deal.review', compact('citys', 'categorys', 'deals'));
     }
 
@@ -142,10 +59,10 @@ class DealsController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id) {
-        $deal = $this->dealRepository->getNormalDealById($id);
-        $citys = $this->cityRepository->getNormalCity();
-        $categorys = $this->categoryRepository->findFirstCategories();
-        $location = $this->locationRepository->whereFormBisId($deal->bis_id);
+        $deal = $this->dealsService->getNormalDealById($id);
+        $citys = $this->dealsService->getNormalCity();
+        $categorys = $this->dealsService->getNormalCategories();
+        $location = $this->dealsService->getNormalLocationById($deal->bis_id);
         return view('admin.deal.edit', compact('citys', 'categorys', 'deal', 'location'));
     }
 
@@ -155,7 +72,7 @@ class DealsController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request) {
-        $this->dealRepository->updateById($request->all());
+        $this->dealsService->updateDealById($request->all());
         return back();
     }
 

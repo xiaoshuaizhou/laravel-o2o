@@ -78,21 +78,17 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request) {
-        $category = $this->categoryRepository->getCategoryById(request('id'));
-        $category->update($request->all());
-
+        $this->categoryRepository->updateCategory(request('id'), $request->all());
         return back();
     }
+
     /**
      * 删除分类（将状态修改成-1）
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function delete($id) {
-        $category = $this->categoryRepository->getCategoryById($id);
-        $data = ['status' => -1];
-        $category->update($data);
-
+        $this->categoryRepository->deleteCategoryStatus($id);
         return back();
     }
 
@@ -103,9 +99,7 @@ class CategoryController extends Controller
      */
     public function listorder(Request $request)
     {
-        $id = $request->get('id');
-        $listorder = $request->get('listorder');
-        $state = $this->categoryRepository->listorder($id, $listorder);
+        $state = $this->categoryRepository->listorder($request->get('id'), $request->get('listorder'));
         return $state ? response()->json(['msg'=>'success']) : response()->json(['msg'=>'error']);
     }
 

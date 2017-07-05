@@ -89,10 +89,7 @@ class CitysController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function delete($id) {
-        $data = ['status' => -1];
-        $city = $this->cityRepository->find($id);
-        $city->update($data);
-
+        $this->cityRepository->deleteCityStatusById($id);
         return back();
     }
     /**
@@ -102,9 +99,7 @@ class CitysController extends Controller
      */
     public function listorder(Request $request)
     {
-        $id = $request->get('id');
-        $listorder = $request->get('listorder');
-        $state = $this->cityRepository->listorder($id, $listorder);
+        $state = $this->cityRepository->listorder($request->get('id'), $request->get('listorder'));
         return  $state ?  response()->json(['msg' => 'success']) :  response()->json(['msg' => 'error']);
     }
 }

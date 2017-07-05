@@ -97,6 +97,21 @@ class CategoryRepository
     public function getCategoryById($id) {
         return $this->category->find($id);
     }
+
+    public function updateCategory($id, $data) {
+        $category = $this->category->find($id);
+        $category->update($data);
+    }
+    /**
+     * 根据ID修改状态删除分类
+     * @param $id
+     * @return mixed
+     */
+    public function deleteCategoryStatus($id) {
+        $category = $this->category->find($id);
+        $data = ['status' => -1];
+        return $category->update($data);
+    }
     /**
      * 根据listorder排序
      * @param $id
@@ -105,7 +120,9 @@ class CategoryRepository
      */
     public function listorder($id, $listorder)
     {
-        return $this->category->where(['id' => $id])->update(['listorder' => $listorder]);
+        return $this->category
+                ->where(['id' => $id])
+                ->update(['listorder' => $listorder]);
 
     }
     /**

@@ -145,4 +145,15 @@ class CityRepository
     public function find($id) {
         return $this->city->find($id);
     }
+
+    /**
+     * 删除城市 将状态修改为 -1
+     * @param $id
+     * @return mixed
+     */
+    public function deleteCityStatusById($id) {
+        $data = ['status' => -1];
+        $city = $this->city->find($id);
+        return $city->update($data);
+    }
 }

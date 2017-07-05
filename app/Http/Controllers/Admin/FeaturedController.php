@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Repositories\Bis\FeaturedRepository;
+use App\Service\Admin\FeaturedService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -13,17 +13,17 @@ use App\Http\Controllers\Controller;
 class FeaturedController extends Controller
 {
     /**
-     * @var FeaturedRepository
+     * @var FeaturedService
      */
-    public $featuredRepository;
+    public $featuredService;
 
     /**
      * FeaturedController constructor.
-     * @param FeaturedRepository $featuredRepository
+     * @param FeaturedService $featuredService
      */
-    public function __construct(FeaturedRepository $featuredRepository)
+    public function __construct(FeaturedService $featuredService)
     {
-        $this->featuredRepository = $featuredRepository;
+        $this->featuredService = $featuredService;
     }
 
     /**
@@ -31,12 +31,8 @@ class FeaturedController extends Controller
      */
     public function index(Request $request)
     {
-        $type = $request->type;
-        if (empty($type)){
-            $type = 0;
-        }
+        $datas = $this->featuredService->indexService(request('type'));
         $featureds = config('app.featured');
-        $datas = $this->featuredRepository->getNorMalFeaturedByType($type);
         return view('admin.featured.index', compact('featureds', 'datas'));
     }
 
@@ -55,7 +51,7 @@ class FeaturedController extends Controller
      */
     public function create(Request $request)
     {
-        $this->featuredRepository->create($request->all());
+        $this->featuredService->createService($request->all());
         return back();
     }
 
@@ -66,7 +62,7 @@ class FeaturedController extends Controller
      */
     public function destory($id)
     {
-        $this->featuredRepository->destory($id);
+        $this->featuredService->destoryService($id);
         return back();
 
     }

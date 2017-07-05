@@ -9,6 +9,7 @@ use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\BisRepository;
 use App\Repositories\Bis\DealRepository;
 use App\Repositories\Bis\FeaturedRepository;
+use App\Service\Admin\EmailService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -38,7 +39,7 @@ class StatusController extends Controller
      * @var FeaturedRepository
      */
     public $featuredRepository;
-
+    public $emailService;
     /**
      * StatusController constructor.
      * @param CategoryRepository $categoryRepository
@@ -48,12 +49,14 @@ class StatusController extends Controller
      * @param FeaturedRepository $featuredRepository
      */
     public function __construct(
+            EmailService $emailService,
             CategoryRepository $categoryRepository,
             CityRepository $cityRepository,
             DealRepository $dealRepository,
             BisRepository $bisRepository,
             FeaturedRepository $featuredRepository
     ) {
+        $this->emailService = $emailService;
         $this->categoryRepository = $categoryRepository;
         $this->cityRepository = $cityRepository;
         $this->bisRepository = $bisRepository;
@@ -121,8 +124,7 @@ class StatusController extends Controller
         ]);
         $this->bisRepository->changStatus($id, $status);
         //邮件通知商户
-        $this->bisRepository->whereForm($id);
-            event(new UserChangeStatus($this->bisRepository->latestFirst()));
+        $this->emailService->send($id);
         return back();
     }
 
@@ -139,9 +141,7 @@ class StatusController extends Controller
             $id => 'numeric',
             $status => 'in:0,1,-1,2',
         ]);
-        $this->bisRepository->changStatusDel($id, $status);
-        event(new UserChangeStatus($this->bisRepository->latestFirst()));
-
+        $this->emailService->senddeleteEmail($id, $status);
         return back();
     }
 
