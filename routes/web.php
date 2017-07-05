@@ -90,6 +90,7 @@ Route::namespace('Bis')->prefix('bis')->group(function (){
     Route::post('/api/getCityByParentId', 'ApiController@getCityByParentId');
     Route::post('/api/getCategoryByParentId', 'ApiController@getCategoryByParentId');
     Route::post('/api/upload', 'ApiController@upload');
+    Route::post('/api/map/', 'ApiController@mapApi');
     Route::get('register/waiting/{id}', 'RegisterController@waiting');
     Route::any('logout', 'LoginController@logout');
     Route::get('/location/create', 'LocaltionController@create');

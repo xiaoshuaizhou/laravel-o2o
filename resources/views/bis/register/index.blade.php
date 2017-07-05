@@ -142,9 +142,9 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">商户地址：</label>
 			<div class="formControls col-xs-8 col-sm-3">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="address">
+				<input type="text" class="input-text " value="" placeholder="" id="address" name="address">
 			</div>
-			<a  class="btn btn-default radius ml-10 maptag">标注</a>
+			<a  class="btn btn-default radius ml-10 maptag"  id="maptag" ><font  color="black">标注</font></a>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">营业时间:</label>
@@ -198,7 +198,8 @@
 	    'city_url' : '{{url('bis/api/getCityByParentId')}}',
 		'category_url' : '{{url('bis/api/getCategoryByParentId')}}',
 		'uploadify_swf' : '/uploadify/uploadify.swf',
-		'img_url' : '{{url('bis/api/upload')}}'
+		'img_url' : '{{url('bis/api/upload')}}',
+		'map_url' : '{{url('bis/api/map')}}'
 	};
 </script>
 <script>
@@ -206,6 +207,31 @@ $(function(){
 	var ue = UE.getEditor('editor');
 	var ue1 = UE.getEditor('editor1');
 });
+var url = SCOPE.map_url;
+
+$('.maptag').click(function () {
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: {
+            'address':$("#address").val(),
+            '_token' :'{{ csrf_token() }}'
+        },
+        success: function (data) {
+            console.log(data);
+
+            if(data.msg == 'success'){
+				$("#maptag").css("background","green");
+			}else{
+                $("#maptag").css("background","red");
+                alert('位置获取失败');
+            }
+        },
+        error: function (data) {
+            alert('执行错误,请稍后重试!');
+        }
+    });
+})
 </script>
 </body>
 </html>

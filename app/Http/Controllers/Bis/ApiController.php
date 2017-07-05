@@ -6,7 +6,7 @@ use App\Service\Bis\ApiService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Response;
-
+use App\Api\Map;
 /**
  * Class ApiController
  * @package App\Http\Controllers\Bis
@@ -54,5 +54,14 @@ class ApiController extends Controller
     public function upload(Request $request)
     {
         return $this->apiService->uploadService($request->file('file'));
+    }
+
+    public function mapApi(Request $request)
+    {
+        $lnglat = Map::getLngLat($request->address);
+        if (empty($lnglat) || $lnglat['status'] != 0 || $lnglat['result']['precise'] != 1){
+            return response()->json(['msg'=>'error']);
+        }
+        return response()->json(['msg'=>'success']);
     }
 }
