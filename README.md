@@ -1,51 +1,51 @@
-<p align =“center”> <img src =“https://laravel.com/assets/img/components/logo-laravel.svg”> </p>
+<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-<p align =“center”>
-<a href="https://travis-ci.org/laravel/framework"> <img src =“https://travis-ci.org/laravel/framework.svg”alt =“构建状态”> </一>
-<a href="https://packagist.org/packages/laravel/framework"> <img src =“https://poser.pugx.org/laravel/framework/d/total.svg”alt =“总下载“> 总下载</a>
-<a href="https://packagist.org/packages/laravel/framework"> <img src =“https://poser.pugx.org/laravel/framework/v/stable.svg”alt =“最新稳定版本“>最新稳定版本</a>
-<a href="https://packagist.org/packages/laravel/framework"> <img src =“https://poser.pugx.org/laravel/framework/license.svg”alt =“许可证”> 许可证</a>
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-##关于laravel
+## About Laravel
 
-Laravel是一个具有表现力，优雅语法的Web应用程序框架。我们认为，发展必须是一个愉快和创造性的经验才能真正实现。 Laravel试图通过缓解大多数网络项目中使用的常见任务来将痛苦摆脱发展，如：
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
 
-- [简单快速路由引擎]（https://laravel.com/docs/routing）。
-- [强大的依赖注入容器]（https://laravel.com/docs/container）。
-- [session]（https://laravel.com/docs/session）和[cache]（https://laravel.com/docs/cache）存储的多个后端。
-- 表达，直观[数据库ORM]（https://laravel.com/docs/eloquent）。
-- 数据库不可知[模式迁移]（https://laravel.com/docs/migrations）。
-- [强大的后台处理]（https://laravel.com/docs/queues）。
-- [实时事件广播]（https://laravel.com/docs/broadcasting）。
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel是可访问的，而且功能强大，为大型，强大的应用程序提供所需的工具。简单，优雅和创新的精湛组合为您提供了构建任务应用程序所需的工具。
+Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
 
-##学习Laravel
+## Learning Laravel
 
-Laravel拥有任何现代Web应用程序框架最全面和最全面的文档和视频教程库。 [Laravel文档]（https://laravel.com/docs）是彻底，完整的，并且让您轻松开始学习框架。
+Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
 
-如果您没有阅读心情，[Laracasts]（https://laracasts.com）包含超过900个视频教程，包括Laravel，现代PHP，单元测试，JavaScript等等。通过挖掘我们的综合视频库，提升自己和整个团队的技能水平。
+If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
 
-## Laravel赞助商
+## Laravel Sponsors
 
-我们要感谢以下赞助商，以帮助Laravel开发进程。如果您有兴趣成为赞助商，请访问Laravel [Patreon page]（http://patreon.com/taylorotwell）：
+We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
 
-- ** [Vehikl]（http://vehikl.com）**
-- ** [Tighten Co.]（https://tighten.co）**
-- ** [英国软件开发]（https://www.britishsoftware.co）**
-- ** [Styde]（https://styde.net）**
-- [Fragrantica]（https://www.fragrantica.com）
-- [SOFTonSOFA]（https://softonsofa.com/）
+- **[Vehikl](http://vehikl.com)**
+- **[Tighten Co.](https://tighten.co)**
+- **[British Software Development](https://www.britishsoftware.co)**
+- **[Styde](https://styde.net)**
+- [Fragrantica](https://www.fragrantica.com)
+- [SOFTonSOFA](https://softonsofa.com/)
 
-##贡献
+## Contributing
 
-感谢您考虑为Laravel提供框架！贡献指南可以在[Laravel文档]（http://laravel.com/docs/contributions）中找到。
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
-##安全漏洞
+## Security Vulnerabilities
 
-如果您在Laravel发现安全漏洞，请发送电子邮件至泰勒奥特维尔，电话：taylor@laravel.com。所有安全漏洞将及时解决。
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
 
-＃＃ 执照
+## License
 
-Laravel框架是根据[MIT许可证]（http://opensource.org/licenses/MIT）许可的开源软件。
+The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
