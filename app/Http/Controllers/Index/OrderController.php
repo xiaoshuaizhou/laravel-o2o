@@ -12,11 +12,14 @@ use App\Repositories\Bis\LocationRepository;
 use App\Repositories\Index\OrderRepository;
 use App\Service\Index\DetailService;
 use App\Service\Index\ListService;
-use Illuminate\Http\Request;
-use Auth;
+use App\Service\Index\OrderService;
 
 class OrderController extends CommonController
 {
+    /**
+     * @var OrderService
+     */
+    public $orderService;
     /**
      * OrderController constructor.
      * @param CityRepository $cityRepository
@@ -36,7 +39,8 @@ class OrderController extends CommonController
             BisRepository $bisRepository,
             OrderRepository $orderRepository,
             DetailService $detailService,
-            ListService $listService
+            ListService $listService,
+            OrderService $orderService
     ) {
         parent::__construct(
                 $cityRepository,
@@ -49,6 +53,7 @@ class OrderController extends CommonController
                 $detailService,
                 $listService
         );
+        $this->orderService = $orderService;
         $this->middleware('auth');
     }
 
@@ -64,19 +69,11 @@ class OrderController extends CommonController
         $city = session('city');
         $citys = session('citys');
         $cats = session('cats');
-        $id = $id ? intval($id) : 0;
-        if (!$id){
-            abort(404, '参数不合法');
-        }
-        $count = $count ? intval($count) : 1;
-        $deal = $this->dealRepository->find($id);
-        if (empty($deal) || $deal->status != 1){
-            abort(404, '商品不存在');
-        }
-        $deal = $deal->toArray();
+        $data = $this->orderService->confirmService($id, $count);
+        $count = $data[0];
+        $deal = $data[1];
         return view('index.confirm', compact('title', 'controller', 'city', 'citys', 'cats', 'deal', 'count'));
     }
-
     /**
      * 订单入库
      * @param $id
@@ -84,49 +81,16 @@ class OrderController extends CommonController
      * @param $price
      */
     public function index($id, $count, $price) {
-        $deal = $this->dealRepository->find($id);
-        if (empty($deal) || $deal->status != 1){
-            abort(404, '商品不存在');
-        }
-        if (empty($_SERVER['HTTP_REFERER'])){
-            abort(404, '请求不合法');
-        }
-        $orderNum = setOrderNum();
-        //组装入库数据
-        $data = [
-            'out_trade_no' => $orderNum,
-            'status' => 1,
-            'user_id' => Auth::user()->id,
-            'username' => Auth::user()->username,
-            'deal_id' => $id,
-            'deal_count' => intval($count),
-            'total_price' => $price,
-            'referer' => $_SERVER['HTTP_REFERER'],
-        ];
-        try{
-            $id = $this->orderRepository->creates($data);
-        }catch (\Exception $exception){
-            abort(404, '订单提交失败');
-        }
+        $this->orderService->indexService($id, $count, $price);
         return redirect(url('index/pay', ['id'=> $id]));
     }
 
     /**
      * 判断支付状态
-     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function paystatus(Request $request) {
-        $id = request('id');
-        $id = $id ? $id : 0;
-        if (!$id){
-            return response()->json(['status'=>0]);
-        }
-        $order = $this->orderRepository->whereForm($id);
-        if ($order->pay_status == 1 ){
-            return response()->json(['status' => 1]);
-        }
-        return response()->json(['status'=>0]);
+    public function paystatus() {
+        return $this->orderService->paystatusService(request('id'));
     }
 
 }
