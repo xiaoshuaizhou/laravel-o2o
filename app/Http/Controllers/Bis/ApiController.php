@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Bis;
 
-use App\Repositories\Admin\CategoryRepository;
-use App\Repositories\Admin\CityRepository;
+use App\Service\Bis\ApiService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Response;
@@ -15,23 +14,17 @@ use Response;
 class ApiController extends Controller
 {
     /**
-     * @var CityRepository
+     * @var ApiService
      */
-    public $cityRepository;
-    /**
-     * @var CategoryRepository
-     */
-    public $categoryRepository;
+    public $apiService;
 
     /**
      * ApiController constructor.
-     * @param CityRepository $cityRepository
-     * @param CategoryRepository $categoryRepository
+     * @param ApiService $apiService
      */
-    public function __construct(CityRepository $cityRepository, CategoryRepository $categoryRepository)
+    public function __construct( ApiService $apiService)
     {
-        $this->cityRepository = $cityRepository;
-        $this->categoryRepository = $categoryRepository;
+        $this->apiService = $apiService;
     }
 
     /**
@@ -39,19 +32,9 @@ class ApiController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getCityByParentId(Request $request)
+    public function getCityByParentId()
     {
-        $citys = $this->cityRepository->findCitysByParentId($request->id);
-        if ($citys && $request->id != 0){
-            return Response::json([
-                    'status' => 1,
-                    'data' => ($citys->toArray()),
-            ]);
-        }
-        return Response::json([
-                'status' => 0,
-                'data' => [],
-        ]);
+        return $this->apiService->getCitiesByParentId(request('id'));
     }
 
     /**
@@ -59,20 +42,9 @@ class ApiController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getCategoryByParentId(Request $request)
+    public function getCategoryByParentId()
     {
-        $categorys = $this->categoryRepository->findFirstCategories($request->cid);
-        if ($categorys->toArray() && $request->cid){
-            return Response::json([
-                    'status' => 1,
-                    'data' => $categorys->toArray(),
-            ]);
-        }
-        return Response::json([
-                'status' => 0,
-                'data' => [],
-        ]);
-
+        return $this->apiService->getCategoriesByParentId(request('cid'));
     }
     /**
      * 图片上传
@@ -81,20 +53,6 @@ class ApiController extends Controller
      */
     public function upload(Request $request)
     {
-        $file = $request->file('file');
-        $filePath = 'uploads/';
-        $fileName = time() . '-' . $file->getClientOriginalName();
-        $fileinfo = $file->move($filePath,  $fileName);
-
-        if ($fileinfo && $fileinfo->getPathname()){
-            return Response::json([
-                    'status' => 1,
-                    'data' => '/' . $fileinfo->getPathname(),
-            ]);
-        }
-        return Response::json([
-                'status' => 0 ,
-                'data' => []
-        ]);
+        return $this->apiService->uploadService($request->file('file'));
     }
 }

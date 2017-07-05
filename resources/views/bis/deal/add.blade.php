@@ -136,6 +136,11 @@
 			</div>
 		</div>
 	</form>
+	<div class="row cl" style="">
+		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+			@include('errors.list')
+		</div>
+	</div>
 </article>
 <script>
 /**定义页面全局变量**/

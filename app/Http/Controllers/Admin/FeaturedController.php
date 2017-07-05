@@ -27,6 +27,7 @@ class FeaturedController extends Controller
     }
 
     /**
+     * 推荐位首页
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
@@ -37,6 +38,7 @@ class FeaturedController extends Controller
     }
 
     /**
+     * 添加推荐位视图
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function add()
@@ -46,6 +48,7 @@ class FeaturedController extends Controller
     }
 
     /**
+     * 添加推荐位
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */

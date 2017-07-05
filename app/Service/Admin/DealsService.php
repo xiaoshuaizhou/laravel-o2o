@@ -168,4 +168,13 @@ class DealsService {
     public function updateDealById($data) {
         return $this->dealRepository->updateById($data);
     }
+
+    /**
+     * 删除团购商品 下架
+     * @param $id
+     */
+    public function deleteDealById($id) {
+        return $this->dealRepository->deleteDealById($id);
+
+    }
 }

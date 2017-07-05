@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Bis;
 
-use App\Api\Map;
+use App\Http\Requests\LocationRequest;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\LocationRepository;
+use App\Service\Bis\LocationService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -27,7 +28,10 @@ class LocaltionController extends Controller
      * @var LocationRepository
      */
     public $locationRepository;
-
+    /**
+     * @var
+     */
+    public $locationService;
     /**
      * LocaltionController constructor.
      * @param CityRepository $cityRepository
@@ -37,11 +41,13 @@ class LocaltionController extends Controller
     public function __construct(
             CityRepository $cityRepository,
             CategoryRepository $categoryRepository,
-            LocationRepository $locationRepository
+            LocationRepository $locationRepository,
+            LocationService $locationService
     ) {
         $this->cityRepository = $cityRepository;
         $this->categoryRepository = $categoryRepository;
         $this->locationRepository = $locationRepository;
+        $this->locationService = $locationService;
     }
 
     /**
@@ -65,38 +71,10 @@ class LocaltionController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request) {
+    public function store(LocationRequest $request) {
         //校验数据 request
-        //获取经纬度
-        $lnglat = Map::getLngLat($request->address);
-        if (empty($lnglat) || $lnglat['status'] != 0 || $lnglat['result']['precise'] != 1){
-            abort(404,'获取位置失败');
-        }
-        $data['cat'] = '';
-        if (!empty($request->se_category_id)) {
-            $data['cat'] = implode('|', $request->se_category_id);
-        }
-        $bisId = session('bisuser')->bis_id;
-        $locationData = [
-                'bis_id' => $bisId,
-                'tel' => $request->tel,
-                'logo' => $request->logo,
-                'name' => $request->name,
-                'contact' => $request->contact,
-                'category_id' => $request->category_id,
-                'category_path' => $request->category_id . ',' . $data['cat'],
-                'city_id' => $request->city_id,
-                'city_path' => empty($request->se_city_id) ? $request->city_id : $request->city_id . ',' . $request->se_city_id,
-                'address' => $request->address,
-                'api_address' => $request->address,
-                'open_time' => $request->open_time,
-                'content' => empty($request->content) ? '' : $request->content,
-                'is_main' => 0, //分店
-                'xpoint' => empty($lnglat['result']['location']['lng']) ? '' : $lnglat['result']['location']['lng'],
-                'ypoint' => empty($lnglat['result']['location']['lat']) ? '' : $lnglat['result']['location']['lat'],
-                'bank_info' => $request->bank_info,
-        ];
-        $this->locationRepository->create($locationData);
+
+        $this->locationService->store(Request::class);
         return back();
     }
 

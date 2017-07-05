@@ -83,7 +83,7 @@ class DealsController extends Controller
      */
     public function destory($id)
     {
-        $this->dealRepository->deleteDealById($id);
+        $this->dealsService->deleteDealById($id);
         return back();
     }
 }

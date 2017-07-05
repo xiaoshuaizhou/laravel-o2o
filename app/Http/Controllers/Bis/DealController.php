@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Bis;
 
+use App\Http\Requests\BisRequest;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CityRepository;
 use App\Repositories\Bis\AccountRepository;
 use App\Repositories\Bis\DealRepository;
 use App\Repositories\Bis\LocationRepository;
+use App\Service\Bis\DealService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -36,6 +38,10 @@ class DealController extends Controller
      * @var DealRepository
      */
     public $dealRepository;
+    /**
+     * @var DealService
+     */
+    public $dealService;
 
     /**
      * DealController constructor.
@@ -44,19 +50,22 @@ class DealController extends Controller
      * @param CategoryRepository $categoryRepository
      * @param LocationRepository $locationRepository
      * @param DealRepository $dealRepository
+     * @param DealService $dealService
      */
     public function __construct(
             AccountRepository $accountRepository,
             CityRepository $cityRepository,
             CategoryRepository $categoryRepository,
             LocationRepository $locationRepository,
-            DealRepository $dealRepository
+            DealRepository $dealRepository,
+            DealService $dealService
     ) {
         $this->cityRepository = $cityRepository;
         $this->categoryRepository = $categoryRepository;
         $this->accountRepository = $accountRepository;
         $this->locationRepository = $locationRepository;
         $this->dealRepository = $dealRepository;
+        $this->dealService = $dealService;
     }
 
     /**
@@ -86,33 +95,7 @@ class DealController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function add(Request $request) {
-        $bisId = session('bisuser')->bis_id;
-        $location = $this->locationRepository->find($request->location_ids[0]);
-        if (empty($location)){
-            abort(404, '分店不存在，请联系主管理员');
-        }
-        $data = [
-            'bis_id' => $bisId,
-            'name' => $request->name,
-            'image' => $request->image,
-            'category_id' => $request->category_id,
-            'se_category_id' => empty($request->category_id) ? '' : implode(',', $request->se_category_id),
-            'city_id' => $request->city_id,
-            'location_ids' => empty($request->location_ids) ? '' : implode(',', $request->location_ids),
-            'start_time' => ($request->start_time),
-            'end_time' => ($request->end_time),
-            'total_count' => $request->total_count,
-            'origin_price' => $request->origin_price,
-            'current_price' => $request->current_price,
-            'coupons_begin_time' => ($request->coupons_begin_time),
-            'coupons_end_time' => ($request->coupons_end_time),
-            'notes' => htmlentities($request->notes),
-            'description' => htmlentities($request->description),
-            'account_id' => $this->accountRepository->whereFormBisId($bisId)->id,
-            'xpoint' => $location->xpoint,
-            'ypoint' => $location->ypoint,
-        ];
-        $this->dealRepository->create($data);
+        $this->dealService->create(Request::class);
         return back();
     }
 }
