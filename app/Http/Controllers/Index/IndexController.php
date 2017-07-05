@@ -65,14 +65,14 @@ class IndexController extends CommonController
                 break;
             }
         }
-            $defaultName = $defaultName ? $defaultName : 'haidianqu';
-            if (session('cityuname') && empty(request('city'))){
-                $cityuname = session('cityuname');
-            }else {
-                $cityuname = $cityName ? $cityName : trim($defaultName);
-                session('cityuname', $cityuname);
-            }
-            $this->citys = $this->cityRepository->whereFrom($cityuname);
+        $defaultName = $defaultName ? $defaultName : 'haidianqu';
+        if (session('cityuname') && empty(request('city'))){
+            $cityuname = session('cityuname');
+        }else {
+            $cityuname = $cityName ? $cityName : trim($defaultName);
+            session('cityuname', $cityuname);
+        }
+        $this->citys = $this->cityRepository->whereFrom($cityuname);
     }
 
     /**

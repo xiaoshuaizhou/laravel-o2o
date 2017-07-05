@@ -9,6 +9,8 @@ use App\Repositories\Bis\DealRepository;
 use App\Repositories\Bis\FeaturedRepository;
 use App\Repositories\Bis\LocationRepository;
 use App\Repositories\Index\OrderRepository;
+use App\Service\Index\DetailService;
+use App\Service\Index\ListService;
 use Illuminate\Http\Request;
 
 /**
@@ -45,7 +47,14 @@ class CommonController extends Controller
      * @var
      */
     public $orderRepository;
-
+    /**
+     * @var DetailService
+     */
+    public $detailService;
+    /**
+     * @var ListService
+     */
+    public $listService;
     /**
      * CommonController constructor.
      * @param CityRepository $cityRepository
@@ -63,7 +72,9 @@ class CommonController extends Controller
         DealRepository $dealRepository,
         LocationRepository $locationRepository,
         BisRepository $bisRepository,
-        OrderRepository $orderRepository
+        OrderRepository $orderRepository,
+        DetailService $detailService,
+        ListService $listService
     )
     {
         $this->cityRepository = $cityRepository;
@@ -73,5 +84,7 @@ class CommonController extends Controller
         $this->locationRepository = $locationRepository;
         $this->bisRepository = $bisRepository;
         $this->orderRepository = $orderRepository;
+        $this->detailService = $detailService;
+        $this->listService = $listService;
     }
 }

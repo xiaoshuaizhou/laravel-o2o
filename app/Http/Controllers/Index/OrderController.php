@@ -10,6 +10,8 @@ use App\Repositories\Bis\DealRepository;
 use App\Repositories\Bis\FeaturedRepository;
 use App\Repositories\Bis\LocationRepository;
 use App\Repositories\Index\OrderRepository;
+use App\Service\Index\DetailService;
+use App\Service\Index\ListService;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -32,7 +34,9 @@ class OrderController extends CommonController
             DealRepository $dealRepository,
             LocationRepository $locationRepository,
             BisRepository $bisRepository,
-            OrderRepository $orderRepository
+            OrderRepository $orderRepository,
+            DetailService $detailService,
+            ListService $listService
     ) {
         parent::__construct(
                 $cityRepository,
@@ -41,7 +45,9 @@ class OrderController extends CommonController
                 $dealRepository,
                 $locationRepository,
                 $bisRepository,
-                $orderRepository
+                $orderRepository,
+                $detailService,
+                $listService
         );
         $this->middleware('auth');
     }
