@@ -17,7 +17,7 @@
     <meta property="og:url" content="https://laravist.com/">
     <meta property="og:site_name" content="Laravist">
     <link rel="shortcut icon" href="/images/favicon.ico">
-    <title> Laravel</title>
+    <title> ERROR</title>
     <style>
         body
         {
@@ -151,10 +151,9 @@
     </article>
     <article>
         <h3>
-            My Suggestions.</h3>
+            一点点的建议...</h3>
         <ul>
-            <li><a href="">Home</a></li>
-            <li><a href="">Portfolio</a></li>
+            <li><a href="/">回到首页</a></li>
         </ul>
     </article>
 </section>

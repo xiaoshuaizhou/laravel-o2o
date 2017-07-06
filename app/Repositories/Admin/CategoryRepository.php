@@ -70,7 +70,7 @@ class CategoryRepository
         $res = $this->category->where($condition)
             ->orderBy('id','desc')
             ->orderBy('listorder','desc')
-            ->paginate(5);
+            ->paginate();
         return $res;
     }
     /**

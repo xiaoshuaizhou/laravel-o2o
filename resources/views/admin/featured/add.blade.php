@@ -1,5 +1,7 @@
 <!--包含头部文件-->
 @include('admin.public.head')
+@inject('FeaturedPresenter', 'App\Presenter\Admin\FeaturedPresenter')
+
 <body>
 <div class="cl pd-5 bg-1 bk-gray mt-20"> 添加推荐位信息</div>
 <article class="page-container">
@@ -25,10 +27,7 @@
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>所属分类：</label>
 			<div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
 				<select name="type" class="select">
-					
-					@foreach($featureds as $key=>$featured)
-					<option value="{{$key}}">{{$featured}}</option>
-					@endforeach
+					{!! $FeaturedPresenter->selectFeatureds($featureds) !!}
 				</select>
 				</span>
 			</div>

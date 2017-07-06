@@ -1,28 +1,24 @@
 <!--包含头部文件-->
 @include('admin.public.head')
+@inject('CityPresenter', 'App\Presenter\Admin\CityPresenter')
+
 <body>
 <div class="page-container">
 	<form class="form form-horizontal form-o2o-add" id="form-o2o-add" method="post" action="{{url('admin/city/edit')}}">
 		{{csrf_field()}}
 		<input type="hidden" name="id" value="{{$city->id}}">
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>生活服务分类名称：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>城市名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="{{$city->name}}" placeholder="" id="name" name="name">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>一级城市：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<span class="select-box">
 				<select name="parent_id" class="select">
-					@if($city->parent_id == 0)
-					<option value="0">一级分类</option>
-					@else
-						@foreach($citys as $item)
-					<option value="{{$item->id}} "@if($city->parent_id == $item->id) selected="selected" @endif">-{{$item->name}}-</option>
-						@endforeach
-					@endif
+					{!! $CityPresenter->editPresenter($citys, $city) !!}
 				</select>
 				</span>
 			</div>

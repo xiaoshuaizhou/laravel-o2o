@@ -26,7 +26,9 @@
                 <td>{{$category->name}}</td>
                 <td class="listorder"><input  style="width: 20px;" name="listorder" att-id="{{$category->id}}" type="text" value="{{$category->listorder}}"></td>
                 <td>{{$category->created_at}}</td>
-                <td class="td-status"><a href="{{url('admin/status/index', ['id' => $category->id ,'status' => $category->status])}}" title="点击修改状态">{{changeStatus($category->status)}}</a></td>
+                <td class="td-status"><a href="{{url('admin/status/index', ['id' => $category->id ,'status' => $category->status])}}" title="点击修改状态">
+                        {{changeStatus($category->status)}}
+                    </a></td>
                 <td class="td-manage">
                     <a href="{{url('admin/category',['id' => $category->id])}}">获取子栏目</a>
                     <a style="text-decoration:none" class="ml-5" onClick="o2o_s_edit('编辑','{{url('admin/category/edit',['id' => $category->id] )}}','',300)" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>

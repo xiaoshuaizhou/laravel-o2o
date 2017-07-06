@@ -1,5 +1,7 @@
 <!--包含头部文件-->
 @include('admin.public.head')
+@inject('BisPresenter', 'App\Presenter\Admin\BisPresenter')
+
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 商户入驻申请 </nav>
 <div class="page-container">
@@ -26,7 +28,9 @@
 					<td class="text-c">{{$bis->faren}}</td>
 					<td class="text-c">{{$bis->faren_tel}}</td>
 					<td>{{$bis->created_at}}</td>
-					<td class="td-status"><a href="" title="点击修改状态">@if($bis->status ==  0) 待审核 @elseif($bis->status == 1) 审核通过 @else 申请不符要求 @endif</a></td>
+					<td class="td-status"><a href="" title="点击修改状态">
+							{!! $BisPresenter->apply($bis->status) !!}
+						</a></td>
 					<td class="td-manage">
 						<a style="text-decoration:none" class="ml-5" onClick="o2o_edit('编辑','{{url('admin/bis/edit' ,  ['id'=>$bis->id])}}','',500)" href="javascript:;" title="查看"><i class="Hui-iconfont">&#xe6e5;</i></a>
 						<a style="text-decoration:none" class="ml-5" onClick="o2o_del('{!! $bis->id !!}','{{url('admin/bis/dele',['id'=>$bis->id])}}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>

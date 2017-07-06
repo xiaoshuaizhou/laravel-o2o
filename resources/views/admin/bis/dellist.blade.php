@@ -18,6 +18,7 @@
 				</tr>
 			</thead>
 			<tbody>
+			@inject('BisPresenter', 'App\Presenter\Admin\BisPresenter')
 			@foreach($biss as $bis)
 				<tr class="text-c">
 					<td>{{$bis->id}}</td>
@@ -25,7 +26,9 @@
 					<td class="text-c">{{$bis->faren}}</td>
 					<td class="text-c">{{$bis->faren_tel}}</td>
 					<td>{{$bis->created_at}}</td>
-					<td class="td-status"><a href="" title="点击修改状态">@if($bis->status ==  0) 待审核 @elseif($bis->status == 1) 审核通过 @else 申请不符要求 @endif</a></td>
+					<td class="td-status"><a href="" title="点击修改状态">
+							{!! $BisPresenter->apply($bis->status) !!}
+						</a></td>
 				</tr>
 			@endforeach
 			</tbody>

@@ -14,6 +14,8 @@
         background-color:#f2dede;
     }
 </style>
+@inject('BisPresenter', 'App\Presenter\Admin\BisPresenter')
+
 <article class="page-container">
     <form class="form form-horizontal"  ">
         基本信息：
@@ -31,9 +33,7 @@
 				<span class="select-box">
 				<select name="city_id" class="select cityId">
 					<option value="0">--请选择--</option>
-                    @foreach($citys as $city)
-                        <option value="{{$city->id}}" @if($bis->city_id == $city->id) selected="selected" @endif>{{$city->name}}</option>
-                    @endforeach
+                    {!! $BisPresenter->selectCity($citys, $bis->city_id) !!}
 				</select>
 				</span>
             </div>
@@ -118,10 +118,8 @@
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>所属分类：</label>
             <div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
 				<select name="category_id" class="select categoryId">
-					<option value="0">--请选择--</option>
-                    @foreach($categorys as $category)
-                        <option value="{{$category->id}}" @if($location->category_id == $category->id) selected="selected" @endif>{{$category->name}}</option>
-                    @endforeach
+                    <option value="0">--请选择--</option>
+                    {!! $BisPresenter->selectCategory($categorys, $location->category_id) !!}
 				</select>
 				</span>
             </div>
@@ -130,9 +128,7 @@
             <label class="form-label col-xs-4 col-sm-2">所属子类：</label>
             <div class="formControls col-xs-8 col-sm-3 skin-minimal">
                 <div class="check-box se_category_id">
-                    @if(getCategoryByCategoryPath($location->category_path))
-                    <input type="checkbox" checked="checked" value="">{{getCategoryNameBySeCategoryId($location->category_path)}}
-                    @endif
+                    {!! $BisPresenter->detail($location->category_path) !!}
                 </div>
             </div>
         </div>

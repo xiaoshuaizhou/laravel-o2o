@@ -1,5 +1,6 @@
 <!--包含头部文件-->
 @include('admin.public.head')
+@inject('CategoryPresenter', 'App\Presenter\Admin\CategoryPresenter')
 <body>
 <div class="page-container">
 	<form class="form form-horizontal form-o2o-add" id="form-o2o-add" method="post" action="{{url('/admin/category/add')}}">
@@ -16,9 +17,7 @@
 				<span class="select-box">
 				<select name="parent_id" class="select">
 					<option value="0">一级分类</option>
-					@foreach($firstCategories as $category)
-					<option value="{{$category->id}}">-{{$category->name}}-</option>
-					@endforeach
+					{!! $CategoryPresenter->selectPersenter($firstCategories) !!}
 				</select>
 				</span>
 			</div>

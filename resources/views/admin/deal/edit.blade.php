@@ -1,5 +1,6 @@
 <!--包含头部文件-->
 @include('bis.public.header')
+@inject('DealPresenter', 'App\Presenter\Admin\DealPresenter')
 <div class="cl pd-5 bg-1 bk-gray mt-20"> 编辑团购商品信息</div>
 <article class="page-container">
 	<form class="form form-horizontal" id="form-article-add" method="post" action="{{url('admin/deal/edit')}}">
@@ -18,29 +19,26 @@
 				<span class="select-box">
 				<select name="city_id" class="select cityId">
 					<option value="0">--请选择--</option>
-					@foreach($citys as $city)
-						<option value="{{$city->id}}" @if($deal->city_id == $city->id) selected="selected"  @endif>{{$city->name}}</option>
-					@endforeach
+					{!! $DealPresenter->citySelectPresenter($citys, $deal) !!}
 				</select>
 				</span>
 			</div>
 		</div>
-
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>所属分类：</label>
-			<div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>所属城市：</label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<span class="select-box">
 				<select name="category_id" class="select categoryId">
 					<option value="0">--请选择--</option>
-					@foreach($categorys as $category)
-						<option value="{{$category->id}}" @if($deal->category_id == $category->id) selected="selected"  @endif>{{$category->name}}</option>
-					@endforeach
+
+					<p>{!! $DealPresenter->citySelectCategoryPresenter($categorys, $deal) !!}</p>
 				</select>
 				</span>
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-9 col-sm-2">支持门店：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+			<div class="formControls col-xs-8 col-sm- skin-minimal">
 				<div class="check-box">
 						<input name="location_ids[]" type="checkbox" id="checkbox" checked="checked" value="{{$deal->bis_id}}"/>{{$location->name}}
 				</div>

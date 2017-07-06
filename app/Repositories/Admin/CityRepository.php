@@ -61,6 +61,7 @@ class CityRepository
         $citys = $this->city->where('parent_id', '>', 0)
             ->where('status', '=', 1)
             ->orderBy('id', 'desc')
+            ->orderBy('listorder', 'desc')
             ->get();
         return $citys;
     }
@@ -135,7 +136,7 @@ class CityRepository
         $res = $this->city->where($condition)
             ->orderBy('id', 'desc')
             ->orderBy('listorder', 'desc')
-            ->paginate(5);
+            ->paginate();
         return $res;
     }
     /**

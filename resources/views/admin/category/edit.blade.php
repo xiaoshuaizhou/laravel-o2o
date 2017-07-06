@@ -1,5 +1,7 @@
 <!--包含头部文件-->
 @include('admin.public.head')
+@inject('CategoryPresenter', 'App\Presenter\Admin\CategoryPresenter')
+
 <body>
 <div class="page-container">
 	<form class="form form-horizontal form-o2o-add" id="form-o2o-add" method="post" action="{{url('admin/category/edit')}}">
@@ -16,13 +18,19 @@
 			<div class="formControls col-xs-8 col-sm-9">
 				<span class="select-box">
 				<select name="parent_id" class="select">
-					@if($category->parent_id == 0)
-					<option value="0">一级分类</option>
-					@else
-						@foreach($categorys as $item)
-					<option value="{{$item->id}} "@if($category->parent_id == $item->id) selected="selected" @endif">-{{$item->name}}-</option>
-						@endforeach
-					@endif
+					{!! $CategoryPresenter->editPresenter($categorys, $category) !!}
+
+
+
+{{--					@if($category->parent_id == 0)--}}
+					{{--<option value="0">一级分类</option>--}}
+					{{--@else--}}
+						{{--@foreach($categorys as $item)--}}
+					{{--<option value="{{$item->id}} "@if($category->parent_id == $item->id) selected="selected" @endif">-{{$item->name}}-</option>--}}
+						{{--@endforeach--}}
+					{{--@endif--}}
+
+
 				</select>
 				</span>
 			</div>

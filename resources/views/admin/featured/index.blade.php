@@ -1,5 +1,7 @@
 <!--包含头部文件-->
 @include('bis.public.header')
+@inject('FeaturedPresenter', 'App\Presenter\Admin\FeaturedPresenter')
+
 <body>
 <nav class="breadcrumb"></nav>
 <div class="page-container">
@@ -8,10 +10,8 @@
       <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>选择推荐类别：</label>
       <div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
         <select name="type" class="select">
-          
-          @foreach($featureds as $key=>$featured)
-            <option value="{{$key}}">{{$featured}}</option>
-          @endforeach
+          {!! $FeaturedPresenter->selectFeatureds($featureds) !!}
+
         </select>
         </span>
       </div>

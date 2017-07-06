@@ -1,5 +1,7 @@
 <!--包含头部文件-->
 @include('admin.public.head')
+@inject('CityPresenter', 'App\Presenter\Admin\CityPresenter')
+
 <body>
 <div class="page-container">
 	<form class="form form-horizontal form-o2o-add" id="form-o2o-add" method="post" action="{{url('admin/city/add')}}">
@@ -16,9 +18,7 @@
 				<span class="select-box">
 				<select name="parent_id" class="select">
 					<option value="0">一级城市</option>
-					@foreach($citys as $city)
-					<option value="{{$city->id}}">-{{$city->name}}-</option>
-					@endforeach
+					{!! $CityPresenter->selectCity($citys) !!}
 				</select>
 				</span>
 			</div>
