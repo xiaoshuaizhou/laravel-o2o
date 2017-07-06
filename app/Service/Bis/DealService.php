@@ -31,7 +31,8 @@ class DealService {
         $bisId = session('bisuser')->bis_id;
         $location = $this->locationRepository->find($request->location_ids[0]);
         if (empty($location)){
-            abort(404, '分店不存在，请联系主管理员');
+            $message = '分店不存在，请联系住管理员';
+            abort(404, $message);
         }
         $data = [
                 'bis_id' => $bisId,

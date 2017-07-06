@@ -35,7 +35,8 @@ class ListService {
         }elseif ($id && !in_array($id, $firstCatIds)){ //二级分类
             $category = $this->categoryRepository->find($id);
             if (!$category || $category->status != 1){
-                abort(404, '分类不存在');
+                $message = '分类不存在';
+                abort(404, $message);
             }
             $categoryParentId = $category->parent_id;
             $data['se_category_id'] = $id;

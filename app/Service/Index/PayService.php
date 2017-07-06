@@ -40,15 +40,18 @@ class PayService
     public function indexService($id)
     {
         if (empty($id)){
-            abort(404, '请求不合法，请联系客服');
+            $message = '请求不合法，请联系客服';
+            abort(404, $message);
         }
         $order = $this->orderRepository->whereForm($id);
         if (empty($order) || $order->status != 1 || $order->pay_status != 0){
-            return abort(404, '无法进行该操作');
+            $message = '无法进行该操作,请重新提交';
+            return abort(404, $message);
         }
         //订单是否是用户本人提交
         if ($order->username != Auth::user()->username){
-            abort(404, '非本人操作，请重新提交');
+            $message = '非本人操作，请登录后提交订单';
+            abort(404, $message);
         }
         $deal = $this->dealRepository->whereForm($order->deal_id);
         //生成支付二维码

@@ -78,7 +78,10 @@ class DealsService {
             }
             if (!empty($request->shangjianame)){
                 $bis = $this->bisRepository->whereFormNameLike($request->shangjianame);
-                if (empty($bis)) abort(404,'商户名不存在');
+                if (empty($bis)){
+                    $message = '商户名不存在';
+                    abort(404,$message);
+                }
                 $sdata['bis_id'] = $bis->id;
             }
             $time_data = [];
@@ -113,7 +116,10 @@ class DealsService {
             }
             if (!empty($request->shangjianame)){
                 $bis = $this->bisRepository->whereFormNameLike($request->shangjianame);
-                if (empty($bis)) abort(404,'商户名不存在');
+                if (empty($bis)){
+                    $message = '商户名不存在';
+                    abort(404,$message);
+                }
                 $sdata['bis_id'] = $bis->id;
             }
             $time_data = [];

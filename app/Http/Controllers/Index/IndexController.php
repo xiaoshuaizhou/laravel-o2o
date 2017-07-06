@@ -36,13 +36,14 @@ class IndexController extends CommonController
         //同时满足分类和城市的条件
         $datas = $this->dealRepository->getDealByCategoryIdAndCityId(4, $this->citys->id);
         if (empty($datas->toArray())){
-            abort(404, '当前城市没有数据');
+            $message = '当前城市没有数据';
+            abort(404, $message);
         }
         //获取四个子分类
         $controller = 'index';
         $title = '首页';
         $meishiCategory = $this->categoryRepository->getIndexCategoryByCategoryId($datas[0]->category_id,4);
-        return view('index.index', compact('citys', 'title', 'city', 'cats', 'indexfeatured', 'right', 'datas','meishiCategory', 'controller'));
+        return view('index.index', compact('message', 'citys', 'title', 'city', 'cats', 'indexfeatured', 'right', 'datas','meishiCategory', 'controller'));
     }
 
     /**

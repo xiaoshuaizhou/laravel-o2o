@@ -76,13 +76,15 @@ class BisRegisterService {
         $name = $this->accountRepository->whereFromUsername( $request->username);
         $email = $this->bisRepository->whereFormEmial($request->email);
         if ($name || $email){
-            return abort(404, '该用户名或邮箱已经存在');exit;
+            $message = '该用户名或邮箱已经存在';
+            return abort(404, $message);exit;
         }
 
         //获取经纬度
         $lnglat = Map::getLngLat($request->address);
         if (empty($lnglat) || $lnglat['status'] != 0 || $lnglat['result']['precise'] != 1){
-            return abort(404,'获取位置失败');exit;
+            $message = '获取位置失败';
+            return abort(404,$message);exit;
         }
 
         DB::beginTransaction();
@@ -155,7 +157,8 @@ class BisRegisterService {
      */
     public function waitingService($id) {
         if (empty($id)){
-            abort(404, '该信息有误，请重新填写');
+            $message = '该信息有误，请重新填写';
+            abort(404, $message);
         }
         return $this->bisRepository->whereForm($id);
     }

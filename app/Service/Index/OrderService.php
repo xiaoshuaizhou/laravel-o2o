@@ -41,10 +41,12 @@ class OrderService
     {
         $deal = $this->dealRepository->find($id);
         if (empty($deal) || $deal->status != 1){
-            abort(404, '商品不存在');
+            $message = '商品不存在';
+            abort(404, $message);
         }
         if (empty($_SERVER['HTTP_REFERER'])){
-            abort(404, '请求不合法');
+            $message = '请求不合法';
+            abort(404, $message);
         }
         $orderNum = setOrderNum();
         //组装入库数据
@@ -61,7 +63,8 @@ class OrderService
         try{
             $id = $this->orderRepository->creates($data);
         }catch (\Exception $exception){
-            abort(404, '订单提交失败');
+            $message = '订单提交失败';
+            abort(404, $message);
             return back();
         }
         return $id;
@@ -77,12 +80,14 @@ class OrderService
     {
         $id = $id ? intval($id) : 0;
         if (!$id){
-            abort(404, '参数不合法');
+            $message = '参数不合法,请联系管理员';
+            abort(404, $message);
         }
         $count = $count ? intval($count) : 1;
         $deal = $this->dealRepository->find($id);
         if (empty($deal) || $deal->status != 1){
-            abort(404, '商品不存在');
+            $message = '商品不存在';
+            abort(404, $message);
         }
         $deal = $deal->toArray();
         return [$count, $deal];

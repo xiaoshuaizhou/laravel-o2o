@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -42,9 +43,29 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+//    public function render($request, Exception $exception)
+//    {
+//        return parent::render($request, $exception);
+//    }
+    /**
+     * 自定义错误页面
+     * @param \Illuminate\Http\Request $request
+     * @param Exception $e
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     */
+    public function render($request, Exception $e)
     {
-        return parent::render($request, $exception);
+
+        /* 错误页面 */
+        if ($e instanceof HttpException) {
+            $code = $e->getStatusCode();
+
+            if (view()->exists('errors.' . $code)) {
+                $message  = $e->getMessage();
+                return response()->view('errors.' . $e->getStatusCode(), ['message'=>$message], $e->getStatusCode());
+            }
+        }
+        return parent::render($request, $e);
     }
 
     /**

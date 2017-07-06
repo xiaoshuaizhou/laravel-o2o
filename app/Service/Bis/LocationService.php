@@ -26,7 +26,8 @@ class LocationService {
         //获取经纬度
         $lnglat = Map::getLngLat($request->address);
         if (empty($lnglat) || $lnglat['status'] != 0 || $lnglat['result']['precise'] != 1){
-            abort(404,'获取位置失败');
+            $message = '获取位置失败';
+            abort(404,$message);
         }
         $data['cat'] = '';
         if (!empty($request->se_category_id)) {
